@@ -9,6 +9,12 @@
 - Python/OpenCV 拉取实时视频流并统计分辨率、帧率和截图；
 - 为后续 ArUco 标定、沙盘坐标映射和数字孪生展示做准备。
 
+当前 ESP32-CAM 烧录受限于硬件下载模式，详见：
+
+```text
+ESP32-CAM烧录阻塞与替代测试记录.md
+```
+
 ## 目录
 
 ```text
@@ -17,6 +23,7 @@ ESP32-CAM阶段测试方案.md
 esp32_cam_test/
   requirements.txt
   stream_test.py
+  camera_source_test.py
   probe_esp32_cam.ps1
 ```
 
@@ -56,6 +63,12 @@ Stream URL: http://192.168.4.1:81/stream
 
 ```powershell
 python .\stream_test.py --url http://ESP32_CAM_IP:81/stream --seconds 10 --out esp32_cam_snapshot.jpg
+```
+
+如果暂时无法烧录 ESP32-CAM，可先用 USB 摄像头或手机 IP 摄像头推进视觉链路：
+
+```powershell
+python .\camera_source_test.py --source 0 --seconds 10 --out usb_camera_snapshot.jpg
 ```
 
 ## 参考资料
