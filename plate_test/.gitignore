@@ -1,0 +1,6 @@
+samples/
+outputs/
+*.jpg
+*.jpeg
+*.png
+*.json
