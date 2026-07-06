@@ -37,6 +37,21 @@ pip install -r requirements.txt
 .\probe_esp32_cam.ps1 -Port COM3
 ```
 
+编译并烧录 ESP32-CAM AP 模式固件：
+
+```powershell
+.\compile_upload_camera_ap.ps1 -Port COM3
+```
+
+烧录后 ESP32-CAM 会创建热点：
+
+```text
+SSID: STrans-ESP32CAM
+Password: 12345678
+Camera page: http://192.168.4.1
+Stream URL: http://192.168.4.1:81/stream
+```
+
 拉取 ESP32-CAM 视频流：
 
 ```powershell
