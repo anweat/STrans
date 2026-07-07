@@ -1,0 +1,72 @@
+erDiagram
+    DEVICES ||--o{ TRAFFIC_STATS : produces
+    DEVICES ||--o{ EVENTS : reports
+    DEVICES ||--o{ PLATE_RECORDS : captures
+    MODEL_CONFIGS ||--o{ TRAFFIC_STATS : generates
+    MODEL_CONFIGS ||--o{ EVENTS : detects
+    WHITELIST ||--o{ PLATE_RECORDS : matches
+
+    DEVICES {
+        string device_id PK
+        string name
+        string type
+        string stream_url
+        string location
+        string status
+        datetime last_seen
+    }
+
+    MODEL_CONFIGS {
+        string model_id PK
+        string model_name
+        string model_path
+        float confidence
+        float iou
+        int inference_size
+        int detection_interval_ms
+        bool enabled
+    }
+
+    TRAFFIC_STATS {
+        int id PK
+        string device_id FK
+        string model_id FK
+        datetime timestamp
+        int vehicle_count
+        float density
+        float avg_speed
+        string congestion_level
+        int hotspot_count
+    }
+
+    EVENTS {
+        string event_id PK
+        string device_id FK
+        string model_id FK
+        string type
+        string severity
+        string description
+        string bbox_json
+        string frame_path
+        datetime created_at
+    }
+
+    PLATE_RECORDS {
+        int id PK
+        string device_id FK
+        datetime timestamp
+        string plate_no
+        string electronic_id
+        string whitelist_identity FK
+        bool whitelist_status
+        string gate_action
+        float confidence
+    }
+
+    WHITELIST {
+        string identity PK
+        string owner
+        string vehicle_type
+        string status
+        datetime updated_at
+    }

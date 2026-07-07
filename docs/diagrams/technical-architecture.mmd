@@ -1,0 +1,63 @@
+flowchart TB
+    subgraph L1["设备采集层"]
+        Phone["手机 IP Webcam\nHTTP MJPEG / RTSP"]
+        ESP32["ESP32-CAM\nHTTP Stream"]
+        LocalVideo["本地沙盘视频\nMP4 文件"]
+    end
+
+    subgraph L2["边缘服务层（笔记本）"]
+        FastAPI["FastAPI 后端服务"]
+        VideoService["VideoStreamService\nOpenCV 拉流 / MJPEG 转发"]
+        DashboardState["DashboardState\n实时状态聚合"]
+        ConfigService["配置与模型管理\n阈值 / 模型切换 / Demo 模式"]
+    end
+
+    subgraph L3["算法推理层"]
+        Detector["YOLOv11s-visdrone\n车辆 / 障碍物基础检测"]
+        Tracker["ByteTrack\n多目标跟踪"]
+        Plate["HyperLPR3 / 电子 ID\n车牌与身份识别"]
+        S2M["S2M 增强\n道路未知异物分割"]
+        RuleEngine["规则引擎\n拥堵 / 禁停 / 闸机决策"]
+    end
+
+    subgraph L4["数据持久层"]
+        SQLite["SQLite / JSONL"]
+        DeviceTable["设备数据"]
+        StatsTable["交通统计"]
+        EventTable["事件告警"]
+        PlateTable["通行记录"]
+        ModelTable["模型配置"]
+    end
+
+    subgraph L5["前端展示层"]
+        ReactApp["React + Vite\n浅色沙盘大屏"]
+        VideoPanel["沙盘全景 MJPEG 画面"]
+        StatusPanel["车流 / 拥堵 / 设备状态"]
+        ControlPanel["视频源 / 模型 / 闸机控制"]
+        EventPanel["事件告警 / 运行日志"]
+    end
+
+    Phone --> VideoService
+    ESP32 --> VideoService
+    LocalVideo --> VideoService
+    VideoService --> FastAPI
+    FastAPI --> DashboardState
+    FastAPI --> ConfigService
+    FastAPI --> Detector
+    Detector --> Tracker
+    Tracker --> Plate
+    Detector --> S2M
+    Plate --> RuleEngine
+    S2M --> RuleEngine
+    RuleEngine --> DashboardState
+    DashboardState --> SQLite
+    SQLite --> DeviceTable
+    SQLite --> StatsTable
+    SQLite --> EventTable
+    SQLite --> PlateTable
+    SQLite --> ModelTable
+    FastAPI -->|MJPEG / REST| ReactApp
+    ReactApp --> VideoPanel
+    ReactApp --> StatusPanel
+    ReactApp --> ControlPanel
+    ReactApp --> EventPanel
