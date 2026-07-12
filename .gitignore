@@ -17,5 +17,8 @@ env/
 *.pth
 *.onnx
 *.log
+*.db
+*.inspect.ndjson
+test-results/
 .DS_Store
 Thumbs.db
