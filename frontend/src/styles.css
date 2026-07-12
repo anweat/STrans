@@ -523,9 +523,9 @@ p {
 
 .layout {
   display: grid;
-  grid-template-columns: 272px minmax(640px, 1fr) 372px;
-  gap: 12px;
-  margin-top: 12px;
+  grid-template-columns: clamp(216px, 15vw, 268px) minmax(0, 1fr) clamp(300px, 22vw, 380px);
+  gap: clamp(8px, 0.8vw, 14px);
+  margin-top: clamp(8px, 0.8vw, 14px);
 }
 
 .left-column,
@@ -572,6 +572,177 @@ p {
 .camera-list.compact .camera-card {
   gap: 6px;
   padding: 8px;
+}
+
+.camera-control {
+  display: grid;
+  gap: 9px;
+  padding: 10px;
+}
+
+.camera-control select {
+  width: 100%;
+}
+
+.selected-camera-summary {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  padding: 8px;
+  background: #f8fbff;
+  border: 1px solid #d8e4ee;
+  border-radius: 8px;
+}
+
+.selected-camera-summary > div {
+  min-width: 0;
+}
+
+.selected-camera-summary strong,
+.selected-camera-summary small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected-camera-summary strong {
+  color: #17344d;
+  font-size: 13px;
+}
+
+.selected-camera-summary small {
+  margin-top: 2px;
+  color: #718196;
+  font-size: 11px;
+}
+
+.selected-camera-summary em {
+  padding: 3px 5px;
+  color: #5b7086;
+  background: #edf2f7;
+  border-radius: 999px;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.selected-camera-summary em.online {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.selected-camera-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.selected-camera-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 32px;
+  color: #24435d;
+  background: #ffffff;
+  border: 1px solid #c8d8e8;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.voice-control-row {
+  display: grid;
+  gap: 6px;
+  padding: 8px;
+  background: #f3f8fc;
+  border: 1px solid #d8e4ee;
+  border-radius: 8px;
+}
+
+.voice-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  color: #075985;
+  background: #ffffff;
+  border: 1px solid #7dd3fc;
+  border-radius: 7px;
+  font-weight: 800;
+}
+
+.voice-control.listening {
+  color: #ffffff;
+  background: #0f766e;
+  border-color: #0f766e;
+  animation: voice-pulse 1.15s ease-in-out infinite;
+}
+
+.voice-control-row small {
+  color: #526b82;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.voice-command-guide {
+  color: #35536d;
+  font-size: 11px;
+}
+
+.voice-command-guide summary {
+  cursor: pointer;
+  color: #0f5f91;
+  font-weight: 800;
+  user-select: none;
+}
+
+.voice-command-guide > div {
+  display: grid;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.voice-command-guide span {
+  display: block;
+  padding: 5px 6px;
+  background: #ffffff;
+  border-left: 3px solid #7dd3fc;
+  line-height: 1.35;
+}
+
+@keyframes voice-pulse {
+  50% { box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.18); }
+}
+
+.camera-input-panel .form-block {
+  gap: 7px;
+  padding: 10px;
+}
+
+.left-column .weather-summary {
+  padding: 9px 10px 6px;
+}
+
+.left-column .weather-summary strong {
+  font-size: 14px;
+}
+
+.left-column .weather-data {
+  gap: 5px;
+  padding: 0 10px 8px;
+}
+
+.left-column .weather-advice {
+  gap: 5px;
+  padding: 8px 10px 10px;
+}
+
+.left-column .weather-advice p {
+  line-height: 1.45;
 }
 
 .camera-card {
@@ -1344,13 +1515,45 @@ select:focus {
 }
 
 .event-list.prominent {
-  max-height: 184px;
+  max-height: 158px;
   overflow: auto;
   background: #fff9ef;
 }
 
 .right-column .stop-event-panel .event-list.prominent {
-  max-height: 132px;
+  max-height: clamp(118px, 16vh, 184px);
+}
+
+.right-column .event-panel:not(.stop-event-panel) .event-list.prominent {
+  max-height: clamp(170px, 24vh, 300px);
+}
+
+.right-column .event-panel .panel-header {
+  min-height: clamp(44px, 4.4vh, 52px);
+  padding-inline: clamp(12px, 1vw, 16px);
+}
+
+.right-column .event-panel .panel-header > span {
+  font-size: clamp(15px, 1vw, 17px);
+}
+
+.right-column .event-panel .event-list.prominent {
+  gap: clamp(8px, 0.7vw, 11px);
+  padding: clamp(10px, 0.8vw, 14px);
+}
+
+.right-column .event-panel .event-item {
+  gap: 7px;
+  padding: clamp(10px, 0.8vw, 13px);
+  font-size: clamp(13px, 0.9vw, 15px);
+}
+
+.right-column .event-panel .event-item strong {
+  font-size: clamp(13px, 0.95vw, 15px);
+}
+
+.right-column .event-panel .event-item time {
+  font-size: clamp(11px, 0.75vw, 13px);
 }
 
 .right-column .result-list {
@@ -1361,6 +1564,11 @@ select:focus {
 .right-column .form-block {
   gap: 7px;
   padding: 10px 12px;
+}
+
+.right-column .heatmap {
+  height: clamp(170px, 22vh, 250px);
+  margin: clamp(6px, 0.5vw, 10px);
 }
 
 .right-column .hint {
@@ -1927,7 +2135,8 @@ select:focus {
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   gap: 12px;
-  margin-top: 10px;
+  width: 100%;
+  margin-top: 12px;
   padding: 10px 12px;
 }
 
@@ -1960,7 +2169,7 @@ select:focus {
 
 @media (max-width: 1300px) {
   .layout {
-    grid-template-columns: 270px minmax(0, 1fr);
+    grid-template-columns: clamp(220px, 24vw, 280px) minmax(0, 1fr);
   }
 
   .right-column {

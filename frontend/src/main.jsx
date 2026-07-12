@@ -14,7 +14,6 @@ import {
   Eye,
   FileText,
   Flame,
-  ListChecks,
   MemoryStick,
   Play,
   Radio,
@@ -28,6 +27,7 @@ import {
   Wifi,
   WifiOff,
 } from "lucide-react";
+import { Mic } from "lucide-react";
 import "./styles.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8000";
@@ -506,6 +506,8 @@ function App() {
   const [activeReportId, setActiveReportId] = useState(null);
   const [reportConfig, setReportConfig] = useState({ api_base: "https://api.deepseek.com/v1", model: "deepseek-chat", api_key: "", configured: false, api_key_masked: "" });
   const [reportMessage, setReportMessage] = useState("");
+  const [voiceListening, setVoiceListening] = useState(false);
+  const [voiceMessage, setVoiceMessage] = useState("点击开始识别，展开下方指令表查看全部可用说法");
 
   const selectedCamera = cameras.find((item) => item.camera_id === selectedCameraId) || cameras[0];
   const selectedStatus = selectedCamera ? statuses[selectedCamera.camera_id] : null;
@@ -779,6 +781,177 @@ function App() {
     setAnalysis(emptyAnalysis);
     setStreamVersion(Date.now());
     addLog(mode === "road_anomaly" ? "已切换至道路异常识别：车辆统计与热力图暂停。" : "已切换至车辆监控：恢复车辆、车牌与热力分析。 ");
+  }
+
+  function announceVoiceResult(message) {
+    setVoiceMessage(message);
+    addLog(`语音控制：${message}`);
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(message));
+    }
+  }
+
+  function getVoiceCamera(command) {
+    const match = command.match(/(?:第)?([一二三四五六七八九十\d]+)(?:号)?摄像头/);
+    if (!match) return null;
+    const digitMap = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10 };
+    const cameraNumber = Number(match[1]) || digitMap[match[1]];
+    return cameras.find((item) => item.camera_id === `live${cameraNumber}` || item.camera_id === `cam_${cameraNumber}` || item.name.includes(`${cameraNumber}号`)) || null;
+  }
+
+  function countTodayWhitelistPasses() {
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    const normalizePlate = (plate) => String(plate || "").toUpperCase().replace(/[^\u4E00-\u9FFFA-Z0-9]/g, "");
+    const whitelistPlates = new Set(whitelist.filter((item) => item.enabled !== false).map((item) => normalizePlate(item.plate_no)));
+    const passedPlates = new Set();
+    history
+      .filter((item) => String(item.created_at || item.timestamp || "").slice(0, 10) === today)
+      .forEach((item) => {
+        String(item.plates || "")
+          .split(/[\s,，、|/]+/)
+          .map(normalizePlate)
+          .filter((plate) => whitelistPlates.has(plate))
+          .forEach((plate) => passedPlates.add(plate));
+      });
+    return passedPlates.size;
+  }
+
+  function runVoiceCommand(transcript) {
+    const command = String(transcript || "").replace(/[，,。.!！]/g, "").replace(/\s/g, "");
+    if (!command) return;
+
+    if (/打开.*道路异常|切换.*道路异常|道路异常模式/.test(command)) {
+      switchAnalysisMode("road_anomaly");
+      announceVoiceResult("已打开道路异常模式");
+      return;
+    }
+    if (/打开.*车辆监控|切换.*车辆监控|车辆监控模式/.test(command)) {
+      switchAnalysisMode("traffic");
+      announceVoiceResult("已切换到车辆监控模式");
+      return;
+    }
+    if (/查看.*历史|打开.*历史/.test(command)) {
+      setViewMode("history");
+      announceVoiceResult("已打开历史记录");
+      return;
+    }
+    if (/查看.*报告|打开.*报告|智能报告/.test(command)) {
+      setViewMode("reports");
+      announceVoiceResult("已打开智能报告");
+      return;
+    }
+    if (/打开.*白名单|查看.*白名单/.test(command)) {
+      if (!isAdmin) {
+        announceVoiceResult("白名单配置需要管理员权限");
+      } else {
+        setViewMode("whitelist");
+        announceVoiceResult("已打开白名单配置");
+      }
+      return;
+    }
+    if (/打开.*模型配置|查看.*模型配置/.test(command)) {
+      if (!isAdmin) {
+        announceVoiceResult("模型配置需要管理员权限");
+      } else {
+        setViewMode("models");
+        announceVoiceResult("已打开模型配置");
+      }
+      return;
+    }
+    if (/返回.*监控|打开.*实时监控|实时监控首页/.test(command)) {
+      setViewMode("monitor");
+      announceVoiceResult("已返回实时监控");
+      return;
+    }
+    if (/打开.*热力图|查看.*热力图/.test(command)) {
+      if (analysisMode !== "traffic") {
+        announceVoiceResult("道路异常模式不显示拥堵热力图，请先切换到车辆监控模式");
+      } else {
+        setHeatmapOpen(true);
+        announceVoiceResult("已打开全局道路拥堵图");
+      }
+      return;
+    }
+    if (/关闭.*热力图/.test(command)) {
+      setHeatmapOpen(false);
+      announceVoiceResult("已关闭全局道路拥堵图");
+      return;
+    }
+    if (/分析.*当前帧|检测.*当前帧|开始分析/.test(command)) {
+      if (!selectedCamera) {
+        announceVoiceResult("请先选择摄像头");
+      } else {
+        inferOnce();
+        announceVoiceResult("正在分析当前画面");
+      }
+      return;
+    }
+    if (/刷新.*画面|刷新.*视频|重新加载画面/.test(command)) {
+      setStreamVersion(Date.now());
+      announceVoiceResult("已刷新实时画面");
+      return;
+    }
+    if (/停止.*当前摄像头|关闭.*当前摄像头/.test(command)) {
+      if (!selectedCamera) {
+        announceVoiceResult("当前没有可停止的摄像头");
+      } else {
+        stopCamera(selectedCamera.camera_id);
+        announceVoiceResult(`正在停止${selectedCamera.name}`);
+      }
+      return;
+    }
+
+    const camera = getVoiceCamera(command);
+    if (camera) {
+      if (/启动|打开/.test(command)) {
+        startCamera(camera.camera_id);
+        announceVoiceResult(`正在启动${camera.name}`);
+      } else if (/停止|关闭/.test(command)) {
+        stopCamera(camera.camera_id);
+        announceVoiceResult(`正在停止${camera.name}`);
+      } else {
+        setSelectedCameraId(camera.camera_id);
+        setStreamVersion(Date.now());
+        announceVoiceResult(`已切换到${camera.name}`);
+      }
+      return;
+    }
+    if (/查询.*今天.*白名单.*通过|今天.*白名单.*通过.*几辆/.test(command)) {
+      announceVoiceResult(`今天已识别白名单通过车辆${countTodayWhitelistPasses()}辆`);
+      return;
+    }
+
+    announceVoiceResult("暂不支持这条语音指令，请展开指令表查看可用说法");
+  }
+
+  function startVoiceRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setVoiceMessage("当前浏览器不支持 Web Speech API，请使用新版 Edge 或 Chrome。");
+      return;
+    }
+    if (voiceListening) return;
+    const recognition = new SpeechRecognition();
+    recognition.lang = "zh-CN";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onstart = () => {
+      setVoiceListening(true);
+      setVoiceMessage("正在聆听，请说出指令");
+    };
+    recognition.onresult = (event) => {
+      setVoiceListening(false);
+      runVoiceCommand(event.results?.[0]?.[0]?.transcript || "");
+    };
+    recognition.onerror = (event) => {
+      setVoiceListening(false);
+      setVoiceMessage(event.error === "not-allowed" ? "麦克风权限未开启，请在浏览器地址栏允许麦克风。" : `语音识别失败：${event.error}`);
+    };
+    recognition.onend = () => setVoiceListening(false);
+    recognition.start();
   }
 
   async function addWhitelistPlate() {
@@ -1392,22 +1565,77 @@ function App() {
 
       <section className="layout">
         <aside className="left-column">
-          <Panel title="摄像头数据" icon={<Radio size={18} />}>
-            <div className="camera-list compact">
-              {visibleCameras.map((camera) => (
-                <CameraCard
-                  key={camera.camera_id}
-                  camera={camera}
-                  status={statuses[camera.camera_id]}
-                  selected={camera.camera_id === selectedCameraId}
-                  onSelect={() => {
-                    setSelectedCameraId(camera.camera_id);
-                    setStreamVersion(Date.now());
-                  }}
-                  onStart={() => startCamera(camera.camera_id)}
-                  onStop={() => stopCamera(camera.camera_id)}
-                />
-              ))}
+          <WeatherPanel weather={weather} />
+          <Panel title="摄像头控制" icon={<Radio size={18} />} className="camera-control-panel">
+            <div className="camera-control">
+              <label htmlFor="cameraSelect">选择摄像头</label>
+              <select
+                id="cameraSelect"
+                value={selectedCameraId || ""}
+                onChange={(event) => {
+                  setSelectedCameraId(event.target.value);
+                  setStreamVersion(Date.now());
+                }}
+              >
+                {visibleCameras.map((camera) => (
+                  <option key={camera.camera_id} value={camera.camera_id}>
+                    {camera.name} · {camera.location}
+                  </option>
+                ))}
+              </select>
+              <div className="selected-camera-summary">
+                <span className="camera-icon"><Camera size={16} /></span>
+                <div>
+                  <strong>{selectedCamera?.name || "未选择摄像头"}</strong>
+                  <small>{selectedCamera?.location || "请选择一路摄像头"}</small>
+                </div>
+                <em className={cx(selectedStatus?.connected && "online")}>{selectedStatus?.connected ? "在线" : "未启动"}</em>
+              </div>
+              <div className="selected-camera-actions">
+                <button type="button" disabled={busy || !selectedCamera} onClick={() => startCamera(selectedCamera.camera_id)}>
+                  <Play size={15} />
+                  启动
+                </button>
+                <button type="button" disabled={busy || !selectedCamera} onClick={() => stopCamera(selectedCamera.camera_id)}>
+                  <Square size={14} />
+                  停止
+                </button>
+              </div>
+              <div className="voice-control-row">
+                <button
+                  type="button"
+                  className={cx("voice-control", voiceListening && "listening")}
+                  onClick={startVoiceRecognition}
+                  title="使用语音切换摄像头、任务模式或查询白名单"
+                >
+                  <Mic size={16} />
+                  {voiceListening ? "正在聆听" : "语音识别"}
+                </button>
+                <small aria-live="polite">{voiceMessage}</small>
+                <details className="voice-command-guide">
+                  <summary>可用语音指令</summary>
+                  <div>
+                    <span>切换到3号摄像头</span>
+                    <span>启动3号摄像头 / 停止3号摄像头</span>
+                    <span>停止当前摄像头</span>
+                    <span>打开道路异常模式 / 打开车辆监控模式</span>
+                    <span>分析当前帧 / 刷新实时画面</span>
+                    <span>查看历史记录 / 打开白名单 / 打开模型配置</span>
+                    <span>查看智能报告 / 返回实时监控</span>
+                    <span>查看热力图 / 关闭热力图</span>
+                    <span>查询今天白名单通过几辆</span>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </Panel>
+          <Panel title="视频源接入" icon={<ServerCog size={18} />} className="camera-input-panel">
+            <div className="form-block">
+              <label htmlFor="phoneUrl">手机视频地址</label>
+              <input id="phoneUrl" value={phoneUrl} onChange={(event) => setPhoneUrl(event.target.value)} />
+              <button type="button" className="primary" disabled={busy} onClick={connectPhone}>
+                接入手机画面
+              </button>
             </div>
           </Panel>
         </aside>
@@ -1486,7 +1714,6 @@ function App() {
         </section>
 
         <aside className="right-column">
-          <WeatherPanel weather={weather} />
           {analysisMode === "traffic" ? <Panel
             title="当前视角拥堵图"
             icon={<Flame size={18} />}
@@ -1538,45 +1765,6 @@ function App() {
                 ))
               ) : (
                 <p className="empty-copy">暂无事件。道路异常、拥堵或白名单告警会在这里显示。</p>
-              )}
-            </div>
-          </Panel>
-
-          <Panel title="视频源接入" icon={<ServerCog size={18} />}>
-            <div className="form-block">
-              <label htmlFor="phoneUrl">手机视频地址</label>
-              <input id="phoneUrl" value={phoneUrl} onChange={(event) => setPhoneUrl(event.target.value)} />
-              <button type="button" className="primary" disabled={busy} onClick={connectPhone}>
-                接入手机画面
-              </button>
-
-              <p className="hint">接入后由本机模型服务按当前选择的检测模式进行实时分析。</p>
-            </div>
-          </Panel>
-
-          <Panel title="检测结果" icon={<ListChecks size={18} />}>
-            <div className="result-list">
-              {(analysis.detections || []).length ? (
-                analysis.detections.slice(0, 8).map((item, index) => (
-                  <div
-                    className={cx(
-                      "result-item",
-                      item.whitelist_status === true && "allow",
-                      item.whitelist_status === false && "deny",
-                      String(item.class_name || "").startsWith("road_") && "anomaly",
-                    )}
-                    key={(item.class_name || "item") + "-" + (item.track_id || index)}
-                  >
-                    <strong>{item.class_name}</strong>
-                    <span>
-                      {item.plate || (item.track_id ? "ID " + item.track_id : "未跟踪")}
-                      {gateText(item) ? ` · ${gateText(item)}` : ""}
-                    </span>
-                    <em>{Math.round((item.confidence || 0) * 100)}%</em>
-                  </div>
-                ))
-              ) : (
-                <p className="empty-copy">暂无检测结果。可点击“分析当前帧”，或等待本机模型返回结果。</p>
               )}
             </div>
           </Panel>
