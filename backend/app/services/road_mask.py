@@ -47,6 +47,10 @@ class RoadMaskService:
         snapshot_download(repo_id=MODEL_ID, local_dir=MODEL_DIR)
         return MODEL_DIR
 
+    def ensure_model_available(self) -> None:
+        if not (MODEL_DIR / "config.json").exists():
+            self.download_model()
+
     def health(self) -> dict[str, Any]:
         return {
             "model_id": MODEL_ID,
@@ -60,8 +64,7 @@ class RoadMaskService:
     def _load_model(self) -> None:
         if self._model is not None:
             return
-        if not (MODEL_DIR / "config.json").exists():
-            raise RuntimeError("Road mask model is not installed. Run scripts/download-road-mask-model.py first.")
+        self.ensure_model_available()
         try:
             processor = AutoImageProcessor.from_pretrained(MODEL_DIR, local_files_only=True)
             model = AutoModelForSemanticSegmentation.from_pretrained(MODEL_DIR, local_files_only=True)
