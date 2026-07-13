@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 
-from scripts.record_sandtable_rtsp import build_ffmpeg_command
+from scripts.record_sandtable_rtsp import build_ffmpeg_command, select_video_codec
 
 
 class SandtableRecordingTests(unittest.TestCase):
@@ -34,6 +34,11 @@ class SandtableRecordingTests(unittest.TestCase):
         self.assertEqual(command[command.index("-c:v") + 1], "libx264")
         self.assertEqual(command[command.index("-preset") + 1], "ultrafast")
         self.assertEqual(command[command.index("-crf") + 1], "30")
+
+    def test_stream_copy_is_used_when_libx264_is_not_available(self):
+        codec = select_video_codec("libx264", {"h264_mf", "mjpeg"})
+
+        self.assertEqual(codec, "copy")
 
 
 if __name__ == "__main__":

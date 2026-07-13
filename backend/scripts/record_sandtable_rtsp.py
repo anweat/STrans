@@ -19,6 +19,33 @@ BACKEND_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_ROOT = BACKEND_ROOT / "data" / "recordings"
 
 
+def select_video_codec(requested: str, available_encoders: set[str]) -> str:
+    if requested in available_encoders or requested == "copy":
+        return requested
+    if requested == "libx264":
+        # The sandtable cameras already publish H.264.  Falling back to stream
+        # copy is more reliable than a platform hardware encoder when twelve
+        # sources are recorded concurrently, and avoids an unnecessary encode.
+        return "copy"
+    raise RuntimeError(f"Requested video encoder is not available: {requested}")
+
+
+def available_video_encoders(ffmpeg: str) -> set[str]:
+    completed = subprocess.run(
+        [ffmpeg, "-hide_banner", "-encoders"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        check=False,
+    )
+    encoders: set[str] = set()
+    for line in completed.stdout.splitlines():
+        fields = line.split()
+        if len(fields) >= 2 and fields[0].startswith("V"):
+            encoders.add(fields[1])
+    return encoders
+
+
 def build_ffmpeg_command(
     ffmpeg: str,
     source: str,
@@ -80,6 +107,10 @@ def main() -> int:
         raise SystemExit("segment-seconds must be at least 30 and max-segments at least 2.")
     if not shutil.which(args.ffmpeg) and not Path(args.ffmpeg).exists():
         raise SystemExit("ffmpeg was not found. Install it or pass --ffmpeg with its executable path.")
+    try:
+        selected_codec = select_video_codec(args.video_codec, available_video_encoders(args.ffmpeg))
+    except RuntimeError as error:
+        raise SystemExit(str(error)) from error
 
     hub = CameraHub()
     try:
@@ -100,7 +131,7 @@ def main() -> int:
 
     signal.signal(signal.SIGINT, stop)
     signal.signal(signal.SIGTERM, stop)
-    print(f"Recording {args.camera_id} into {output_dir}; retaining {args.max_segments} segments.", flush=True)
+    print(f"Recording {args.camera_id} into {output_dir}; codec={selected_codec}; retaining {args.max_segments} segments.", flush=True)
 
     while keep_running:
         command = build_ffmpeg_command(
@@ -109,7 +140,7 @@ def main() -> int:
             output_pattern,
             args.segment_seconds,
             args.max_segments,
-            video_codec=args.video_codec,
+            video_codec=selected_codec,
             preset=args.preset,
             crf=args.crf,
         )
