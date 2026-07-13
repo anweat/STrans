@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { frameDetectionBoxes, frameHeatmapSpots, rawCameraStreamUrl, resolveHeatmapMode } from "../src/heatmap.js";
+import { frameDetectionBoxes, frameHeatmapSpots, rawCameraStreamUrl, resolveHeatmapMode, schematicRoadBaseUrl } from "../src/heatmap.js";
 
 test("mobile cameras default to frame heatmap while sandtable cameras stay road mapped", () => {
   assert.equal(resolveHeatmapMode({ type: "phone", heatmap_mode: "auto" }), "frame");
@@ -57,4 +57,9 @@ test("central preview converts current-camera detections into bounded overlay bo
     className: "car",
     plate: "ABC123",
   }]);
+});
+
+test("frame heatmap uses the semantic road schematic instead of the raw camera image", () => {
+  assert.equal(schematicRoadBaseUrl({ schematic_data_url: "data:image/png;base64,road" }), "data:image/png;base64,road");
+  assert.equal(schematicRoadBaseUrl({ mask_data_url: "data:image/png;base64,mask" }), null);
 });

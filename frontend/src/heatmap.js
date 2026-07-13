@@ -57,3 +57,7 @@ export function frameDetectionBoxes(analysis, cameraId) {
 export function rawCameraStreamUrl(apiBase, cameraId, streamVersion) {
   return `${apiBase}/api/cameras/${encodeURIComponent(cameraId)}/mjpeg?v=${streamVersion}`;
 }
+
+export function schematicRoadBaseUrl(roadMask) {
+  return roadMask?.schematic_data_url || null;
+}
