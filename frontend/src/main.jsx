@@ -1,5 +1,6 @@
 ﻿import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { frameHeatmapSpots, resolveHeatmapMode } from "./heatmap";
 import {
   Activity,
   AlertTriangle,
@@ -430,6 +431,22 @@ function HeatmapView({ analysis, roadModel, roadHeatmap, cameraId, globalView = 
   );
 }
 
+function FrameHeatmapOverlay({ analysis, cameraId }) {
+  const spots = frameHeatmapSpots(analysis, cameraId);
+  return (
+    <div className="frame-heatmap-overlay" aria-label={`画面坐标热力图，${spots.length} 个检测热点`}>
+      {spots.map((spot, index) => (
+        <span
+          className="frame-heat-spot"
+          key={`${spot.x}-${spot.y}-${index}`}
+          style={{ left: `${spot.x}%`, top: `${spot.y}%`, "--heat-size": `${spot.size}%`, "--heat-strength": spot.strength }}
+        />
+      ))}
+      <span className="frame-heatmap-label">画面坐标热力</span>
+    </div>
+  );
+}
+
 function PreviewSlot({ slotIndex, cameraId, cameras, statuses, streamVersion, onChange, onSelect }) {
   const camera = cameras.find((item) => item.camera_id === cameraId) || cameras[0];
   const status = camera ? statuses[camera.camera_id] : null;
@@ -514,12 +531,13 @@ function App() {
   const [auditLogs, setAuditLogs] = useState([]);
   const [featureMessage, setFeatureMessage] = useState("");
   const [passwordForm, setPasswordForm] = useState({ old_password: "", new_password: "" });
-  const [cameraForm, setCameraForm] = useState({ camera_id: "", name: "", type: "custom", stream_url: "", location: "", description: "" });
+  const [cameraForm, setCameraForm] = useState({ camera_id: "", name: "", type: "custom", stream_url: "", location: "", description: "", heatmap_mode: "auto" });
   const [incidentNotes, setIncidentNotes] = useState({});
   const [resetPasswords, setResetPasswords] = useState({});
 
   const selectedCamera = cameras.find((item) => item.camera_id === selectedCameraId) || cameras[0];
   const selectedStatus = selectedCamera ? statuses[selectedCamera.camera_id] : null;
+  const selectedHeatmapMode = resolveHeatmapMode(selectedCamera);
   const stats = analysis.traffic_stats || emptyAnalysis.traffic_stats;
   const streamUrl = useMemo(
     () => (selectedCamera ? `${API_BASE}/api/cameras/${selectedCamera.camera_id}/model-mjpeg?model_name=${selectedModelName}&task_mode=${analysisMode}&v=${streamVersion}` : ""),
@@ -1116,11 +1134,12 @@ function App() {
       stream_url: camera.stream_url,
       location: camera.location,
       description: camera.description || "",
+      heatmap_mode: camera.heatmap_mode || "auto",
     });
   }
 
   function clearCameraForm() {
-    setCameraForm({ camera_id: "", name: "", type: "custom", stream_url: "", location: "", description: "" });
+    setCameraForm({ camera_id: "", name: "", type: "custom", stream_url: "", location: "", description: "", heatmap_mode: "auto" });
   }
 
   async function saveManagedCamera(event) {
@@ -1137,6 +1156,7 @@ function App() {
           stream_url: cameraForm.stream_url,
           location: cameraForm.location,
           description: cameraForm.description || null,
+          heatmap_mode: cameraForm.heatmap_mode,
         }),
       });
       setFeatureMessage(editing ? "摄像头配置已更新。" : "摄像头已添加并写入数据库。");
@@ -1648,6 +1668,10 @@ function App() {
                 <input id="managedCameraLocation" required value={cameraForm.location} onChange={(event) => setCameraForm((previous) => ({ ...previous, location: event.target.value }))} />
                 <label htmlFor="managedCameraDescription">说明</label>
                 <textarea id="managedCameraDescription" value={cameraForm.description} onChange={(event) => setCameraForm((previous) => ({ ...previous, description: event.target.value }))} />
+                <label htmlFor="managedCameraHeatmap">热力图显示</label>
+                <select id="managedCameraHeatmap" value={cameraForm.heatmap_mode} onChange={(event) => setCameraForm((previous) => ({ ...previous, heatmap_mode: event.target.value }))}>
+                  <option value="auto">自动（沙盘道路 / 移动设备画面）</option><option value="road">道路映射</option><option value="frame">画面坐标</option><option value="off">关闭</option>
+                </select>
                 <div className="form-actions"><button type="submit" className="primary" disabled={busy}>保存配置</button>{cameraForm.camera_id && <button type="button" onClick={clearCameraForm}>取消编辑</button>}</div>
               </form>
               <div className="managed-camera-list">
@@ -2020,7 +2044,10 @@ function App() {
             )}
             <div className="video-stage">
               {selectedCamera && selectedStatus?.running ? (
-                <img src={streamUrl} alt={`${selectedCamera.name} 视频流`} />
+                <div className="video-frame">
+                  <img src={streamUrl} alt={`${selectedCamera.name} 视频流`} />
+                  {analysisMode === "traffic" && selectedHeatmapMode === "frame" && <FrameHeatmapOverlay analysis={analysis} cameraId={selectedCamera.camera_id} />}
+                </div>
               ) : (
                 <div className="empty-video">
                   <Camera size={48} />
@@ -2060,9 +2087,9 @@ function App() {
               </button>
             }
           >
-            <button type="button" className="heatmap-button" onClick={() => setHeatmapOpen(true)}>
-              <HeatmapView analysis={analysis} roadModel={roadModel} roadHeatmap={roadHeatmap} cameraId={selectedCameraId} />
-            </button>
+            {selectedHeatmapMode === "off" ? <p className="empty-copy heatmap-disabled-copy">当前摄像头已关闭热力图显示。</p>
+              : selectedHeatmapMode === "frame" ? <p className="empty-copy heatmap-frame-copy">移动设备正在使用画面坐标热力图：热点会叠加到左侧实时视频中的识别框中心。</p>
+                : <button type="button" className="heatmap-button" onClick={() => setHeatmapOpen(true)}><HeatmapView analysis={analysis} roadModel={roadModel} roadHeatmap={roadHeatmap} cameraId={selectedCameraId} /></button>}
           </Panel> : <Panel title="道路异常识别" icon={<AlertTriangle size={18} />} className="anomaly-mode-panel">
             <div className="anomaly-mode-copy">
               <strong>独立任务模式</strong>
@@ -2122,7 +2149,7 @@ function App() {
         </>
       )}
 
-      {heatmapOpen && (
+      {heatmapOpen && selectedHeatmapMode === "road" && (
         <div className="modal-backdrop" role="dialog" aria-modal="true">
           <section className="heatmap-modal">
             <header>
