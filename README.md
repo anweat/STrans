@@ -110,3 +110,11 @@ python .\camera_source_test.py --source 0 --seconds 10 --out usb_camera_snapshot
 - Espressif Arduino ESP32 官方仓库 CameraWebServer 示例：<https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/Camera/CameraWebServer/CameraWebServer.ino>
 - Espressif ESP32 Camera Driver：<https://github.com/espressif/esp32-camera>
 - ESP32-CAM 智慧交通违章检测参考项目：<https://github.com/gremlinflat/ESP32-CAM---Smart-Traffic-Violation-System>
+
+## 手机摄像头云端转发
+
+Ubuntu 云服务器上的 MediaMTX 转发、鉴权、手机推流和项目接入说明见：
+
+```text
+deploy/mediamtx/README.md
+```
