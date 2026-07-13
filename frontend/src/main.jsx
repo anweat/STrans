@@ -1,6 +1,6 @@
 ﻿import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { frameDetectionBoxes, frameHeatmapSpots, rawCameraStreamUrl, resolveHeatmapMode } from "./heatmap";
+import { frameDetectionBoxes, frameHeatmapSpots, rawCameraStreamUrl, resolveHeatmapMode, schematicRoadBaseUrl } from "./heatmap";
 import {
   Activity,
   AlertTriangle,
@@ -720,13 +720,18 @@ function FrameHeatmapOverlay({ analysis, cameraId, roadMask }) {
   );
 }
 
-function FrameHeatmapView({ camera, status, analysis, roadMask, streamVersion }) {
+function FrameHeatmapView({ camera, status, analysis, roadMask }) {
   if (!camera || !status?.running) {
     return <p className="empty-copy heatmap-frame-copy">请先启动手机摄像头，热力图会基于同一路原始画面渲染。</p>;
   }
+  const schematicUrl = schematicRoadBaseUrl(roadMask);
   return (
     <div className="frame-heatmap-preview" style={{ aspectRatio: `${status.frame_width || 16} / ${status.frame_height || 9}` }}>
-      <img src={rawCameraStreamUrl(API_BASE, camera.camera_id, streamVersion)} alt={`${camera.name} 道路热力图底图`} />
+      {schematicUrl ? (
+        <img src={schematicUrl} alt={`${camera.name} 语义道路示意底板`} />
+      ) : (
+        <div className="road-schematic-loading" role="status">道路底板生成中</div>
+      )}
       <FrameHeatmapOverlay analysis={analysis} cameraId={camera.camera_id} roadMask={roadMask} />
     </div>
   );
@@ -2555,7 +2560,7 @@ function App() {
             }
           >
             {selectedHeatmapMode === "off" ? <p className="empty-copy heatmap-disabled-copy">当前摄像头已关闭热力图显示。</p>
-              : selectedHeatmapMode === "frame" ? <FrameHeatmapView camera={selectedCamera} status={selectedStatus} analysis={analysis} roadMask={roadMask} streamVersion={streamVersion} />
+              : selectedHeatmapMode === "frame" ? <FrameHeatmapView camera={selectedCamera} status={selectedStatus} analysis={analysis} roadMask={roadMask} />
                 : <button type="button" className="heatmap-button" onClick={() => setHeatmapOpen(true)}><HeatmapView analysis={analysis} roadModel={roadModel} roadHeatmap={roadHeatmap} cameraId={selectedCameraId} /></button>}
           </Panel> : <Panel title="道路异常识别" icon={<AlertTriangle size={18} />} className="anomaly-mode-panel">
             <div className="anomaly-mode-copy">
