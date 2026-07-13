@@ -19,6 +19,22 @@ class SandtableRecordingTests(unittest.TestCase):
         self.assertIn("96", command)
         self.assertIn("-rtsp_transport", command)
 
+    def test_recording_can_transcode_with_a_space_saving_h264_profile(self):
+        command = build_ffmpeg_command(
+            ffmpeg="ffmpeg",
+            source="rtsp://example.test:8554/live/live1",
+            output_pattern=Path("recordings/live1_%03d.mkv"),
+            segment_seconds=300,
+            max_segments=24,
+            video_codec="libx264",
+            preset="ultrafast",
+            crf=30,
+        )
+
+        self.assertEqual(command[command.index("-c:v") + 1], "libx264")
+        self.assertEqual(command[command.index("-preset") + 1], "ultrafast")
+        self.assertEqual(command[command.index("-crf") + 1], "30")
+
 
 if __name__ == "__main__":
     unittest.main()
