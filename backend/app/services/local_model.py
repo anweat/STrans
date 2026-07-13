@@ -4,6 +4,7 @@ import math
 import re
 import time
 from datetime import datetime
+from numbers import Real
 from pathlib import Path
 from typing import Any, Callable, Generator
 
@@ -109,7 +110,17 @@ def is_box_on_road(camera_id: str, bbox: list[int], width: int, height: int) -> 
     x1, y1, x2, y2 = bbox
     contact_point = ((x1 + x2) / 2.0, y1 + (y2 - y1) * 0.82)
     polygon = road_roi_polygon(camera_id, width, height)
-    return cv2.pointPolygonTest(polygon.astype(np.float32), contact_point, False) >= 0
+    polygon_float = polygon.astype(np.float32)
+    if cv2.pointPolygonTest(polygon_float, contact_point, False) >= 0:
+        return True
+    # A close vehicle can be clipped by the lower frame boundary, placing its
+    # synthetic contact point below the calibrated trapezoid even though the
+    # visible body is clearly inside the lane. Use the centre only for these
+    # boundary-clipped boxes; ordinary roadside boxes still require road contact.
+    if y2 >= int(height * 0.95):
+        center = ((x1 + x2) / 2.0, (y1 + y2) / 2.0)
+        return cv2.pointPolygonTest(polygon_float, center, False) >= 0
+    return False
 
 
 def clamp_box(box: list[int], width: int, height: int) -> list[int]:
@@ -146,6 +157,33 @@ def box_overlap_of_smaller(a: list[int], b: list[int]) -> float:
     intersection = max(0, min(ax2, bx2) - max(ax1, bx1)) * max(0, min(ay2, by2) - max(ay1, by1))
     smaller_area = min(box_area(a), box_area(b))
     return intersection / smaller_area if smaller_area else 0.0
+
+
+def vehicle_visual_features(crop: np.ndarray) -> dict[str, float]:
+    """Return inexpensive appearance evidence for a detector vehicle box.
+
+    Smooth sandtable props such as an eraser can occasionally receive a weak
+    COCO ``car`` label. Real model vehicles contain windows, racks, tyres and
+    plate edges, so their crops retain noticeably more local structure even
+    when the detector confidence is modest.
+    """
+    if crop.size == 0:
+        return {"edge_density": 0.0, "contrast": 0.0, "entropy": 0.0}
+    gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+    max_side = max(gray.shape[:2])
+    if max_side > 320:
+        scale = 320.0 / max_side
+        gray = cv2.resize(gray, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+    edges = cv2.Canny(gray, 55, 145)
+    histogram = cv2.calcHist([gray], [0], None, [32], [0, 256]).reshape(-1)
+    probabilities = histogram / max(float(histogram.sum()), 1.0)
+    probabilities = probabilities[probabilities > 0]
+    entropy = float(-np.sum(probabilities * np.log2(probabilities)))
+    return {
+        "edge_density": float(np.count_nonzero(edges) / max(edges.size, 1)),
+        "contrast": float(np.std(gray)),
+        "entropy": entropy,
+    }
 
 
 def likely_same_vehicle_box(a: list[int], b: list[int]) -> bool:
@@ -338,7 +376,10 @@ class LocalModelService:
             plate_type = ""
             if isinstance(item, (list, tuple)):
                 text = fix_plate_text(str(item[0])) if len(item) > 0 else ""
-                confidence = float(item[1]) if len(item) > 1 and isinstance(item[1], (int, float)) else 0.0
+                # HyperLPR returns ``numpy.float32``.  Restricting this check to
+                # Python int/float silently turned a 0.99 OCR result into 0.0,
+                # forcing every clear plate to wait for a second observation.
+                confidence = float(item[1]) if len(item) > 1 and isinstance(item[1], Real) else 0.0
                 if len(item) > 2 and isinstance(item[2], (list, tuple)):
                     bbox = [int(v) for v in item[2][:4]]
                 elif len(item) > 2:
@@ -496,7 +537,10 @@ class LocalModelService:
                 del observations[:-6]
                 same = [item for item in observations if item["text"] == candidate["text"]]
                 best = max(same, key=lambda item: float(item.get("confidence", 0.0)))
-                if len(same) >= 2 or float(best.get("confidence", 0.0)) >= 0.88:
+                # A clear first reading may be accepted immediately. Once a
+                # track owns a confirmed plate, however, one occluded/glared
+                # frame must not replace it with a look-alike character.
+                if len(same) >= 2 or (state.get("confirmed") is None and float(best.get("confidence", 0.0)) >= 0.88):
                     state["confirmed"] = best
                     state["expires_at"] = frame_counter + 75
 
@@ -649,7 +693,46 @@ class LocalModelService:
             return
         state = self._visual_track_memory.get(f"{camera_id}:track:{track_id}")
         if state is not None:
-            state["metadata"] = metadata
+            previous = dict(state.get("metadata") or {})
+            observed_hits = int(previous.get("observed_hits", 0)) + 1
+            state["metadata"] = {
+                **previous,
+                **metadata,
+                "observed_hits": observed_hits,
+                "credible_vehicle": bool(metadata.get("credible_vehicle", previous.get("credible_vehicle", False))),
+            }
+
+    def _visual_vehicle_is_credible(
+        self,
+        camera_id: str,
+        track_id: int | None,
+        crop: np.ndarray,
+        bbox: list[int],
+        frame_shape: tuple[int, int, int],
+        confidence: float,
+        plate_text: str | None = None,
+    ) -> tuple[bool, dict[str, float]]:
+        features = vehicle_visual_features(crop)
+        height, width = frame_shape[:2]
+        area_ratio = box_area(bbox) / max(float(width * height), 1.0)
+        features["area_ratio"] = area_ratio
+        state = self._visual_track_memory.get(f"{camera_id}:track:{track_id}") if track_id is not None else None
+        metadata = dict((state or {}).get("metadata") or {})
+        if plate_text or metadata.get("credible_vehicle"):
+            return True, features
+
+        edge_density = features["edge_density"]
+        contrast = features["contrast"]
+        entropy = features["entropy"]
+        # Large, partly occluded near-field vehicles remain credible despite a
+        # soft crop. Compact objects need stronger internal structure.
+        if area_ratio >= 0.035 and contrast >= 25.0 and edge_density >= 0.022:
+            return True, features
+        if confidence >= 0.48 and contrast >= 23.0 and edge_density >= 0.032:
+            return True, features
+        if area_ratio >= 0.010:
+            return edge_density >= 0.052 and contrast >= 24.0 and entropy >= 3.2, features
+        return edge_density >= 0.075 and contrast >= 23.0 and entropy >= 3.25, features
 
     def _recover_visual_track_id(
         self,
@@ -668,7 +751,9 @@ class LocalModelService:
             if track_id in seen_track_ids:
                 continue
             missing = frame_counter - int(state["last_frame"])
-            if missing < 1 or missing > 4:
+            metadata = dict(state.get("metadata") or {})
+            max_missing = 9 if metadata.get("plate") else 7 if metadata.get("credible_vehicle") else 3
+            if missing < 1 or missing > max_missing:
                 continue
             predicted_box = state["bbox"] + state["velocity"] * missing
             score = box_iou(
@@ -687,7 +772,7 @@ class LocalModelService:
         frame_counter: int,
         width: int,
         height: int,
-        max_missing_frames: int = 4,
+        max_missing_frames: int = 7,
     ) -> list[dict[str, Any]]:
         prefix = f"{camera_id}:track:"
         predicted: list[dict[str, Any]] = []
@@ -701,7 +786,9 @@ class LocalModelService:
             missing = frame_counter - int(state["last_frame"])
             if missing <= 0:
                 continue
-            if missing > max_missing_frames:
+            metadata = dict(state.get("metadata") or {})
+            allowed_missing = 9 if metadata.get("plate") else max_missing_frames if metadata.get("credible_vehicle") else 3
+            if missing > allowed_missing:
                 if missing > 30:
                     expired.append(key)
                 continue
@@ -710,8 +797,8 @@ class LocalModelService:
                 {
                     "track_id": track_id,
                     "bbox": clamp_box([int(round(value)) for value in bbox], width, height),
-                    "confidence_decay": 0.86**missing,
-                    **state.get("metadata", {}),
+                    "confidence_decay": 0.91**missing,
+                    **metadata,
                 }
             )
         for key in expired:
@@ -875,7 +962,10 @@ class LocalModelService:
         inference_size = max(imgsz, 960) if small_target_mode else imgsz
         results = model.track(
             inference_frame,
-            conf=min(conf, 0.08) if small_target_mode else min(conf, 0.30),
+            # The sandtable vehicles are often partly hidden by model trees or
+            # another queued car. Keep detector recall high, then let the road,
+            # appearance and temporal gates below reject weak false positives.
+            conf=min(conf, 0.08) if small_target_mode else min(conf, 0.18),
             imgsz=inference_size,
             tracker=str(BYTETRACK_CONFIG),
             persist=True,
@@ -906,7 +996,10 @@ class LocalModelService:
                 # back of a queue does not wait behind the first detection.
                 offset = frame_counter % len(records)
                 records = records[offset:] + records[:offset]
-            plate_ocr_budget = 1 if stream_mode else len(records)
+            # Two crop OCR attempts per cycle keep the second queued vehicle
+            # from waiting behind the first while remaining much cheaper than
+            # full-frame OCR on every frame.
+            plate_ocr_budget = 2 if stream_mode else len(records)
             for box, cls_id, det_conf, track_id in records:
                 x1, y1, x2, y2 = [int(v) for v in box]
                 x1 += roi_x1
@@ -971,6 +1064,18 @@ class LocalModelService:
                     continue
 
                 crop = frame[max(0, y1):max(0, y2), max(0, x1):max(0, x2)]
+                credible_before_ocr, visual_features = self._visual_vehicle_is_credible(
+                    camera_id,
+                    stable_track_id,
+                    crop,
+                    bbox,
+                    frame.shape,
+                    float(det_conf),
+                )
+                # Reject a weak, smooth compact object before spending OCR
+                # time on it. A known track is never rejected by this gate.
+                if not credible_before_ocr and float(det_conf) < 0.22:
+                    continue
                 plate_key = self._memory_key(camera_id, stable_track_id, bbox)
                 plate_state = self._track_plate_memory.get(plate_key, {})
                 plate_ocr_due = crop.size and frame_counter - int(plate_state.get("last_run", -100)) >= 2
@@ -988,6 +1093,17 @@ class LocalModelService:
                 )
                 plate_text = stable_plate["text"] if stable_plate else None
                 plate_is_provisional = bool(stable_plate and stable_plate.get("provisional"))
+                credible_vehicle, visual_features = self._visual_vehicle_is_credible(
+                    camera_id,
+                    stable_track_id,
+                    crop,
+                    bbox,
+                    frame.shape,
+                    float(det_conf),
+                    plate_text,
+                )
+                if not credible_vehicle:
+                    continue
                 if not plate_text:
                     unresolved_plate_targets += 1
                 minimum_unplated_area = 900 if small_target_mode else 5200
@@ -1020,6 +1136,8 @@ class LocalModelService:
                     gate_action=decision.gate_action if decision else None,
                     gate_reason=decision.reason if decision else None,
                     speed_cm_s=speed_cm_s,
+                    credible_vehicle=True,
+                    visual_features=visual_features,
                 )
                 detections.append(
                     DetectionBox(
@@ -1059,7 +1177,10 @@ class LocalModelService:
             # Keep a short prediction only for visually credible tracks. Very
             # low-confidence extrapolations are usually roadside false positives
             # (trees, lamp posts, reflective edges), not real traffic targets.
-            if confidence < 0.22:
+            if not predicted_track.get("credible_vehicle"):
+                continue
+            minimum_prediction_confidence = 0.10 if predicted_track.get("plate") else 0.16
+            if confidence < minimum_prediction_confidence:
                 continue
             class_name = str(predicted_track.get("class_name", "vehicle"))
             plate = predicted_track.get("plate")
@@ -1087,7 +1208,7 @@ class LocalModelService:
         # Full-frame OCR can attach a plate when a detector box is slightly
         # off. Run it often enough for a clear rear plate to appear promptly,
         # while vehicle-crop OCR keeps the usual path inexpensive.
-        if not stream_mode or (unresolved_plate_targets and frame_counter % 8 == 1):
+        if not stream_mode or (unresolved_plate_targets and frame_counter % 4 == 1):
             self._last_stream_plates[camera_id] = self.detect_plates(frame)
         full_plates = self._last_stream_plates.get(camera_id, [])
         for plate in full_plates:
@@ -1299,6 +1420,7 @@ class LocalModelService:
         sleep_seconds: float = 0.03,
         on_result: Callable[[AnalysisResult, bytes], None] | None = None,
         should_continue: Callable[[], bool] | None = None,
+        policy_provider: Callable[[], dict[str, Any]] | None = None,
     ) -> Generator[bytes, None, None]:
         while should_continue is None or should_continue():
             cycle_started = time.perf_counter()
@@ -1306,12 +1428,13 @@ class LocalModelService:
             if jpeg is None:
                 time.sleep(0.05)
                 continue
+            policy = policy_provider() if policy_provider is not None else {}
             analysis, annotated = self.infer_jpeg(
                 camera_id,
                 jpeg,
-                model_name=model_name,
-                conf=conf,
-                imgsz=imgsz,
+                model_name=str(policy.get("model_name", model_name)),
+                conf=float(policy.get("confidence", conf)),
+                imgsz=int(policy.get("inference_size", imgsz)),
                 annotate=True,
                 stream_mode=True,
             )
@@ -1328,4 +1451,5 @@ class LocalModelService:
                 b"Cache-Control: no-cache\r\n\r\n" + annotated + b"\r\n"
             )
             elapsed = time.perf_counter() - cycle_started
-            time.sleep(max(0.0, sleep_seconds - elapsed))
+            target_sleep = float(policy.get("detection_interval_ms", sleep_seconds * 1000)) / 1000
+            time.sleep(max(0.0, target_sleep - elapsed))

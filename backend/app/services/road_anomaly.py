@@ -9,6 +9,7 @@ import cv2
 import numpy as np
 
 from app.schemas.dashboard import AnalysisResult, DetectionBox, TrafficEvent
+from app.services.local_model import vehicle_visual_features
 
 
 MODEL_ROOT = Path("D:/models/STrans")
@@ -85,6 +86,8 @@ class CameraState:
     # become an alarm.  This rejects transient compression noise and moving
     # camera texture while keeping the delay short for a fixed sandtable view.
     pending_obstacles: list[tuple[list[int], int, int]] = field(default_factory=list)
+    pending_static_obstacles: list[tuple[list[int], int, int]] = field(default_factory=list)
+    unstable_frames: int = 0
 
 
 class RoadAnomalyService:
@@ -203,7 +206,7 @@ class RoadAnomalyService:
 
         new_detections: list[DetectionBox] = []
         new_events: list[TrafficEvent] = []
-        for box, score in anomaly_boxes[:3]:
+        for box, score in anomaly_boxes[:6]:
             new_detections.append(
                 DetectionBox(
                     bbox=[float(v) for v in box],
@@ -267,7 +270,11 @@ class RoadAnomalyService:
     def _road_roi_mask(self, camera_id: str, shape: tuple[int, int]) -> np.ndarray:
         height, width = shape
         mask = np.zeros((height, width), dtype=np.uint8)
-        if camera_id == "live3" or camera_id.startswith("custom"):
+        # The calibrated live3 view is landscape. Custom phone/video sources can
+        # be portrait and often show a much wider multi-lane road; applying the
+        # live3 trapezoid to those sources cuts real obstacles out of the ROI.
+        use_live3_roi = camera_id == "live3" or (camera_id.startswith("custom") and width >= height)
+        if use_live3_roi:
             points = np.array(
                 [
                     [int(width * 0.30), int(height * 0.11)],
@@ -312,13 +319,15 @@ class RoadAnomalyService:
 
         global_motion = self._global_camera_motion(state.previous_gray, gray)
         state.previous_gray = gray.copy()
-        if global_motion > 1.0:
-            # The source itself is moving (handheld sweep/dashcam).  Keep the
-            # baseline aligned and avoid treating the travelling background as
-            # an obstacle.  Fixed sandtable cameras normally stay well below
-            # one pixel between analysed frames.
-            state.baseline_gray = gray.copy()
-            state.pending_obstacles = []
+        if global_motion > 2.5:
+            # A hand passing through the fixed camera must not become the new
+            # background. Hold the last clean baseline through short global
+            # disturbances; only re-seed after a sustained camera move.
+            state.unstable_frames += 1
+            if state.unstable_frames >= 12:
+                state.baseline_gray = gray.copy()
+                state.pending_obstacles = []
+                state.unstable_frames = 0
             return []
 
         diff = cv2.absdiff(gray, state.baseline_gray)
@@ -336,9 +345,14 @@ class RoadAnomalyService:
         # are not, so fall back to the specialised road-damage model there.
         roi_pixels = max(int(cv2.countNonZero(roi_mask)), 1)
         changed_ratio = cv2.countNonZero(binary) / roi_pixels
-        if changed_ratio > 0.055:
-            state.baseline_gray = gray.copy()
+        if changed_ratio > 0.085:
+            state.unstable_frames += 1
+            if state.unstable_frames >= 12:
+                state.baseline_gray = gray.copy()
+                state.pending_obstacles = []
+                state.unstable_frames = 0
             return []
+        state.unstable_frames = 0
 
         contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         height, width = gray.shape[:2]
@@ -429,52 +443,222 @@ class RoadAnomalyService:
         """
         height, width = frame.shape[:2]
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        _, bright = cv2.threshold(gray, 125, 255, cv2.THRESH_BINARY)
+        roi_values = gray[roi_mask > 0]
+        threshold_value = max(158, int(np.percentile(roi_values, 82))) if roi_values.size else 158
+        _, bright = cv2.threshold(gray, threshold_value, 255, cv2.THRESH_BINARY)
         bright = cv2.bitwise_and(bright, roi_mask)
-        bright = cv2.morphologyEx(bright, cv2.MORPH_CLOSE, np.ones((11, 11), dtype=np.uint8), iterations=2)
-        bright = cv2.morphologyEx(bright, cv2.MORPH_OPEN, np.ones((5, 5), dtype=np.uint8))
-        contours, _ = cv2.findContours(bright, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-        explained_boxes: list[list[float]] = []
+        # Brightness alone misses tan/brown props under changing exposure. Build
+        # a second mask from chroma distance to the dominant road surface. The
+        # median is robust to the relatively small number of vehicles/objects in
+        # the ROI, while Lab a/b channels are much less sensitive to shadows.
+        lab = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
+        roi_lab = lab[roi_mask > 0]
+        if roi_lab.size:
+            median_a = float(np.median(roi_lab[:, 1]))
+            median_b = float(np.median(roi_lab[:, 2]))
+            delta_a = lab[:, :, 1].astype(np.float32) - median_a
+            delta_b = lab[:, :, 2].astype(np.float32) - median_b
+            chroma_distance = cv2.magnitude(delta_a, delta_b)
+            chroma_threshold = max(15.0, float(np.percentile(chroma_distance[roi_mask > 0], 82)))
+            chromatic = np.where(chroma_distance >= chroma_threshold, 255, 0).astype(np.uint8)
+            chromatic = cv2.bitwise_and(chromatic, roi_mask)
+        else:
+            chromatic = np.zeros_like(gray)
+
+        hard_explained_boxes: list[list[float]] = []
+        soft_explained_boxes: list[list[float]] = []
         for item in result.detections:
             if normalize_class_name(item.class_name) not in LEGAL_TRAFFIC_CLASSES:
                 continue
-            # A low-confidence, unplated vehicle classification is exactly how
-            # a transparent object can look to the traffic model. Do not let it
-            # mask the independent obstacle detector.
-            if not item.plate and float(item.confidence) < 0.55:
+            if item.plate:
+                hard_explained_boxes.append(list(item.bbox))
                 continue
-            explained_boxes.append(list(item.bbox))
 
-        min_area = width * height * 0.0035
+            x1, y1, x2, y2 = [int(value) for value in item.bbox]
+            crop = frame[max(0, y1):max(0, y2), max(0, x1):max(0, x2)]
+            if crop.size == 0:
+                continue
+            crop_height, crop_width = crop.shape[:2]
+            # Inspect the body core instead of the whole detector rectangle.
+            # Road markings and trees around a smooth prop otherwise inflate its
+            # texture score and let a false car label suppress a real obstacle.
+            inner = crop[
+                int(crop_height * 0.08):max(int(crop_height * 0.92), 1),
+                int(crop_width * 0.12):max(int(crop_width * 0.88), 1),
+            ]
+            features = vehicle_visual_features(inner if inner.size else crop)
+            # An unplated YOLO label is soft evidence in anomaly mode. Real toy
+            # vehicles still have dense body edges and texture, while bottle
+            # caps, erasers and cups are commonly smooth despite receiving a
+            # car/truck class from the generic detector.
+            if (
+                float(item.confidence) >= 0.24
+                and features["edge_density"] >= 0.08
+                and features["contrast"] >= 30.0
+                and features["entropy"] >= 3.55
+            ):
+                soft_explained_boxes.append(list(item.bbox))
+
+        # Full-frame OCR sometimes sees a near plate even when YOLO misses the
+        # partly clipped vehicle body. Add a conservative proxy only for plates
+        # not already associated with a detector box.
+        plate_proxies: list[list[float]] = []
+        for plate in (result.raw or {}).get("plates") or []:
+            plate_box = plate.get("bbox")
+            if not plate_box or len(plate_box) != 4:
+                continue
+            px1, py1, px2, py2 = [int(value) for value in plate_box]
+            center_x = (px1 + px2) / 2
+            center_y = (py1 + py2) / 2
+            if any(
+                x1 <= center_x <= x2 and y1 <= center_y <= y2
+                for x1, y1, x2, y2 in hard_explained_boxes + soft_explained_boxes
+            ):
+                continue
+            plate_width = max(1, px2 - px1)
+            plate_height = max(1, py2 - py1)
+            plate_proxies.append(
+                [
+                    max(0, px1 - int(plate_width * 0.5)),
+                    max(0, py1 - int(plate_height * 2.5)),
+                    min(width, px2 + int(plate_width * 0.5)),
+                    min(height, py2 + int(plate_height * 0.5)),
+                ]
+            )
+
+        close_kernel = np.ones((7, 7), dtype=np.uint8)
+        open_kernel = np.ones((3, 3), dtype=np.uint8)
+        bright = cv2.morphologyEx(bright, cv2.MORPH_CLOSE, close_kernel)
+        bright = cv2.morphologyEx(bright, cv2.MORPH_OPEN, open_kernel)
+        chromatic = cv2.morphologyEx(chromatic, cv2.MORPH_CLOSE, close_kernel)
+        chromatic = cv2.morphologyEx(chromatic, cv2.MORPH_OPEN, open_kernel)
+        # Cut known road users out before contour extraction. This preserves the
+        # visible remainder of an adjacent obstacle instead of discarding a
+        # merged vehicle-plus-object rectangle after the fact.
+        # Only hard evidence is removed before contours are built. Soft unplated
+        # detections remain visible to the anomaly branch and are arbitrated
+        # after the object candidate has independent visual evidence.
+        for x1, y1, x2, y2 in hard_explained_boxes + plate_proxies:
+            left, top = max(0, int(x1)), max(0, int(y1))
+            right, bottom = min(width, int(x2)), min(height, int(y2))
+            bright[top:bottom, left:right] = 0
+            chromatic[top:bottom, left:right] = 0
+        # Keep both channels separate. OR-ing them first can connect an object
+        # to a bright lane edge and turn most of the road into one contour.
+        bright_contours, _ = cv2.findContours(bright, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        chromatic_contours, _ = cv2.findContours(chromatic, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contour_sources = [(contour, "bright") for contour in bright_contours]
+        contour_sources.extend((contour, "chromatic") for contour in chromatic_contours)
+
+        # Remote sandtable views contain valid debris only a few dozen pixels
+        # wide. Keep the lower bound proportional to the frame so portrait and
+        # wide shots do not silently discard those objects before scoring.
+        min_area = width * height * 0.0008
         max_area = width * height * 0.015
+        road_distance = cv2.distanceTransform(roi_mask, cv2.DIST_L2, 5)
         candidates: list[tuple[list[int], float]] = []
-        for contour in contours:
+        for contour, source_kind in contour_sources:
             area = float(cv2.contourArea(contour))
             if not min_area <= area <= max_area:
                 continue
             x, y, box_width, box_height = cv2.boundingRect(contour)
-            if box_width < width * 0.035 or box_height < height * 0.07:
+            if box_width < width * 0.025 or box_height < height * 0.025:
+                continue
+            if box_width * box_height > width * height * 0.025:
+                # Sparse color leaking from trees/road edges can have a small
+                # contour area but an enormous bounding rectangle.
                 continue
             aspect_ratio = box_width / max(box_height, 1)
             if not 0.30 <= aspect_ratio <= 1.35:
                 continue
             box = [x, y, x + box_width, y + box_height]
+            center_x = min(width - 1, max(0, x + box_width // 2))
+            center_y_px = min(height - 1, max(0, y + box_height // 2))
+            # Color from trees, LED strips and pavements often leaks a few
+            # pixels into the polygon. A real road obstacle must sit inside the
+            # drivable region rather than cling to its outer boundary.
+            if float(road_distance[center_y_px, center_x]) < width * 0.045:
+                continue
             # This is a still-image supplement, not a general object detector.
             # Limit it to bright, upright objects in the middle approach of the
             # road.  Without these guards, white vehicles, road arrows and
             # signal reflections become false obstacle candidates.
             center_y = (y + box_height / 2) / max(height, 1)
-            if not 0.16 <= center_y <= 0.60:
+            if not 0.16 <= center_y <= 0.84:
                 continue
             candidate_gray = gray[y : y + box_height, x : x + box_width]
             if candidate_gray.size == 0 or float(np.mean(candidate_gray)) < 120.0:
+                # Colored objects can be darker than the legacy bright-object
+                # threshold. Keep them only when the chroma mask covers a
+                # meaningful part of the candidate.
+                chroma_fill = float(np.count_nonzero(chromatic[y : y + box_height, x : x + box_width])) / max(
+                    box_width * box_height,
+                    1,
+                )
+                if chroma_fill < 0.28:
+                    continue
+            candidate_crop = frame[y : y + box_height, x : x + box_width]
+            candidate_features = vehicle_visual_features(candidate_crop)
+            hsv_crop = cv2.cvtColor(candidate_crop, cv2.COLOR_BGR2HSV)
+            mean_saturation = float(np.mean(hsv_crop[:, :, 1])) if hsv_crop.size else 0.0
+            contour_fill = area / max(float(box_width * box_height), 1.0)
+            # Painted arrows and dashed lane lines form bright contours but
+            # have very little tonal variation. A physical object contributes
+            # depth, shadow and multiple intensity bands inside its box.
+            if contour_fill < 0.20:
                 continue
-            if any(box_iou(box, legal) > 0.08 or coverage(box, legal) > 0.45 for legal in explained_boxes):
+            if candidate_features["contrast"] < 21.0 or candidate_features["entropy"] < 2.7:
+                continue
+            # Low-saturation candidates need stronger texture because white
+            # arrows and lane separators otherwise dominate the bright mask.
+            if mean_saturation < 16.0 and (
+                candidate_features["contrast"] < 28.0 or candidate_features["entropy"] < 3.15
+            ):
+                continue
+            # Perspective can make a road object overlap a vehicle behind it.
+            # Suppress only when the vehicle explains most of the candidate,
+            # not on a small incidental overlap.
+            if any(
+                box_iou(box, legal) > 0.45 or coverage(box, legal) > 0.68
+                for legal in hard_explained_boxes
+            ):
+                continue
+            if any(
+                box_iou(box, legal) > 0.40
+                and max(coverage(box, legal), coverage(legal, box)) > 0.74
+                for legal in soft_explained_boxes
+            ):
                 continue
             score = min(0.9, max(0.5, area / max(width * height * 0.012, 1.0)))
+            if source_kind == "chromatic":
+                score = min(0.92, score + 0.04)
             candidates.append((box, round(float(score), 3)))
-        return sorted(candidates, key=lambda item: item[1], reverse=True)[:3]
+        candidates = self._merge_candidates([], sorted(candidates, key=lambda item: item[1], reverse=True))
+        return self._confirmed_static_candidates(
+            self._states.setdefault(result.camera_id or "unknown", CameraState()),
+            candidates[:6],
+        )
+
+    @staticmethod
+    def _confirmed_static_candidates(
+        state: CameraState,
+        candidates: list[tuple[list[int], float]],
+    ) -> list[tuple[list[int], float]]:
+        previous = [item for item in state.pending_static_obstacles if state.frame_count - item[2] <= 3]
+        updated: list[tuple[list[int], int, int]] = []
+        confirmed: list[tuple[list[int], float]] = []
+        for box, score in candidates:
+            match_index = next((index for index, item in enumerate(previous) if box_iou(box, item[0]) >= 0.35), None)
+            hits = 1
+            if match_index is not None:
+                _, prior_hits, _ = previous.pop(match_index)
+                hits = prior_hits + 1
+            updated.append((box, hits, state.frame_count))
+            if hits >= 2:
+                confirmed.append((box, score))
+        state.pending_static_obstacles = updated
+        return confirmed
 
     @staticmethod
     def _merge_candidates(

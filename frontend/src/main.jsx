@@ -15,6 +15,7 @@ import {
   FileText,
   Flame,
   MemoryStick,
+  PackageCheck,
   Play,
   Radio,
   RefreshCcw,
@@ -33,7 +34,7 @@ import "./styles.css";
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8000";
 const DEFAULT_PHONE_URL = "http://192.168.110.13:8080/video";
 const API_REQUEST_TIMEOUT_MS = 8000;
-const FEATURE_VIEWS = new Set(["account", "history", "incidents", "cameras", "whitelist", "models", "users", "audit"]);
+const FEATURE_VIEWS = new Set(["account", "history", "incidents", "cameras", "whitelist", "models", "scheduler", "users", "audit"]);
 
 async function fetchWithTimeout(url, options = {}, timeoutMs = API_REQUEST_TIMEOUT_MS) {
   const controller = new AbortController();
@@ -517,6 +518,7 @@ function App() {
   const [cameraForm, setCameraForm] = useState({ camera_id: "", name: "", type: "custom", stream_url: "", location: "", description: "" });
   const [incidentNotes, setIncidentNotes] = useState({});
   const [resetPasswords, setResetPasswords] = useState({});
+  const [schedulerState, setSchedulerState] = useState({ enabled: true, active: [], decisions: [] });
 
   const selectedCamera = cameras.find((item) => item.camera_id === selectedCameraId) || cameras[0];
   const selectedStatus = selectedCamera ? statuses[selectedCamera.camera_id] : null;
@@ -621,6 +623,8 @@ function App() {
       } else if (viewMode === "cameras") {
         const data = await requestJson("/api/cameras");
         setCameras(data || []);
+      } else if (viewMode === "scheduler") {
+        setSchedulerState(await requestJson("/api/model-scheduler"));
       }
     } catch (error) {
       setFeatureMessage(`功能数据加载失败：${error.message}`);
@@ -630,6 +634,14 @@ function App() {
   useEffect(() => {
     loadFeatureData();
   }, [loadFeatureData]);
+
+  useEffect(() => {
+    if (viewMode !== "scheduler" || !authToken || !currentUser) return undefined;
+    const timer = window.setInterval(() => {
+      requestJson("/api/model-scheduler").then(setSchedulerState).catch(() => {});
+    }, 2000);
+    return () => window.clearInterval(timer);
+  }, [viewMode, authToken, currentUser?.id]);
 
   const refresh = useCallback(async () => {
     if (!authToken || !currentUser) return;
@@ -1193,6 +1205,42 @@ function App() {
     }
   }
 
+  async function downloadEvidencePackage(eventId) {
+    try {
+      const response = await fetchWithTimeout(`${API_BASE}/api/incidents/${encodeURIComponent(eventId)}/evidence`, {
+        headers: { Authorization: `Bearer ${authToken}` },
+      }, 15000);
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        throw new Error(payload.detail || `HTTP ${response.status}`);
+      }
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `evidence-${eventId}.zip`;
+      anchor.click();
+      URL.revokeObjectURL(url);
+      setFeatureMessage("告警证据包已导出，包含原始帧、检测结果、处置记录和校验信息。");
+    } catch (error) {
+      setFeatureMessage(`证据包导出失败：${error.message}`);
+    }
+  }
+
+  async function toggleAdaptiveScheduler() {
+    setBusy(true);
+    try {
+      const next = !schedulerState.enabled;
+      const data = await requestJson(`/api/model-scheduler?enabled=${next}`, { method: "PUT" });
+      setSchedulerState(data);
+      setFeatureMessage(next ? "自适应模型调度已启用。" : "已切换为人工固定参数。");
+    } catch (error) {
+      setFeatureMessage(`调度配置失败：${error.message}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function deleteHistoryRecord(recordId) {
     if (!window.confirm("确定删除这条历史记录吗？")) return;
     try {
@@ -1432,6 +1480,7 @@ function App() {
           <button type="button" className={cx(viewMode === "whitelist" && "active")} onClick={() => setViewMode("whitelist")}><ShieldCheck size={15} />白名单</button>
           {isAdmin && <button type="button" className={cx(viewMode === "cameras" && "active")} onClick={() => setViewMode("cameras")}><Camera size={15} />摄像头</button>}
           {isAdmin && <button type="button" className={cx(viewMode === "models" && "active")} onClick={() => setViewMode("models")}><ServerCog size={15} />模型配置</button>}
+          {isAdmin && <button type="button" className={cx(viewMode === "scheduler" && "active")} onClick={() => setViewMode("scheduler")}><Activity size={15} />智能调度</button>}
           {isAdmin && <button type="button" className={cx(viewMode === "users" && "active")} onClick={() => setViewMode("users")}><Users size={15} />用户管理</button>}
           {isAdmin && <button type="button" className={cx(viewMode === "audit" && "active")} onClick={() => setViewMode("audit")}><FileText size={15} />审计日志</button>}
         </nav>
@@ -1623,12 +1672,51 @@ function App() {
                   <em className={cx("incident-status", item.status)}>{({ pending: "待处理", confirmed: "已确认", resolved: "已解除", false_positive: "误报" })[item.status] || item.status}</em>
                   <input value={incidentNotes[item.event_id] ?? item.note ?? ""} onChange={(event) => setIncidentNotes((previous) => ({ ...previous, [item.event_id]: event.target.value }))} placeholder="填写处置说明" />
                   <div className="incident-actions">
+                    <button type="button" className="evidence-button" onClick={() => downloadEvidencePackage(item.event_id)}><PackageCheck size={13} />证据包</button>
                     <button type="button" onClick={() => handleIncident(item.event_id, "confirmed")}>确认</button>
                     <button type="button" onClick={() => handleIncident(item.event_id, "resolved")}>解除</button>
                     <button type="button" onClick={() => handleIncident(item.event_id, "false_positive")}>误报</button>
                   </div>
                 </div>
               )) : <p className="empty-copy history-empty">暂无持久化告警。新的道路异常、禁停和白名单告警会自动进入处置中心。</p>}
+            </div>
+          </Panel>
+        </section>
+      ) : viewMode === "scheduler" && isAdmin ? (
+        <section className="feature-page scheduler-page">
+          <Panel
+            title="自适应模型调度"
+            icon={<Activity size={18} />}
+            action={<button type="button" className={cx("scheduler-toggle", schedulerState.enabled && "enabled")} disabled={busy} onClick={toggleAdaptiveScheduler}>{schedulerState.enabled ? "自动调度中" : "人工参数"}</button>}
+          >
+            <div className="scheduler-layout">
+              <section className="scheduler-overview">
+                <h3>调度原则</h3>
+                <p>根据任务类型、静态/实时来源、CPU、内存、GPU、显存和最新推理耗时选择策略。策略仅在档位变化时记录，资源采样带缓存，不增加逐帧监控负担。</p>
+                <div className="scheduler-profile-grid">
+                  <span><strong>质量优先</strong><em>GPU 余量充足或静态图片，提高推理尺寸</em></span>
+                  <span><strong>均衡模式</strong><em>日常实时视频使用人工参数附近的稳定配置</em></span>
+                  <span><strong>实时优先</strong><em>推理耗时或 GPU 负载较高时降低计算量</em></span>
+                  <span><strong>保护模式</strong><em>资源接近上限时切换备用模型并降低频率</em></span>
+                </div>
+              </section>
+              <section className="scheduler-active">
+                <h3>当前摄像头策略</h3>
+                {(schedulerState.active || []).length ? schedulerState.active.map((item) => (
+                  <article key={item.camera_id}>
+                    <header><strong>{item.camera_id}</strong><em className={`profile-${item.profile}`}>{item.profile}</em></header>
+                    <p>{item.reason}</p>
+                    <div><span>模型 {item.model_name}</span><span>尺寸 {item.inference_size}</span><span>间隔 {item.detection_interval_ms} ms</span><span>置信度 {item.confidence}</span></div>
+                  </article>
+                )) : <p className="empty-copy">启动模型画面后将显示实时调度策略。</p>}
+              </section>
+            </div>
+            <div className="scheduler-history">
+              <h3>策略切换记录</h3>
+              <div className="scheduler-history-head"><span>时间</span><span>摄像头</span><span>任务</span><span>策略</span><span>参数</span><span>触发原因</span></div>
+              {(schedulerState.decisions || []).length ? schedulerState.decisions.map((item, index) => (
+                <div className="scheduler-history-row" key={`${item.timestamp}-${item.camera_id}-${index}`}><span>{item.timestamp?.replace("T", " ")}</span><strong>{item.camera_id}</strong><span>{item.task_mode}</span><em>{item.profile}</em><span>{item.model_name} / {item.inference_size}px / {item.detection_interval_ms}ms</span><span>{item.reason}</span></div>
+              )) : <p className="empty-copy">暂无策略切换记录。</p>}
             </div>
           </Panel>
         </section>
