@@ -19,6 +19,7 @@ secret/
 *.pt
 *.pth
 *.onnx
+backend/data/models/
 *.log
 *.db
 *.inspect.ndjson
