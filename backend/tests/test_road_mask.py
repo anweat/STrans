@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 import numpy as np
 
-from app.services.road_mask import RoadMaskService, encode_mask_data_url, road_class_ids
+from app.services.road_mask import RoadMaskService, encode_mask_data_url, render_road_schematic, road_class_ids
 
 
 class RoadMaskServiceTests(unittest.TestCase):
@@ -20,6 +20,16 @@ class RoadMaskServiceTests(unittest.TestCase):
 
         self.assertTrue(data_url.startswith("data:image/png;base64,"))
         self.assertGreater(len(base64.b64decode(data_url.split(",", 1)[1])), 8)
+
+    def test_schematic_uses_the_segmentation_shape_without_source_pixels(self):
+        mask = np.zeros((20, 30), dtype=np.uint8)
+        mask[4:17, 8:23] = 255
+
+        schematic = render_road_schematic(mask)
+
+        self.assertEqual(schematic.shape, (20, 30, 3))
+        self.assertFalse(np.array_equal(schematic[0, 0], schematic[10, 15]))
+        self.assertGreater(np.count_nonzero(schematic), 0)
 
     def test_missing_road_mask_model_is_downloaded_before_loading(self):
         service = RoadMaskService()
