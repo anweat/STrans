@@ -297,6 +297,36 @@ class RoadAnomalyService:
         cv2.fillPoly(mask, [points], 255)
         return mask
 
+    def _vivid_object_roi_mask(
+        self,
+        camera_id: str,
+        shape: tuple[int, int],
+        road_roi_mask: np.ndarray,
+    ) -> np.ndarray:
+        """Extend only the vivid-object search into the far end of live3.
+
+        A ping-pong ball can stop close to the vanishing point and be clipped by
+        the conservative traffic ROI. Expanding every anomaly channel there
+        would re-introduce zebra crossings and roadside foliage, so the wider
+        polygon is reserved for strongly saturated, compact objects.
+        """
+        height, width = shape
+        use_live3_roi = camera_id == "live3" or (camera_id.startswith("custom") and width >= height)
+        if not use_live3_roi:
+            return road_roi_mask.copy()
+        mask = np.zeros((height, width), dtype=np.uint8)
+        points = np.array(
+            [
+                [int(width * 0.24), int(height * 0.015)],
+                [int(width * 0.66), int(height * 0.015)],
+                [int(width * 0.77), int(height * 0.82)],
+                [int(width * 0.13), int(height * 0.82)],
+            ],
+            dtype=np.int32,
+        )
+        cv2.fillPoly(mask, [points], 255)
+        return mask
+
     def _preprocess(self, frame: np.ndarray, roi_mask: np.ndarray) -> np.ndarray:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
@@ -466,6 +496,20 @@ class RoadAnomalyService:
         else:
             chromatic = np.zeros_like(gray)
 
+        # Strong warm colours are uncommon on the asphalt but common for the
+        # small props used during acceptance (for example an orange ping-pong
+        # ball). Keep this channel independent from the generic chroma mask so
+        # a large, fast-moving ball is not rejected by the normal 1.5% area cap.
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        hue, saturation, value = cv2.split(hsv)
+        # Keep this acceptance aid focused on orange/yellow props. Including
+        # the red hue wrap-around also selects the sandtable LED strips and
+        # traffic lights, which then fragment into convincing small obstacles.
+        warm_colour = (hue >= 4) & (hue <= 28) & (saturation >= 85) & (value >= 80)
+        vivid = np.where(warm_colour, 255, 0).astype(np.uint8)
+        vivid_roi = self._vivid_object_roi_mask(result.camera_id or "unknown", frame.shape[:2], roi_mask)
+        vivid = cv2.bitwise_and(vivid, vivid_roi)
+
         hard_explained_boxes: list[list[float]] = []
         soft_explained_boxes: list[list[float]] = []
         for item in result.detections:
@@ -533,6 +577,8 @@ class RoadAnomalyService:
         bright = cv2.morphologyEx(bright, cv2.MORPH_OPEN, open_kernel)
         chromatic = cv2.morphologyEx(chromatic, cv2.MORPH_CLOSE, close_kernel)
         chromatic = cv2.morphologyEx(chromatic, cv2.MORPH_OPEN, open_kernel)
+        vivid = cv2.morphologyEx(vivid, cv2.MORPH_CLOSE, np.ones((5, 5), dtype=np.uint8))
+        vivid = cv2.morphologyEx(vivid, cv2.MORPH_OPEN, open_kernel)
         # Cut known road users out before contour extraction. This preserves the
         # visible remainder of an adjacent obstacle instead of discarding a
         # merged vehicle-plus-object rectangle after the fact.
@@ -544,12 +590,15 @@ class RoadAnomalyService:
             right, bottom = min(width, int(x2)), min(height, int(y2))
             bright[top:bottom, left:right] = 0
             chromatic[top:bottom, left:right] = 0
+            vivid[top:bottom, left:right] = 0
         # Keep both channels separate. OR-ing them first can connect an object
         # to a bright lane edge and turn most of the road into one contour.
         bright_contours, _ = cv2.findContours(bright, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         chromatic_contours, _ = cv2.findContours(chromatic, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        vivid_contours, _ = cv2.findContours(vivid, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         contour_sources = [(contour, "bright") for contour in bright_contours]
         contour_sources.extend((contour, "chromatic") for contour in chromatic_contours)
+        contour_sources.extend((contour, "vivid") for contour in vivid_contours)
 
         # Remote sandtable views contain valid debris only a few dozen pixels
         # wide. Keep the lower bound proportional to the frame so portrait and
@@ -557,20 +606,31 @@ class RoadAnomalyService:
         min_area = width * height * 0.0008
         max_area = width * height * 0.015
         road_distance = cv2.distanceTransform(roi_mask, cv2.DIST_L2, 5)
+        vivid_road_distance = cv2.distanceTransform(vivid_roi, cv2.DIST_L2, 5)
         candidates: list[tuple[list[int], float]] = []
         for contour, source_kind in contour_sources:
             area = float(cv2.contourArea(contour))
-            if not min_area <= area <= max_area:
+            is_vivid = source_kind == "vivid"
+            if is_vivid:
+                if not width * height * 0.00025 <= area <= width * height * 0.08:
+                    continue
+            elif not min_area <= area <= max_area:
                 continue
             x, y, box_width, box_height = cv2.boundingRect(contour)
-            if box_width < width * 0.025 or box_height < height * 0.025:
+            # The ball remains comfortably above three percent of either frame
+            # dimension even near the vanishing point. Smaller warm fragments
+            # are overwhelmingly LEDs, reflections or compression speckles.
+            min_dimension = 0.05 if is_vivid else 0.025
+            if box_width < width * min_dimension or box_height < height * min_dimension:
                 continue
-            if box_width * box_height > width * height * 0.025:
+            max_box_ratio = 0.12 if is_vivid else 0.025
+            if box_width * box_height > width * height * max_box_ratio:
                 # Sparse color leaking from trees/road edges can have a small
                 # contour area but an enormous bounding rectangle.
                 continue
             aspect_ratio = box_width / max(box_height, 1)
-            if not 0.30 <= aspect_ratio <= 1.35:
+            min_aspect, max_aspect = (0.35, 1.85) if is_vivid else (0.30, 1.35)
+            if not min_aspect <= aspect_ratio <= max_aspect:
                 continue
             box = [x, y, x + box_width, y + box_height]
             center_x = min(width - 1, max(0, x + box_width // 2))
@@ -578,17 +638,22 @@ class RoadAnomalyService:
             # Color from trees, LED strips and pavements often leaks a few
             # pixels into the polygon. A real road obstacle must sit inside the
             # drivable region rather than cling to its outer boundary.
-            if float(road_distance[center_y_px, center_x]) < width * 0.045:
+            active_distance = vivid_road_distance if is_vivid else road_distance
+            min_road_distance = width * (0.012 if is_vivid else 0.045)
+            if float(active_distance[center_y_px, center_x]) < min_road_distance:
                 continue
             # This is a still-image supplement, not a general object detector.
             # Limit it to bright, upright objects in the middle approach of the
             # road.  Without these guards, white vehicles, road arrows and
             # signal reflections become false obstacle candidates.
             center_y = (y + box_height / 2) / max(height, 1)
-            if not 0.16 <= center_y <= 0.84:
+            min_center_y = 0.025 if is_vivid else 0.16
+            if not min_center_y <= center_y <= 0.84:
                 continue
             candidate_gray = gray[y : y + box_height, x : x + box_width]
-            if candidate_gray.size == 0 or float(np.mean(candidate_gray)) < 120.0:
+            if candidate_gray.size == 0:
+                continue
+            if not is_vivid and float(np.mean(candidate_gray)) < 120.0:
                 # Colored objects can be darker than the legacy bright-object
                 # threshold. Keep them only when the chroma mask covers a
                 # meaningful part of the candidate.
@@ -603,6 +668,28 @@ class RoadAnomalyService:
             hsv_crop = cv2.cvtColor(candidate_crop, cv2.COLOR_BGR2HSV)
             mean_saturation = float(np.mean(hsv_crop[:, :, 1])) if hsv_crop.size else 0.0
             contour_fill = area / max(float(box_width * box_height), 1.0)
+            if is_vivid:
+                vivid_fill = float(np.count_nonzero(vivid[y : y + box_height, x : x + box_width])) / max(
+                    box_width * box_height,
+                    1,
+                )
+                perimeter = float(cv2.arcLength(contour, True))
+                circularity = 4.0 * np.pi * area / max(perimeter * perimeter, 1.0)
+                hull_area = float(cv2.contourArea(cv2.convexHull(contour)))
+                solidity = area / max(hull_area, 1.0)
+                if vivid_fill < 0.28 or contour_fill < 0.28:
+                    continue
+                if circularity < 0.16 and solidity < 0.72:
+                    continue
+                # A strong colour/shape cue is independent evidence. Do not let
+                # an unplated generic car label suppress the prop; only a plated
+                # road user already removed from the mask has priority.
+                score = min(
+                    0.96,
+                    0.66 + vivid_fill * 0.20 + min(area / max(width * height * 0.02, 1.0), 1.0) * 0.10,
+                )
+                candidates.append((box, round(float(score), 3)))
+                continue
             # Painted arrows and dashed lane lines form bright contours but
             # have very little tonal variation. A physical object contributes
             # depth, shadow and multiple intensity bands inside its box.
@@ -614,6 +701,21 @@ class RoadAnomalyService:
             # arrows and lane separators otherwise dominate the bright mask.
             if mean_saturation < 16.0 and (
                 candidate_features["contrast"] < 28.0 or candidate_features["entropy"] < 3.15
+            ):
+                continue
+            white_fill = float(
+                np.mean((hsv_crop[:, :, 1] < 45) & (hsv_crop[:, :, 2] > 145))
+            ) if hsv_crop.size else 0.0
+            # Perspective makes a short lane dash look almost square. Its low
+            # saturation and high white-paint occupancy are more reliable than
+            # aspect ratio alone. Newly placed white objects are still covered
+            # by the temporal difference branch.
+            if (
+                mean_saturation < 22.0
+                and white_fill > 0.32
+                and candidate_features["entropy"] < 3.75
+                and box_width < width * 0.075
+                and box_height < height * 0.18
             ):
                 continue
             # Perspective can make a road object overlap a vehicle behind it.
@@ -667,10 +769,22 @@ class RoadAnomalyService:
     ) -> list[tuple[list[int], float]]:
         merged = list(primary)
         for box, score in supplement:
-            if any(box_iou(box, existing) > 0.25 for existing, _ in merged):
+            duplicate_index = next(
+                (
+                    index
+                    for index, (existing, _) in enumerate(merged)
+                    if box_iou(box, existing) > 0.25
+                    or coverage(box, existing) > 0.62
+                    or coverage(existing, box) > 0.62
+                ),
+                None,
+            )
+            if duplicate_index is not None:
+                if score > merged[duplicate_index][1]:
+                    merged[duplicate_index] = (box, score)
                 continue
             merged.append((box, score))
-        return sorted(merged, key=lambda item: item[1], reverse=True)[:3]
+        return sorted(merged, key=lambda item: item[1], reverse=True)[:6]
 
     def _update_baseline(self, state: CameraState, gray: np.ndarray, stable: bool) -> None:
         if state.baseline_gray is None:
