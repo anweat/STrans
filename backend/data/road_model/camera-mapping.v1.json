@@ -1,0 +1,3794 @@
+{
+  "schema": "road_logic_modeler.camera-mapping.v1",
+  "source": {
+    "name": "road_logic_model (4).json",
+    "sha256": "a7dc702890a6edde3b13634948204c0fe3f2e2ff054a6b5d850537d37afe39cf"
+  },
+  "world": {
+    "width": 1200,
+    "height": 760,
+    "gridSize": 20
+  },
+  "cameras": [
+    {
+      "id": "cam_1",
+      "calibrationId": "calibration_12",
+      "position": {
+        "x": 120,
+        "y": 0
+      },
+      "direction": 89.96991850036665,
+      "fov": 20,
+      "range": 263.6849283388206,
+      "points": [
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 573,
+            "y": 13
+          },
+          "worldPoint": {
+            "x": 140,
+            "y": 260,
+            "height": 500
+          },
+          "gridCellId": "grid_7_13",
+          "laneId": "lane_28",
+          "candidateLaneIds": [
+            "lane_28"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_28",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_27",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_68",
+              "roadBundleId": "road::node_21::node_9",
+              "distance": 98.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_92",
+              "roadBundleId": "road::node_11::node_9",
+              "distance": 100.02,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [
+            "building_4"
+          ],
+          "nearestNodeIds": [
+            "node_9",
+            "node_11"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 584,
+            "y": 928
+          },
+          "worldPoint": {
+            "x": 140,
+            "y": 180,
+            "height": 500
+          },
+          "gridCellId": "grid_7_9",
+          "laneId": "lane_28",
+          "candidateLaneIds": [
+            "lane_28"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_28",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_68",
+              "roadBundleId": "road::node_21::node_9",
+              "distance": 18.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_92",
+              "roadBundleId": "road::node_11::node_9",
+              "distance": 26.907,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_27",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_9",
+            "node_11"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_3",
+          "imagePosition": {
+            "x": 1041,
+            "y": 10
+          },
+          "worldPoint": {
+            "x": 100,
+            "y": 260,
+            "height": 500
+          },
+          "gridCellId": "grid_5_13",
+          "laneId": "lane_27",
+          "candidateLaneIds": [
+            "lane_27"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_27",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_28",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_92",
+              "roadBundleId": "road::node_11::node_9",
+              "distance": 98.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_68",
+              "roadBundleId": "road::node_21::node_9",
+              "distance": 100.02,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [
+            "building_4"
+          ],
+          "nearestNodeIds": [
+            "node_9",
+            "node_11"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_4",
+          "imagePosition": {
+            "x": 1439,
+            "y": 890
+          },
+          "worldPoint": {
+            "x": 100,
+            "y": 180,
+            "height": 500
+          },
+          "gridCellId": "grid_5_9",
+          "laneId": "lane_27",
+          "candidateLaneIds": [
+            "lane_27"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_27",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_92",
+              "roadBundleId": "road::node_11::node_9",
+              "distance": 18.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_68",
+              "roadBundleId": "road::node_21::node_9",
+              "distance": 26.907,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_28",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_9",
+            "node_11"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_2",
+      "calibrationId": "calibration_11",
+      "position": {
+        "x": 120,
+        "y": 740
+      },
+      "direction": 251.4194389367276,
+      "fov": 60,
+      "range": 285.1349575630786,
+      "points": [
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 1733,
+            "y": 417
+          },
+          "worldPoint": {
+            "x": 100,
+            "y": 500,
+            "height": 500
+          },
+          "gridCellId": "grid_5_25",
+          "laneId": "lane_27",
+          "candidateLaneIds": [
+            "lane_27"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_27",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_32",
+              "roadBundleId": "road::node_1::node_12",
+              "distance": 18.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_35",
+              "roadBundleId": "road::node_1::node_15",
+              "distance": 26.907,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_28",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_1",
+            "node_12"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 1825,
+            "y": 49
+          },
+          "worldPoint": {
+            "x": 100,
+            "y": 460,
+            "height": 500
+          },
+          "gridCellId": "grid_5_23",
+          "laneId": "lane_27",
+          "candidateLaneIds": [
+            "lane_27"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_27",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_28",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_32",
+              "roadBundleId": "road::node_1::node_12",
+              "distance": 58.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_35",
+              "roadBundleId": "road::node_1::node_15",
+              "distance": 61.351,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [
+            "building_4"
+          ],
+          "nearestNodeIds": [
+            "node_1",
+            "node_12"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_3",
+      "calibrationId": "calibration_5",
+      "position": {
+        "x": 260,
+        "y": 640
+      },
+      "direction": 270.0721868672063,
+      "fov": 20,
+      "range": 430.0185532332813,
+      "points": [
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 753,
+            "y": 142
+          },
+          "worldPoint": {
+            "x": 240,
+            "y": 220,
+            "height": 500
+          },
+          "gridCellId": "grid_12_11",
+          "laneId": "lane_89",
+          "candidateLaneIds": [
+            "lane_89"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_89",
+              "roadBundleId": "road::node_15::node_21",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_90",
+              "roadBundleId": "road::node_15::node_21",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_68",
+              "roadBundleId": "road::node_21::node_9",
+              "distance": 58.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_84",
+              "roadBundleId": "road::node_21::node_7",
+              "distance": 61.351,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_21",
+            "node_9"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 553,
+            "y": 924
+          },
+          "worldPoint": {
+            "x": 240,
+            "y": 340,
+            "height": 500
+          },
+          "gridCellId": "grid_12_17",
+          "laneId": "lane_89",
+          "candidateLaneIds": [
+            "lane_89"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_89",
+              "roadBundleId": "road::node_15::node_21",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_90",
+              "roadBundleId": "road::node_15::node_21",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_28",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 106.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_27",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 134.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_15",
+            "node_21"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_3",
+          "imagePosition": {
+            "x": 1177,
+            "y": 881
+          },
+          "worldPoint": {
+            "x": 280,
+            "y": 340,
+            "height": 500
+          },
+          "gridCellId": "grid_14_17",
+          "laneId": "lane_90",
+          "candidateLaneIds": [
+            "lane_90"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_90",
+              "roadBundleId": "road::node_15::node_21",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_89",
+              "roadBundleId": "road::node_15::node_21",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_28",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 146.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_27",
+              "roadBundleId": "road::node_1::node_9",
+              "distance": 174.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_22",
+            "node_15"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_4",
+          "imagePosition": {
+            "x": 1056,
+            "y": 159
+          },
+          "worldPoint": {
+            "x": 280,
+            "y": 220,
+            "height": 500
+          },
+          "gridCellId": "grid_14_11",
+          "laneId": "lane_90",
+          "candidateLaneIds": [
+            "lane_90"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_90",
+              "roadBundleId": "road::node_15::node_21",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_89",
+              "roadBundleId": "road::node_15::node_21",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_84",
+              "roadBundleId": "road::node_21::node_7",
+              "distance": 58.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_68",
+              "roadBundleId": "road::node_21::node_9",
+              "distance": 61.351,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_21",
+            "node_7"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_4",
+      "calibrationId": "calibration_4",
+      "position": {
+        "x": 460,
+        "y": 640
+      },
+      "direction": 269.8032063512085,
+      "fov": 20,
+      "range": 276.0500231702875,
+      "points": [
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 834,
+            "y": 120
+          },
+          "worldPoint": {
+            "x": 460,
+            "y": 380,
+            "height": 500
+          },
+          "gridCellId": "grid_23_19",
+          "laneId": null,
+          "candidateLaneIds": [],
+          "laneCandidates": [
+            {
+              "laneId": "lane_82",
+              "roadBundleId": "road::node_22::node_23",
+              "distance": 80.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_6",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 104.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_7",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 132.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_74",
+              "roadBundleId": "road::node_15::node_23",
+              "distance": 138.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [
+            "building_3"
+          ],
+          "nearestNodeIds": [
+            "node_22",
+            "node_24"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 813,
+            "y": 933
+          },
+          "worldPoint": {
+            "x": 460,
+            "y": 440,
+            "height": 500
+          },
+          "gridCellId": "grid_23_22",
+          "laneId": null,
+          "candidateLaneIds": [],
+          "laneCandidates": [
+            {
+              "laneId": "lane_82",
+              "roadBundleId": "road::node_22::node_23",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_74",
+              "roadBundleId": "road::node_15::node_23",
+              "distance": 78.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_81",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 78.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_6",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 104.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [
+            "building_3"
+          ],
+          "nearestNodeIds": [
+            "node_22",
+            "node_23"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_5",
+      "calibrationId": "calibration_15",
+      "position": {
+        "x": 600,
+        "y": 640
+      },
+      "direction": 276.88356785360634,
+      "fov": 60,
+      "range": 260.85903885855936,
+      "points": [
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 339,
+            "y": 24
+          },
+          "worldPoint": {
+            "x": 560,
+            "y": 400,
+            "height": 500
+          },
+          "gridCellId": "grid_28_20",
+          "laneId": "lane_6",
+          "candidateLaneIds": [
+            "lane_6"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_6",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_7",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_8",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 60.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_97",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 88.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_3",
+            "node_22"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 208,
+            "y": 985
+          },
+          "worldPoint": {
+            "x": 560,
+            "y": 500,
+            "height": 500
+          },
+          "gridCellId": "grid_28_25",
+          "laneId": "lane_6",
+          "candidateLaneIds": [
+            "lane_6"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_6",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_81",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 18.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_7",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_80",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 46.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_22"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_3",
+          "imagePosition": {
+            "x": 612,
+            "y": 37
+          },
+          "worldPoint": {
+            "x": 600,
+            "y": 400,
+            "height": 500
+          },
+          "gridCellId": "grid_30_20",
+          "laneId": "lane_7",
+          "candidateLaneIds": [
+            "lane_7"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_7",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_8",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_6",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 36.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_97",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_3",
+            "node_22"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_4",
+          "imagePosition": {
+            "x": 578,
+            "y": 979
+          },
+          "worldPoint": {
+            "x": 600,
+            "y": 500,
+            "height": 500
+          },
+          "gridCellId": "grid_30_25",
+          "laneId": "lane_7",
+          "candidateLaneIds": [
+            "lane_7"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_7",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_81",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 18.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_8",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 20.396,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_22"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_5",
+          "imagePosition": {
+            "x": 888,
+            "y": 33
+          },
+          "worldPoint": {
+            "x": 620,
+            "y": 400,
+            "height": 500
+          },
+          "gridCellId": "grid_31_20",
+          "laneId": "lane_8",
+          "candidateLaneIds": [
+            "lane_8"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_8",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_7",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_97",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_6",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 56.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_3",
+            "node_8"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_6",
+          "imagePosition": {
+            "x": 935,
+            "y": 982
+          },
+          "worldPoint": {
+            "x": 620,
+            "y": 500,
+            "height": 500
+          },
+          "gridCellId": "grid_31_25",
+          "laneId": "lane_8",
+          "candidateLaneIds": [
+            "lane_8",
+            "lane_48"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_8",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_81",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 18.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_7",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_22"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_7",
+          "imagePosition": {
+            "x": 1148,
+            "y": 25
+          },
+          "worldPoint": {
+            "x": 640,
+            "y": 400,
+            "height": 500
+          },
+          "gridCellId": "grid_32_20",
+          "laneId": "lane_97",
+          "candidateLaneIds": [
+            "lane_97"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_97",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_8",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_98",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 36.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_7",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_3",
+            "node_8"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_8",
+          "imagePosition": {
+            "x": 1289,
+            "y": 965
+          },
+          "worldPoint": {
+            "x": 640,
+            "y": 500,
+            "height": 500
+          },
+          "gridCellId": "grid_32_25",
+          "laneId": "lane_48",
+          "candidateLaneIds": [
+            "lane_48",
+            "lane_97"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_97",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_8",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_81",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 26.907,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_3"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_9",
+          "imagePosition": {
+            "x": 1375,
+            "y": 40
+          },
+          "worldPoint": {
+            "x": 680,
+            "y": 400,
+            "height": 500
+          },
+          "gridCellId": "grid_34_20",
+          "laneId": "lane_98",
+          "candidateLaneIds": [
+            "lane_98"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_98",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_97",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_8",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 60.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_26",
+              "roadBundleId": "road::node_3::node_8",
+              "distance": 86.163,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_3",
+            "node_8"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_10",
+          "imagePosition": {
+            "x": 1610,
+            "y": 933
+          },
+          "worldPoint": {
+            "x": 680,
+            "y": 500,
+            "height": 500
+          },
+          "gridCellId": "grid_34_25",
+          "laneId": "lane_98",
+          "candidateLaneIds": [
+            "lane_98",
+            "lane_48"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_98",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_97",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_49",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_3"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_6",
+      "calibrationId": "calibration_8",
+      "position": {
+        "x": 620,
+        "y": 120
+      },
+      "direction": 359.8393711725807,
+      "fov": 60,
+      "range": 175.30214483200476,
+      "points": [
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 852,
+            "y": 33
+          },
+          "worldPoint": {
+            "x": 780,
+            "y": 100,
+            "height": 500
+          },
+          "gridCellId": "grid_39_5",
+          "laneId": "lane_66",
+          "candidateLaneIds": [
+            "lane_66"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_94",
+              "roadBundleId": "road::node_26::node_8",
+              "distance": 131.894,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_26",
+            "node_27"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 1116,
+            "y": 571
+          },
+          "worldPoint": {
+            "x": 700,
+            "y": 100,
+            "height": 500
+          },
+          "gridCellId": "grid_35_5",
+          "laneId": "lane_66",
+          "candidateLaneIds": [
+            "lane_66"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 68.964,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_5",
+            "node_26"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_3",
+          "imagePosition": {
+            "x": 534,
+            "y": 35
+          },
+          "worldPoint": {
+            "x": 780,
+            "y": 120,
+            "height": 500
+          },
+          "gridCellId": "grid_39_6",
+          "laneId": "lane_65",
+          "candidateLaneIds": [
+            "lane_65"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_94",
+              "roadBundleId": "road::node_26::node_8",
+              "distance": 117.456,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_26",
+            "node_27"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_4",
+          "imagePosition": {
+            "x": 548,
+            "y": 694
+          },
+          "worldPoint": {
+            "x": 700,
+            "y": 120,
+            "height": 500
+          },
+          "gridCellId": "grid_35_6",
+          "laneId": "lane_65",
+          "candidateLaneIds": [
+            "lane_65"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 66.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_5",
+            "node_26"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_5",
+          "imagePosition": {
+            "x": 237,
+            "y": 30
+          },
+          "worldPoint": {
+            "x": 780,
+            "y": 140,
+            "height": 500
+          },
+          "gridCellId": "grid_39_7",
+          "laneId": "lane_64",
+          "candidateLaneIds": [
+            "lane_64"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_94",
+              "roadBundleId": "road::node_26::node_8",
+              "distance": 104.862,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_26",
+            "node_27"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_6",
+          "imagePosition": {
+            "x": 15,
+            "y": 648
+          },
+          "worldPoint": {
+            "x": 700,
+            "y": 140,
+            "height": 500
+          },
+          "gridCellId": "grid_35_7",
+          "laneId": "lane_64",
+          "candidateLaneIds": [
+            "lane_64"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_94",
+              "roadBundleId": "road::node_26::node_8",
+              "distance": 60.299,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_26",
+            "node_5"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_7",
+      "calibrationId": "calibration_7",
+      "position": {
+        "x": 380,
+        "y": 480
+      },
+      "direction": 32.53961335133283,
+      "fov": 20,
+      "range": 418.2761388718445,
+      "points": [
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 1695,
+            "y": 968
+          },
+          "worldPoint": {
+            "x": 560,
+            "y": 620,
+            "height": 500
+          },
+          "gridCellId": "grid_28_31",
+          "laneId": "lane_43",
+          "candidateLaneIds": [
+            "lane_43"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_43",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_78",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 18.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_44",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_79",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 46.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_23"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 1704,
+            "y": 800
+          },
+          "worldPoint": {
+            "x": 600,
+            "y": 660,
+            "height": 500
+          },
+          "gridCellId": "grid_30_33",
+          "laneId": "lane_44",
+          "candidateLaneIds": [
+            "lane_44"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_44",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_45",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_43",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 36.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_46",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_17",
+            "node_2"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_3",
+          "imagePosition": {
+            "x": 1322,
+            "y": 919
+          },
+          "worldPoint": {
+            "x": 600,
+            "y": 620,
+            "height": 500
+          },
+          "gridCellId": "grid_30_31",
+          "laneId": "lane_44",
+          "candidateLaneIds": [
+            "lane_44"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_44",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_78",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 18.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_45",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_52",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 20.396,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_4",
+          "imagePosition": {
+            "x": 1538,
+            "y": 735
+          },
+          "worldPoint": {
+            "x": 620,
+            "y": 680,
+            "height": 500
+          },
+          "gridCellId": "grid_31_34",
+          "laneId": "lane_45",
+          "candidateLaneIds": [
+            "lane_45"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_45",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_44",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_46",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_43",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 56.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_17",
+            "node_2"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_5",
+          "imagePosition": {
+            "x": 1033,
+            "y": 844
+          },
+          "worldPoint": {
+            "x": 620,
+            "y": 620,
+            "height": 500
+          },
+          "gridCellId": "grid_31_31",
+          "laneId": "lane_45",
+          "candidateLaneIds": [
+            "lane_45",
+            "lane_52"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_45",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_52",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_78",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 18.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_44",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_6",
+          "imagePosition": {
+            "x": 1538,
+            "y": 628
+          },
+          "worldPoint": {
+            "x": 640,
+            "y": 700,
+            "height": 500
+          },
+          "gridCellId": "grid_32_35",
+          "laneId": "lane_46",
+          "candidateLaneIds": [
+            "lane_46"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_46",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_45",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_47",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 36.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_44",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_17",
+            "node_2"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_7",
+          "imagePosition": {
+            "x": 809,
+            "y": 770
+          },
+          "worldPoint": {
+            "x": 640,
+            "y": 620,
+            "height": 500
+          },
+          "gridCellId": "grid_32_31",
+          "laneId": "lane_52",
+          "candidateLaneIds": [
+            "lane_52",
+            "lane_46"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_52",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_46",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_45",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_78",
+              "roadBundleId": "road::node_2::node_23",
+              "distance": 26.907,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_8",
+          "imagePosition": {
+            "x": 1346,
+            "y": 589
+          },
+          "worldPoint": {
+            "x": 680,
+            "y": 720,
+            "height": 500
+          },
+          "gridCellId": "grid_34_36",
+          "laneId": "lane_47",
+          "candidateLaneIds": [
+            "lane_47"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_47",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_46",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_45",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 60.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_44",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 88.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_17",
+            "node_2"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_9",
+          "imagePosition": {
+            "x": 589,
+            "y": 703
+          },
+          "worldPoint": {
+            "x": 680,
+            "y": 620,
+            "height": 500
+          },
+          "gridCellId": "grid_34_31",
+          "laneId": "lane_47",
+          "candidateLaneIds": [
+            "lane_47",
+            "lane_52"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_47",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_52",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_46",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_51",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_8",
+      "calibrationId": "calibration_9",
+      "position": {
+        "x": 1080,
+        "y": 180
+      },
+      "direction": 89.94612173472797,
+      "fov": 45,
+      "range": 181.08792917698327,
+      "points": [
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 1467,
+            "y": 437
+          },
+          "worldPoint": {
+            "x": 1100,
+            "y": 300,
+            "height": 500
+          },
+          "gridCellId": "grid_55_15",
+          "laneId": "lane_61",
+          "candidateLaneIds": [
+            "lane_61"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_61",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_62",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_63",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 153.31,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_20",
+            "node_4"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_3",
+          "imagePosition": {
+            "x": 852,
+            "y": 25
+          },
+          "worldPoint": {
+            "x": 1080,
+            "y": 340,
+            "height": 500
+          },
+          "gridCellId": "grid_54_17",
+          "laneId": "lane_62",
+          "candidateLaneIds": [
+            "lane_62"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_62",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_61",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_63",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 164.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_4",
+            "node_20"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_4",
+          "imagePosition": {
+            "x": 865,
+            "y": 987
+          },
+          "worldPoint": {
+            "x": 1080,
+            "y": 260,
+            "height": 500
+          },
+          "gridCellId": "grid_54_13",
+          "laneId": "lane_62",
+          "candidateLaneIds": [
+            "lane_62"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_62",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_61",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_63",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 112.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_20",
+            "node_4"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_5",
+          "imagePosition": {
+            "x": 361,
+            "y": 18
+          },
+          "worldPoint": {
+            "x": 1060,
+            "y": 340,
+            "height": 500
+          },
+          "gridCellId": "grid_53_17",
+          "laneId": "lane_63",
+          "candidateLaneIds": [
+            "lane_63"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_63",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_62",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_61",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 164.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_4",
+            "node_20"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_6",
+          "imagePosition": {
+            "x": 245,
+            "y": 410
+          },
+          "worldPoint": {
+            "x": 1060,
+            "y": 300,
+            "height": 500
+          },
+          "gridCellId": "grid_53_15",
+          "laneId": "lane_63",
+          "candidateLaneIds": [
+            "lane_63"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_63",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_62",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_61",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 152.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_20",
+            "node_4"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_9",
+      "calibrationId": "calibration_3",
+      "position": {
+        "x": 1020,
+        "y": 120
+      },
+      "direction": 179.71418870126558,
+      "fov": 60,
+      "range": 149.63762998744667,
+      "points": [
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 923,
+            "y": 110
+          },
+          "worldPoint": {
+            "x": 960,
+            "y": 140,
+            "height": 500
+          },
+          "gridCellId": "grid_48_7",
+          "laneId": "lane_64",
+          "candidateLaneIds": [
+            "lane_64"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_63",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 92.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_20",
+            "node_27"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 953,
+            "y": 935
+          },
+          "worldPoint": {
+            "x": 900,
+            "y": 140,
+            "height": 500
+          },
+          "gridCellId": "grid_45_7",
+          "laneId": "lane_64",
+          "candidateLaneIds": [
+            "lane_64"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_63",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 152.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_27",
+            "node_20"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_3",
+          "imagePosition": {
+            "x": 1707,
+            "y": 57
+          },
+          "worldPoint": {
+            "x": 960,
+            "y": 120,
+            "height": 500
+          },
+          "gridCellId": "grid_48_6",
+          "laneId": "lane_65",
+          "candidateLaneIds": [
+            "lane_65"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_63",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 92.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_20",
+            "node_27"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_4",
+          "imagePosition": {
+            "x": 1910,
+            "y": 523
+          },
+          "worldPoint": {
+            "x": 940,
+            "y": 120,
+            "height": 500
+          },
+          "gridCellId": "grid_47_6",
+          "laneId": "lane_65",
+          "candidateLaneIds": [
+            "lane_65"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_63",
+              "roadBundleId": "road::node_20::node_4",
+              "distance": 112.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_20",
+            "node_27"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_10",
+      "calibrationId": "calibration_10",
+      "position": {
+        "x": 1200,
+        "y": 560
+      },
+      "direction": 180.21556448850697,
+      "fov": 25,
+      "range": 520.7339703461729,
+      "points": [
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 1383,
+            "y": 1009
+          },
+          "worldPoint": {
+            "x": 820,
+            "y": 540,
+            "height": 500
+          },
+          "gridCellId": "grid_41_27",
+          "laneId": "lane_49",
+          "candidateLaneIds": [
+            "lane_49"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_49",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 36.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_51",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_4"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_3",
+          "imagePosition": {
+            "x": 1565,
+            "y": 229
+          },
+          "worldPoint": {
+            "x": 720,
+            "y": 500,
+            "height": 500
+          },
+          "gridCellId": "grid_36_25",
+          "laneId": "lane_48",
+          "candidateLaneIds": [
+            "lane_48"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_49",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_98",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 44.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 60.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_3"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_4",
+          "imagePosition": {
+            "x": 1322,
+            "y": 229
+          },
+          "worldPoint": {
+            "x": 720,
+            "y": 540,
+            "height": 500
+          },
+          "gridCellId": "grid_36_27",
+          "laneId": "lane_49",
+          "candidateLaneIds": [
+            "lane_49"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_49",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 36.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_98",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 44.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_5",
+          "imagePosition": {
+            "x": 1082,
+            "y": 224
+          },
+          "worldPoint": {
+            "x": 720,
+            "y": 560,
+            "height": 500
+          },
+          "gridCellId": "grid_36_28",
+          "laneId": "lane_50",
+          "candidateLaneIds": [
+            "lane_50"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_49",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_51",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_98",
+              "roadBundleId": "road::node_2::node_3",
+              "distance": 44.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_6",
+          "imagePosition": {
+            "x": 848,
+            "y": 224
+          },
+          "worldPoint": {
+            "x": 720,
+            "y": 580,
+            "height": 500
+          },
+          "gridCellId": "grid_36_29",
+          "laneId": "lane_51",
+          "candidateLaneIds": [
+            "lane_51"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_51",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_52",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 36.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_47",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 44.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_7",
+          "imagePosition": {
+            "x": 610,
+            "y": 217
+          },
+          "worldPoint": {
+            "x": 720,
+            "y": 620,
+            "height": 500
+          },
+          "gridCellId": "grid_36_31",
+          "laneId": "lane_52",
+          "candidateLaneIds": [
+            "lane_52"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_52",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_51",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_47",
+              "roadBundleId": "road::node_17::node_2",
+              "distance": 44.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 60.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_8",
+          "imagePosition": {
+            "x": 431,
+            "y": 1030
+          },
+          "worldPoint": {
+            "x": 820,
+            "y": 620,
+            "height": 500
+          },
+          "gridCellId": "grid_41_31",
+          "laneId": "lane_52",
+          "candidateLaneIds": [
+            "lane_52"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_52",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_51",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 60.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_49",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 88.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_9",
+          "imagePosition": {
+            "x": 761,
+            "y": 1031
+          },
+          "worldPoint": {
+            "x": 820,
+            "y": 580,
+            "height": 500
+          },
+          "gridCellId": "grid_41_29",
+          "laneId": "lane_51",
+          "candidateLaneIds": [
+            "lane_51"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_51",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_52",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 36.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_49",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_17"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_10",
+          "imagePosition": {
+            "x": 1090,
+            "y": 1027
+          },
+          "worldPoint": {
+            "x": 820,
+            "y": 560,
+            "height": 500
+          },
+          "gridCellId": "grid_41_28",
+          "laneId": "lane_50",
+          "candidateLaneIds": [
+            "lane_50"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_49",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_51",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 56.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_4"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 1707,
+            "y": 1011
+          },
+          "worldPoint": {
+            "x": 820,
+            "y": 500,
+            "height": 500
+          },
+          "gridCellId": "grid_41_25",
+          "laneId": "lane_48",
+          "candidateLaneIds": [
+            "lane_48"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_48",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 4.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_49",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_50",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 60.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_51",
+              "roadBundleId": "road::node_2::node_4",
+              "distance": 88.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_2",
+            "node_27"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_11",
+      "calibrationId": "calibration_14",
+      "position": {
+        "x": 580,
+        "y": 160
+      },
+      "direction": 179.64025181761394,
+      "fov": 60,
+      "range": 189.5991141063719,
+      "points": [
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 1395,
+            "y": 1051
+          },
+          "worldPoint": {
+            "x": 460,
+            "y": 160,
+            "height": 500
+          },
+          "gridCellId": "grid_23_8",
+          "laneId": "lane_85",
+          "candidateLaneIds": [
+            "lane_85"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_85",
+              "roadBundleId": "road::node_25::node_7",
+              "distance": 5.056,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_93",
+              "roadBundleId": "road::node_25::node_6",
+              "distance": 18.589,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_88",
+              "roadBundleId": "road::node_24::node_25",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_86",
+              "roadBundleId": "road::node_25::node_7",
+              "distance": 22.944,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_25",
+            "node_24"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 1419,
+            "y": 62
+          },
+          "worldPoint": {
+            "x": 400,
+            "y": 140,
+            "height": 500
+          },
+          "gridCellId": "grid_20_7",
+          "laneId": "lane_85",
+          "candidateLaneIds": [
+            "lane_85",
+            "lane_14",
+            "lane_83"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_85",
+              "roadBundleId": "road::node_25::node_7",
+              "distance": 3.889,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_14",
+              "roadBundleId": "road::node_5::node_7",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_83",
+              "roadBundleId": "road::node_21::node_7",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_84",
+              "roadBundleId": "road::node_21::node_7",
+              "distance": 22.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_7",
+            "node_25"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    },
+    {
+      "id": "cam_12",
+      "calibrationId": "calibration_13",
+      "position": {
+        "x": 20,
+        "y": 120
+      },
+      "direction": 359.93394812114065,
+      "fov": 20,
+      "range": 674.0040336729255,
+      "points": [
+        {
+          "imagePointId": "imgpt_1",
+          "imagePosition": {
+            "x": 787,
+            "y": 280
+          },
+          "worldPoint": {
+            "x": 680,
+            "y": 100,
+            "height": 500
+          },
+          "gridCellId": "grid_34_5",
+          "laneId": "lane_66",
+          "candidateLaneIds": [
+            "lane_66"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 50.16,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_5",
+            "node_26"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_2",
+          "imagePosition": {
+            "x": 694,
+            "y": 1017
+          },
+          "worldPoint": {
+            "x": 500,
+            "y": 100,
+            "height": 500
+          },
+          "gridCellId": "grid_25_5",
+          "laneId": "lane_15",
+          "candidateLaneIds": [
+            "lane_15"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_15",
+              "roadBundleId": "road::node_5::node_7",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_14",
+              "roadBundleId": "road::node_5::node_7",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_86",
+              "roadBundleId": "road::node_25::node_7",
+              "distance": 48.61,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_87",
+              "roadBundleId": "road::node_25::node_6",
+              "distance": 49.426,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_25",
+            "node_7"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_3",
+          "imagePosition": {
+            "x": 1008,
+            "y": 268
+          },
+          "worldPoint": {
+            "x": 680,
+            "y": 120,
+            "height": 500
+          },
+          "gridCellId": "grid_34_6",
+          "laneId": "lane_65",
+          "candidateLaneIds": [
+            "lane_65"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 0.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 28.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 46.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_5",
+            "node_26"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_4",
+          "imagePosition": {
+            "x": 964,
+            "y": 1040
+          },
+          "worldPoint": {
+            "x": 500,
+            "y": 140,
+            "height": 500
+          },
+          "gridCellId": "grid_25_7",
+          "laneId": "lane_14",
+          "candidateLaneIds": [
+            "lane_14",
+            "lane_87"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_14",
+              "roadBundleId": "road::node_5::node_7",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_87",
+              "roadBundleId": "road::node_25::node_6",
+              "distance": 12.833,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_86",
+              "roadBundleId": "road::node_25::node_7",
+              "distance": 15.642,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_88",
+              "roadBundleId": "road::node_24::node_25",
+              "distance": 28.284,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_25",
+            "node_24"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_5",
+          "imagePosition": {
+            "x": 1192,
+            "y": 302
+          },
+          "worldPoint": {
+            "x": 680,
+            "y": 140,
+            "height": 500
+          },
+          "gridCellId": "grid_34_7",
+          "laneId": "lane_64",
+          "candidateLaneIds": [
+            "lane_64"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 46.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_66",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 48.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_26",
+            "node_5"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_8",
+          "imagePosition": {
+            "x": 1130,
+            "y": 442
+          },
+          "worldPoint": {
+            "x": 640,
+            "y": 140,
+            "height": 500
+          },
+          "gridCellId": "grid_32_7",
+          "laneId": "lane_11",
+          "candidateLaneIds": [
+            "lane_11",
+            "lane_64"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 8.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_65",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 20.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_14",
+              "roadBundleId": "road::node_5::node_7",
+              "distance": 20.881,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_5",
+            "node_26"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_7",
+          "imagePosition": {
+            "x": 1832,
+            "y": 596
+          },
+          "worldPoint": {
+            "x": 600,
+            "y": 200,
+            "height": 500
+          },
+          "gridCellId": "grid_30_10",
+          "laneId": "lane_10",
+          "candidateLaneIds": [
+            "lane_10"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_10",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_16",
+              "roadBundleId": "road::node_3::node_6",
+              "distance": 35.777,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_87",
+              "roadBundleId": "road::node_25::node_6",
+              "distance": 35.988,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_6",
+            "node_26"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_6",
+          "imagePosition": {
+            "x": 1768,
+            "y": 494
+          },
+          "worldPoint": {
+            "x": 640,
+            "y": 200,
+            "height": 500
+          },
+          "gridCellId": "grid_32_10",
+          "laneId": "lane_11",
+          "candidateLaneIds": [
+            "lane_11"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_95",
+              "roadBundleId": "road::node_26::node_8",
+              "distance": 26.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_10",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 52.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_26",
+            "node_8"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_10",
+          "imagePosition": {
+            "x": 1412,
+            "y": 440
+          },
+          "worldPoint": {
+            "x": 640,
+            "y": 180,
+            "height": 500
+          },
+          "gridCellId": "grid_32_9",
+          "laneId": "lane_11",
+          "candidateLaneIds": [
+            "lane_11"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 32.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_95",
+              "roadBundleId": "road::node_26::node_8",
+              "distance": 32.802,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_10",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_26",
+            "node_5"
+          ],
+          "insideCameraFov": true
+        },
+        {
+          "imagePointId": "imgpt_9",
+          "imagePosition": {
+            "x": 1467,
+            "y": 560
+          },
+          "worldPoint": {
+            "x": 600,
+            "y": 180,
+            "height": 500
+          },
+          "gridCellId": "grid_30_9",
+          "laneId": "lane_10",
+          "candidateLaneIds": [
+            "lane_10"
+          ],
+          "laneCandidates": [
+            {
+              "laneId": "lane_10",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 6.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": true
+            },
+            {
+              "laneId": "lane_11",
+              "roadBundleId": "road::node_3::node_5",
+              "distance": 34.0,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_87",
+              "roadBundleId": "road::node_25::node_6",
+              "distance": 34.558,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            },
+            {
+              "laneId": "lane_64",
+              "roadBundleId": "road::node_20::node_5",
+              "distance": 37.736,
+              "laneHalfWidth": 14.0,
+              "insideLane": false
+            }
+          ],
+          "buildingIds": [],
+          "nearestNodeIds": [
+            "node_6",
+            "node_5"
+          ],
+          "insideCameraFov": true
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "cameraCount": 12,
+    "mappedImagePointCount": 68
+  }
+}

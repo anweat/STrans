@@ -1,0 +1,67 @@
+{
+  "schema": "strans.intersection-zones.v1",
+  "description": "根据 2026-07-11 沙盘路口俯视取景校正的平面路口区域。路口区域独立于普通车道，用于拥堵热力与转向轨迹归属。",
+  "zones": [
+    {
+      "id": "junction_west_t",
+      "node_id": "node_1",
+      "name": "西侧T字路口",
+      "type": "t_junction",
+      "flattened": true,
+      "polygon": [{"x": 38, "y": 492}, {"x": 202, "y": 492}, {"x": 202, "y": 628}, {"x": 38, "y": 628}]
+    },
+    {
+      "id": "junction_center_south",
+      "node_id": "node_2",
+      "name": "中部下方十字路口",
+      "type": "cross_intersection",
+      "flattened": true,
+      "polygon": [{"x": 535, "y": 480}, {"x": 705, "y": 480}, {"x": 705, "y": 642}, {"x": 535, "y": 642}]
+    },
+    {
+      "id": "junction_center_upper",
+      "node_id": "node_3",
+      "name": "中部上方T字路口",
+      "type": "t_junction",
+      "flattened": true,
+      "polygon": [
+        {"x": 550, "y": 244}, {"x": 690, "y": 244},
+        {"x": 690, "y": 280}, {"x": 730, "y": 280},
+        {"x": 730, "y": 360}, {"x": 690, "y": 360},
+        {"x": 690, "y": 388}, {"x": 550, "y": 388}
+      ]
+    },
+    {
+      "id": "junction_east_south",
+      "node_id": "node_4",
+      "name": "右下十字路口",
+      "type": "cross_intersection",
+      "flattened": true,
+      "polygon": [{"x": 994, "y": 482}, {"x": 1166, "y": 482}, {"x": 1166, "y": 642}, {"x": 994, "y": 642}]
+    },
+    {
+      "id": "junction_upper_center_flat",
+      "node_id": "node_5",
+      "name": "最上方中部平面路口",
+      "type": "flat_junction",
+      "flattened": true,
+      "polygon": [{"x": 544, "y": 46}, {"x": 708, "y": 46}, {"x": 708, "y": 204}, {"x": 544, "y": 204}]
+    },
+    {
+      "id": "junction_upper_left",
+      "node_id": "node_9",
+      "name": "左上隧道路口",
+      "type": "t_junction",
+      "flattened": true,
+      "polygon": [{"x": 48, "y": 50}, {"x": 198, "y": 50}, {"x": 198, "y": 194}, {"x": 48, "y": 194}]
+    },
+    {
+      "id": "junction_upper_right",
+      "node_id": "node_20",
+      "name": "右上桥入口路口",
+      "type": "t_junction",
+      "flattened": true,
+      "polygon": [{"x": 1004, "y": 48}, {"x": 1162, "y": 48}, {"x": 1162, "y": 202}, {"x": 1004, "y": 202}]
+    }
+  ]
+}

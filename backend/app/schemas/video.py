@@ -1,8 +1,45 @@
+from __future__ import annotations
+
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
+CameraType = Literal["sandtable", "phone", "esp32cam", "usb", "custom"]
+CameraStatus = Literal["online", "offline", "connecting", "error"]
+
+
 class VideoStartRequest(BaseModel):
-    source: str = Field(..., min_length=1, description="Camera index, local file path, RTSP URL, or HTTP MJPEG URL.")
+    source: str = Field(..., min_length=1, description="RTSP, HTTP MJPEG, local file path, or camera index.")
+    name: str | None = Field(default=None, max_length=80)
+    location: str | None = Field(default=None, max_length=80)
+
+
+class CameraSource(BaseModel):
+    camera_id: str
+    name: str
+    type: CameraType
+    stream_url: str
+    location: str
+    description: str | None = None
+    status: CameraStatus = "offline"
+    selected: bool = False
+
+
+class CameraCreateRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=80)
+    type: CameraType = "custom"
+    stream_url: str = Field(..., min_length=1, max_length=500)
+    location: str = Field(..., min_length=1, max_length=80)
+    description: str | None = Field(default=None, max_length=200)
+
+
+class CameraUpdateRequest(BaseModel):
+    name: str | None = Field(default=None, min_length=1, max_length=80)
+    type: CameraType | None = None
+    stream_url: str | None = Field(default=None, min_length=1, max_length=500)
+    location: str | None = Field(default=None, min_length=1, max_length=80)
+    description: str | None = Field(default=None, max_length=200)
 
 
 class VideoStatus(BaseModel):
@@ -13,4 +50,14 @@ class VideoStatus(BaseModel):
     frame_height: int | None = None
     frames_received: int = 0
     fps: float = 0.0
+    is_static_image: bool = False
     last_error: str | None = None
+
+
+class CameraStatusItem(BaseModel):
+    camera_id: str
+    status: VideoStatus
+
+
+class StartAllRequest(BaseModel):
+    camera_ids: list[str] = Field(default_factory=list, description="Empty means start all preset sandtable cameras.")

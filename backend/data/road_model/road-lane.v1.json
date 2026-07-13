@@ -1,0 +1,4537 @@
+{
+  "schema": "road_logic_modeler.road-lane.v1",
+  "source": {
+    "name": "road_logic_model (4).json",
+    "sha256": "a7dc702890a6edde3b13634948204c0fe3f2e2ff054a6b5d850537d37afe39cf"
+  },
+  "world": {
+    "width": 1200,
+    "height": 760,
+    "unit": "cm",
+    "gridSize": 20
+  },
+  "nodes": [
+    {
+      "id": "node_1",
+      "name": "端点 1",
+      "type": "junction",
+      "position": {
+        "x": 120,
+        "y": 560,
+        "z": 0
+      },
+      "inDegree": 6,
+      "outDegree": 6,
+      "sides": {
+        "north": [
+          "lane_27",
+          "lane_28"
+        ],
+        "east": [
+          "lane_35",
+          "lane_36",
+          "lane_37",
+          "lane_38"
+        ],
+        "south": [
+          "lane_33",
+          "lane_34"
+        ],
+        "west": [
+          "lane_29",
+          "lane_30",
+          "lane_31",
+          "lane_32"
+        ]
+      }
+    },
+    {
+      "id": "node_2",
+      "name": "端点 2",
+      "type": "junction",
+      "position": {
+        "x": 620,
+        "y": 560,
+        "z": 0
+      },
+      "inDegree": 9,
+      "outDegree": 10,
+      "sides": {
+        "north": [
+          "lane_6",
+          "lane_7",
+          "lane_8",
+          "lane_97",
+          "lane_98"
+        ],
+        "east": [
+          "lane_48",
+          "lane_49",
+          "lane_50",
+          "lane_51",
+          "lane_52"
+        ],
+        "south": [
+          "lane_43",
+          "lane_44",
+          "lane_45",
+          "lane_46",
+          "lane_47"
+        ],
+        "west": [
+          "lane_78",
+          "lane_79",
+          "lane_80",
+          "lane_81"
+        ]
+      }
+    },
+    {
+      "id": "node_3",
+      "name": "端点 3",
+      "type": "junction",
+      "position": {
+        "x": 620,
+        "y": 320,
+        "z": 0
+      },
+      "inDegree": 5,
+      "outDegree": 5,
+      "sides": {
+        "north": [
+          "lane_10",
+          "lane_11",
+          "lane_16"
+        ],
+        "east": [
+          "lane_17",
+          "lane_26"
+        ],
+        "south": [
+          "lane_6",
+          "lane_7",
+          "lane_8",
+          "lane_97",
+          "lane_98"
+        ],
+        "west": []
+      }
+    },
+    {
+      "id": "node_4",
+      "name": "端点 4",
+      "type": "junction",
+      "position": {
+        "x": 1080,
+        "y": 560,
+        "z": 0
+      },
+      "inDegree": 7,
+      "outDegree": 9,
+      "sides": {
+        "north": [
+          "lane_61",
+          "lane_62",
+          "lane_63"
+        ],
+        "east": [
+          "lane_53",
+          "lane_54",
+          "lane_55",
+          "lane_56",
+          "lane_57"
+        ],
+        "south": [
+          "lane_58",
+          "lane_59",
+          "lane_60"
+        ],
+        "west": [
+          "lane_48",
+          "lane_49",
+          "lane_50",
+          "lane_51",
+          "lane_52"
+        ]
+      }
+    },
+    {
+      "id": "node_5",
+      "name": "端点 5",
+      "type": "junction",
+      "position": {
+        "x": 620,
+        "y": 120,
+        "z": 1
+      },
+      "inDegree": 3,
+      "outDegree": 4,
+      "sides": {
+        "north": [],
+        "east": [
+          "lane_64",
+          "lane_65",
+          "lane_66"
+        ],
+        "south": [
+          "lane_10",
+          "lane_11"
+        ],
+        "west": [
+          "lane_14",
+          "lane_15"
+        ]
+      }
+    },
+    {
+      "id": "node_6",
+      "name": "端点 6",
+      "type": "building_anchor",
+      "position": {
+        "x": 560,
+        "y": 200,
+        "z": 0
+      },
+      "inDegree": 2,
+      "outDegree": 1,
+      "sides": {
+        "north": [],
+        "east": [],
+        "south": [
+          "lane_16"
+        ],
+        "west": [
+          "lane_87",
+          "lane_93"
+        ]
+      }
+    },
+    {
+      "id": "node_7",
+      "name": "端点 7",
+      "type": "junction",
+      "position": {
+        "x": 400,
+        "y": 120,
+        "z": 0
+      },
+      "inDegree": 4,
+      "outDegree": 4,
+      "sides": {
+        "north": [],
+        "east": [
+          "lane_14",
+          "lane_15",
+          "lane_85",
+          "lane_86"
+        ],
+        "south": [],
+        "west": [
+          "lane_72",
+          "lane_73",
+          "lane_83",
+          "lane_84"
+        ]
+      }
+    },
+    {
+      "id": "node_8",
+      "name": "端点 8",
+      "type": "lane_point",
+      "position": {
+        "x": 680,
+        "y": 260,
+        "z": 0
+      },
+      "inDegree": 2,
+      "outDegree": 3,
+      "sides": {
+        "north": [
+          "lane_94",
+          "lane_95"
+        ],
+        "east": [
+          "lane_96"
+        ],
+        "south": [],
+        "west": [
+          "lane_17",
+          "lane_26"
+        ]
+      }
+    },
+    {
+      "id": "node_9",
+      "name": "端点 9",
+      "type": "junction",
+      "position": {
+        "x": 120,
+        "y": 120,
+        "z": 0
+      },
+      "inDegree": 6,
+      "outDegree": 6,
+      "sides": {
+        "north": [
+          "lane_21",
+          "lane_22"
+        ],
+        "east": [
+          "lane_68",
+          "lane_69",
+          "lane_70",
+          "lane_71"
+        ],
+        "south": [
+          "lane_27",
+          "lane_28"
+        ],
+        "west": [
+          "lane_23",
+          "lane_24",
+          "lane_91",
+          "lane_92"
+        ]
+      }
+    },
+    {
+      "id": "node_10",
+      "name": "端点 10",
+      "type": "boundary",
+      "position": {
+        "x": 120,
+        "y": 40,
+        "z": 0
+      },
+      "inDegree": 1,
+      "outDegree": 1,
+      "sides": {
+        "north": [],
+        "east": [],
+        "south": [
+          "lane_21",
+          "lane_22"
+        ],
+        "west": []
+      }
+    },
+    {
+      "id": "node_11",
+      "name": "端点 11",
+      "type": "boundary",
+      "position": {
+        "x": 20,
+        "y": 120,
+        "z": 0
+      },
+      "inDegree": 2,
+      "outDegree": 2,
+      "sides": {
+        "north": [],
+        "east": [
+          "lane_23",
+          "lane_24",
+          "lane_91",
+          "lane_92"
+        ],
+        "south": [],
+        "west": []
+      }
+    },
+    {
+      "id": "node_12",
+      "name": "端点 12",
+      "type": "boundary",
+      "position": {
+        "x": 0,
+        "y": 560,
+        "z": 0
+      },
+      "inDegree": 2,
+      "outDegree": 2,
+      "sides": {
+        "north": [],
+        "east": [
+          "lane_29",
+          "lane_30",
+          "lane_31",
+          "lane_32"
+        ],
+        "south": [],
+        "west": []
+      }
+    },
+    {
+      "id": "node_13",
+      "name": "端点 13",
+      "type": "boundary",
+      "position": {
+        "x": 120,
+        "y": 740,
+        "z": 0
+      },
+      "inDegree": 1,
+      "outDegree": 1,
+      "sides": {
+        "north": [
+          "lane_33",
+          "lane_34"
+        ],
+        "east": [],
+        "south": [],
+        "west": []
+      }
+    },
+    {
+      "id": "node_15",
+      "name": "端点 15",
+      "type": "junction",
+      "position": {
+        "x": 260,
+        "y": 560,
+        "z": 0
+      },
+      "inDegree": 7,
+      "outDegree": 3,
+      "sides": {
+        "north": [
+          "lane_89",
+          "lane_90"
+        ],
+        "east": [
+          "lane_74",
+          "lane_75",
+          "lane_76",
+          "lane_77"
+        ],
+        "south": [],
+        "west": [
+          "lane_35",
+          "lane_36",
+          "lane_37",
+          "lane_38"
+        ]
+      }
+    },
+    {
+      "id": "node_17",
+      "name": "端点 16",
+      "type": "boundary",
+      "position": {
+        "x": 620,
+        "y": 740,
+        "z": 0
+      },
+      "inDegree": 3,
+      "outDegree": 2,
+      "sides": {
+        "north": [
+          "lane_43",
+          "lane_44",
+          "lane_45",
+          "lane_46",
+          "lane_47"
+        ],
+        "east": [],
+        "south": [],
+        "west": []
+      }
+    },
+    {
+      "id": "node_18",
+      "name": "端点 17",
+      "type": "boundary",
+      "position": {
+        "x": 1200,
+        "y": 560,
+        "z": 0
+      },
+      "inDegree": 3,
+      "outDegree": 2,
+      "sides": {
+        "north": [],
+        "east": [],
+        "south": [],
+        "west": [
+          "lane_53",
+          "lane_54",
+          "lane_55",
+          "lane_56",
+          "lane_57"
+        ]
+      }
+    },
+    {
+      "id": "node_19",
+      "name": "端点 18",
+      "type": "boundary",
+      "position": {
+        "x": 1080,
+        "y": 740,
+        "z": 0
+      },
+      "inDegree": 1,
+      "outDegree": 2,
+      "sides": {
+        "north": [
+          "lane_58",
+          "lane_59",
+          "lane_60"
+        ],
+        "east": [],
+        "south": [],
+        "west": []
+      }
+    },
+    {
+      "id": "node_20",
+      "name": "端点 19",
+      "type": "junction",
+      "position": {
+        "x": 1080,
+        "y": 120,
+        "z": 0
+      },
+      "inDegree": 3,
+      "outDegree": 3,
+      "sides": {
+        "north": [],
+        "east": [],
+        "south": [
+          "lane_61",
+          "lane_62",
+          "lane_63"
+        ],
+        "west": [
+          "lane_64",
+          "lane_65",
+          "lane_66"
+        ]
+      }
+    },
+    {
+      "id": "node_21",
+      "name": "端点 19",
+      "type": "junction",
+      "position": {
+        "x": 260,
+        "y": 120,
+        "z": 1
+      },
+      "inDegree": 5,
+      "outDegree": 5,
+      "sides": {
+        "north": [],
+        "east": [
+          "lane_72",
+          "lane_73",
+          "lane_83",
+          "lane_84"
+        ],
+        "south": [
+          "lane_89",
+          "lane_90"
+        ],
+        "west": [
+          "lane_68",
+          "lane_69",
+          "lane_70",
+          "lane_71"
+        ]
+      }
+    },
+    {
+      "id": "node_22",
+      "name": "端点 20",
+      "type": "building_anchor",
+      "position": {
+        "x": 460,
+        "y": 460,
+        "z": 0
+      },
+      "inDegree": 1,
+      "outDegree": 0,
+      "sides": {
+        "north": [],
+        "east": [],
+        "south": [
+          "lane_82"
+        ],
+        "west": []
+      }
+    },
+    {
+      "id": "node_23",
+      "name": "端点 21",
+      "type": "junction",
+      "position": {
+        "x": 460,
+        "y": 560,
+        "z": 0
+      },
+      "inDegree": 2,
+      "outDegree": 7,
+      "sides": {
+        "north": [
+          "lane_82"
+        ],
+        "east": [
+          "lane_78",
+          "lane_79",
+          "lane_80",
+          "lane_81"
+        ],
+        "south": [],
+        "west": [
+          "lane_74",
+          "lane_75",
+          "lane_76",
+          "lane_77"
+        ]
+      }
+    },
+    {
+      "id": "node_24",
+      "name": "端点 22",
+      "type": "building_anchor",
+      "position": {
+        "x": 480,
+        "y": 220,
+        "z": 0
+      },
+      "inDegree": 1,
+      "outDegree": 0,
+      "sides": {
+        "north": [
+          "lane_88"
+        ],
+        "east": [],
+        "south": [],
+        "west": []
+      }
+    },
+    {
+      "id": "node_25",
+      "name": "端点 23",
+      "type": "junction",
+      "position": {
+        "x": 480,
+        "y": 160,
+        "z": 0
+      },
+      "inDegree": 2,
+      "outDegree": 3,
+      "sides": {
+        "north": [],
+        "east": [
+          "lane_87",
+          "lane_93"
+        ],
+        "south": [
+          "lane_88"
+        ],
+        "west": [
+          "lane_85",
+          "lane_86"
+        ]
+      }
+    },
+    {
+      "id": "node_26",
+      "name": "端点 24",
+      "type": "junction",
+      "position": {
+        "x": 680,
+        "y": 200,
+        "z": 0
+      },
+      "inDegree": 2,
+      "outDegree": 0,
+      "sides": {
+        "north": [],
+        "east": [],
+        "south": [
+          "lane_94",
+          "lane_95"
+        ],
+        "west": []
+      }
+    },
+    {
+      "id": "node_27",
+      "name": "端点 25",
+      "type": "building_anchor",
+      "position": {
+        "x": 770,
+        "y": 260,
+        "z": 0
+      },
+      "inDegree": 1,
+      "outDegree": 0,
+      "sides": {
+        "north": [],
+        "east": [],
+        "south": [],
+        "west": [
+          "lane_96"
+        ]
+      }
+    }
+  ],
+  "lanes": [
+    {
+      "id": "lane_6",
+      "name": "车道 6",
+      "endpoints": {
+        "endpoint1NodeId": "node_3",
+        "endpoint2NodeId": "node_2"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_3",
+        "targetNodeId": "node_2",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_right"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -2.0,
+        "renderPath": [
+          {
+            "x": 564.0,
+            "y": 560.0
+          },
+          {
+            "x": 564.0,
+            "y": 320.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_3"
+    },
+    {
+      "id": "lane_7",
+      "name": "车道 7",
+      "endpoints": {
+        "endpoint1NodeId": "node_3",
+        "endpoint2NodeId": "node_2"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_3",
+        "targetNodeId": "node_2",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.0,
+        "renderPath": [
+          {
+            "x": 592.0,
+            "y": 560.0
+          },
+          {
+            "x": 592.0,
+            "y": 320.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_3"
+    },
+    {
+      "id": "lane_8",
+      "name": "车道 8",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_3"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_3",
+        "targetNodeId": "node_2",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 560.0
+          },
+          {
+            "x": 620.0,
+            "y": 320.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_3"
+    },
+    {
+      "id": "lane_10",
+      "name": "车道 10",
+      "endpoints": {
+        "endpoint1NodeId": "node_3",
+        "endpoint2NodeId": "node_5"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_5",
+        "targetNodeId": "node_3",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 606.0,
+            "y": 320.0
+          },
+          {
+            "x": 606.0,
+            "y": 120.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_3::node_5"
+    },
+    {
+      "id": "lane_11",
+      "name": "车道 11",
+      "endpoints": {
+        "endpoint1NodeId": "node_3",
+        "endpoint2NodeId": "node_5"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_5",
+        "targetNodeId": "node_3",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 634.0,
+            "y": 320.0
+          },
+          {
+            "x": 634.0,
+            "y": 120.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_3::node_5"
+    },
+    {
+      "id": "lane_14",
+      "name": "车道 13",
+      "endpoints": {
+        "endpoint1NodeId": "node_7",
+        "endpoint2NodeId": "node_5"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_5",
+        "targetNodeId": "node_7",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 134.0
+          },
+          {
+            "x": 400.0,
+            "y": 134.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_5::node_7"
+    },
+    {
+      "id": "lane_15",
+      "name": "车道 14",
+      "endpoints": {
+        "endpoint1NodeId": "node_7",
+        "endpoint2NodeId": "node_5"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_5",
+        "targetNodeId": "node_7",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 106.0
+          },
+          {
+            "x": 400.0,
+            "y": 106.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_5::node_7"
+    },
+    {
+      "id": "lane_16",
+      "name": "车道 14",
+      "endpoints": {
+        "endpoint1NodeId": "node_3",
+        "endpoint2NodeId": "node_6"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_6",
+        "targetNodeId": "node_3",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": []
+      },
+      "roadBundleId": "road::node_3::node_6"
+    },
+    {
+      "id": "lane_17",
+      "name": "车道 15",
+      "endpoints": {
+        "endpoint1NodeId": "node_3",
+        "endpoint2NodeId": "node_8"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_3",
+        "targetNodeId": "node_8",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 306.0
+          },
+          {
+            "x": 700.0,
+            "y": 306.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_3::node_8"
+    },
+    {
+      "id": "lane_21",
+      "name": "车道 19",
+      "endpoints": {
+        "endpoint1NodeId": "node_10",
+        "endpoint2NodeId": "node_9"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_9",
+        "targetNodeId": "node_10",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 134.0,
+            "y": 40.0
+          },
+          {
+            "x": 134.0,
+            "y": 120.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_10::node_9"
+    },
+    {
+      "id": "lane_22",
+      "name": "车道 20",
+      "endpoints": {
+        "endpoint1NodeId": "node_10",
+        "endpoint2NodeId": "node_9"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_10",
+        "targetNodeId": "node_9",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 106.0,
+            "y": 40.0
+          },
+          {
+            "x": 106.0,
+            "y": 120.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_10::node_9"
+    },
+    {
+      "id": "lane_23",
+      "name": "车道 21",
+      "endpoints": {
+        "endpoint1NodeId": "node_11",
+        "endpoint2NodeId": "node_9"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_9",
+        "targetNodeId": "node_11",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.5,
+        "renderPath": [
+          {
+            "x": 20.0,
+            "y": 78.0
+          },
+          {
+            "x": 120.0,
+            "y": 78.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_11::node_9"
+    },
+    {
+      "id": "lane_24",
+      "name": "车道 22",
+      "endpoints": {
+        "endpoint1NodeId": "node_11",
+        "endpoint2NodeId": "node_9"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_9",
+        "targetNodeId": "node_11",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 20.0,
+            "y": 106.0
+          },
+          {
+            "x": 120.0,
+            "y": 106.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_11::node_9"
+    },
+    {
+      "id": "lane_26",
+      "name": "车道 24",
+      "endpoints": {
+        "endpoint1NodeId": "node_3",
+        "endpoint2NodeId": "node_8"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_3",
+        "targetNodeId": "node_8",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 334.0
+          },
+          {
+            "x": 700.0,
+            "y": 334.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_3::node_8"
+    },
+    {
+      "id": "lane_27",
+      "name": "车道 25",
+      "endpoints": {
+        "endpoint1NodeId": "node_1",
+        "endpoint2NodeId": "node_9"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_9",
+        "targetNodeId": "node_1",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 106.0,
+            "y": 560.0
+          },
+          {
+            "x": 106.0,
+            "y": 120.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_9"
+    },
+    {
+      "id": "lane_28",
+      "name": "车道 26",
+      "endpoints": {
+        "endpoint1NodeId": "node_9",
+        "endpoint2NodeId": "node_1"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_1",
+        "targetNodeId": "node_9",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 134.0,
+            "y": 560.0
+          },
+          {
+            "x": 134.0,
+            "y": 120.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_9"
+    },
+    {
+      "id": "lane_29",
+      "name": "车道 27",
+      "endpoints": {
+        "endpoint1NodeId": "node_12",
+        "endpoint2NodeId": "node_1"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_12",
+        "targetNodeId": "node_1",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.5,
+        "renderPath": [
+          {
+            "x": 120.0,
+            "y": 602.0
+          },
+          {
+            "x": 0.0,
+            "y": 602.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_12"
+    },
+    {
+      "id": "lane_30",
+      "name": "车道 28",
+      "endpoints": {
+        "endpoint1NodeId": "node_12",
+        "endpoint2NodeId": "node_1"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_12",
+        "targetNodeId": "node_1",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 120.0,
+            "y": 574.0
+          },
+          {
+            "x": 0.0,
+            "y": 574.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_12"
+    },
+    {
+      "id": "lane_31",
+      "name": "车道 29",
+      "endpoints": {
+        "endpoint1NodeId": "node_1",
+        "endpoint2NodeId": "node_12"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_1",
+        "targetNodeId": "node_12",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 120.0,
+            "y": 546.0
+          },
+          {
+            "x": 0.0,
+            "y": 546.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_12"
+    },
+    {
+      "id": "lane_32",
+      "name": "车道 30",
+      "endpoints": {
+        "endpoint1NodeId": "node_1",
+        "endpoint2NodeId": "node_12"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_1",
+        "targetNodeId": "node_12",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.5,
+        "renderPath": [
+          {
+            "x": 120.0,
+            "y": 518.0
+          },
+          {
+            "x": 0.0,
+            "y": 518.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_12"
+    },
+    {
+      "id": "lane_33",
+      "name": "车道 31",
+      "endpoints": {
+        "endpoint1NodeId": "node_1",
+        "endpoint2NodeId": "node_13"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_13",
+        "targetNodeId": "node_1",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 134.0,
+            "y": 560.0
+          },
+          {
+            "x": 134.0,
+            "y": 740.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_13"
+    },
+    {
+      "id": "lane_34",
+      "name": "车道 32",
+      "endpoints": {
+        "endpoint1NodeId": "node_13",
+        "endpoint2NodeId": "node_1"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_1",
+        "targetNodeId": "node_13",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 106.0,
+            "y": 560.0
+          },
+          {
+            "x": 106.0,
+            "y": 740.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_13"
+    },
+    {
+      "id": "lane_35",
+      "name": "车道 26",
+      "endpoints": {
+        "endpoint1NodeId": "node_1",
+        "endpoint2NodeId": "node_15"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_15",
+        "targetNodeId": "node_1",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_right"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.5,
+        "renderPath": [
+          {
+            "x": 120.0,
+            "y": 518.0
+          },
+          {
+            "x": 260.0,
+            "y": 518.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_15"
+    },
+    {
+      "id": "lane_36",
+      "name": "车道 27",
+      "endpoints": {
+        "endpoint1NodeId": "node_1",
+        "endpoint2NodeId": "node_15"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_15",
+        "targetNodeId": "node_1",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 120.0,
+            "y": 546.0
+          },
+          {
+            "x": 260.0,
+            "y": 546.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_15"
+    },
+    {
+      "id": "lane_37",
+      "name": "车道 28",
+      "endpoints": {
+        "endpoint1NodeId": "node_15",
+        "endpoint2NodeId": "node_1"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_1",
+        "targetNodeId": "node_15",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 120.0,
+            "y": 574.0
+          },
+          {
+            "x": 260.0,
+            "y": 574.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_15"
+    },
+    {
+      "id": "lane_38",
+      "name": "车道 29",
+      "endpoints": {
+        "endpoint1NodeId": "node_15",
+        "endpoint2NodeId": "node_1"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_1",
+        "targetNodeId": "node_15",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.5,
+        "renderPath": [
+          {
+            "x": 120.0,
+            "y": 602.0
+          },
+          {
+            "x": 260.0,
+            "y": 602.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_1::node_15"
+    },
+    {
+      "id": "lane_43",
+      "name": "车道 34",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_17"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_17",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -2.0,
+        "renderPath": [
+          {
+            "x": 564.0,
+            "y": 740.0
+          },
+          {
+            "x": 564.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_17::node_2"
+    },
+    {
+      "id": "lane_44",
+      "name": "车道 35",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_17"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_17",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.0,
+        "renderPath": [
+          {
+            "x": 592.0,
+            "y": 740.0
+          },
+          {
+            "x": 592.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_17::node_2"
+    },
+    {
+      "id": "lane_45",
+      "name": "车道 36",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_17"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_17",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 740.0
+          },
+          {
+            "x": 620.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_17::node_2"
+    },
+    {
+      "id": "lane_46",
+      "name": "车道 37",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_17"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_17",
+        "targetNodeId": "node_2",
+        "sourceArrow": "forward_left",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.0,
+        "renderPath": [
+          {
+            "x": 648.0,
+            "y": 740.0
+          },
+          {
+            "x": 648.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_17::node_2"
+    },
+    {
+      "id": "lane_47",
+      "name": "车道 38",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_17"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_17",
+        "targetNodeId": "node_2",
+        "sourceArrow": "forward_right",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 2.0,
+        "renderPath": [
+          {
+            "x": 676.0,
+            "y": 740.0
+          },
+          {
+            "x": 676.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_17::node_2"
+    },
+    {
+      "id": "lane_48",
+      "name": "车道 37",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_2"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_4",
+        "targetNodeId": "node_2",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_right"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -2.0,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 504.0
+          },
+          {
+            "x": 1080.0,
+            "y": 504.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_4"
+    },
+    {
+      "id": "lane_49",
+      "name": "车道 38",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_2"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_4",
+        "targetNodeId": "node_2",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.0,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 532.0
+          },
+          {
+            "x": 1080.0,
+            "y": 532.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_4"
+    },
+    {
+      "id": "lane_50",
+      "name": "车道 39",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_4"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_4",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 560.0
+          },
+          {
+            "x": 1080.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_4"
+    },
+    {
+      "id": "lane_51",
+      "name": "车道 40",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_4"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_4",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.0,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 588.0
+          },
+          {
+            "x": 1080.0,
+            "y": 588.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_4"
+    },
+    {
+      "id": "lane_52",
+      "name": "车道 41",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_4"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_4",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_right"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 2.0,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 616.0
+          },
+          {
+            "x": 1080.0,
+            "y": 616.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_4"
+    },
+    {
+      "id": "lane_53",
+      "name": "车道 42",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_18"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_4",
+        "targetNodeId": "node_18",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -2.0,
+        "renderPath": [
+          {
+            "x": 1200.0,
+            "y": 616.0
+          },
+          {
+            "x": 1080.0,
+            "y": 616.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_18::node_4"
+    },
+    {
+      "id": "lane_54",
+      "name": "车道 43",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_18"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_4",
+        "targetNodeId": "node_18",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.0,
+        "renderPath": [
+          {
+            "x": 1200.0,
+            "y": 588.0
+          },
+          {
+            "x": 1080.0,
+            "y": 588.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_18::node_4"
+    },
+    {
+      "id": "lane_55",
+      "name": "车道 44",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_18"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_4",
+        "targetNodeId": "node_18",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": [
+          {
+            "x": 1200.0,
+            "y": 560.0
+          },
+          {
+            "x": 1080.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_18::node_4"
+    },
+    {
+      "id": "lane_56",
+      "name": "车道 45",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_18"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_18",
+        "targetNodeId": "node_4",
+        "sourceArrow": "forward_left",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.0,
+        "renderPath": [
+          {
+            "x": 1200.0,
+            "y": 532.0
+          },
+          {
+            "x": 1080.0,
+            "y": 532.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_18::node_4"
+    },
+    {
+      "id": "lane_57",
+      "name": "车道 46",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_18"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_18",
+        "targetNodeId": "node_4",
+        "sourceArrow": "forward_right",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 2.0,
+        "renderPath": [
+          {
+            "x": 1200.0,
+            "y": 504.0
+          },
+          {
+            "x": 1080.0,
+            "y": 504.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_18::node_4"
+    },
+    {
+      "id": "lane_58",
+      "name": "车道 47",
+      "endpoints": {
+        "endpoint1NodeId": "node_19",
+        "endpoint2NodeId": "node_4"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_4",
+        "targetNodeId": "node_19",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.0,
+        "renderPath": [
+          {
+            "x": 1052.0,
+            "y": 740.0
+          },
+          {
+            "x": 1052.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_19::node_4"
+    },
+    {
+      "id": "lane_59",
+      "name": "车道 48",
+      "endpoints": {
+        "endpoint1NodeId": "node_19",
+        "endpoint2NodeId": "node_4"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_19",
+        "targetNodeId": "node_4",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": [
+          {
+            "x": 1080.0,
+            "y": 740.0
+          },
+          {
+            "x": 1080.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_19::node_4"
+    },
+    {
+      "id": "lane_60",
+      "name": "车道 49",
+      "endpoints": {
+        "endpoint1NodeId": "node_19",
+        "endpoint2NodeId": "node_4"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_19",
+        "targetNodeId": "node_4",
+        "sourceArrow": "forward_right",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.0,
+        "renderPath": [
+          {
+            "x": 1108.0,
+            "y": 740.0
+          },
+          {
+            "x": 1108.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_19::node_4"
+    },
+    {
+      "id": "lane_61",
+      "name": "车道 50",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_20"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_4",
+        "targetNodeId": "node_20",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.0,
+        "renderPath": [
+          {
+            "x": 1108.0,
+            "y": 120.0
+          },
+          {
+            "x": 1108.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_20::node_4"
+    },
+    {
+      "id": "lane_62",
+      "name": "车道 51",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_20"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_4",
+        "targetNodeId": "node_20",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": [
+          {
+            "x": 1080.0,
+            "y": 120.0
+          },
+          {
+            "x": 1080.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_20::node_4"
+    },
+    {
+      "id": "lane_63",
+      "name": "车道 52",
+      "endpoints": {
+        "endpoint1NodeId": "node_4",
+        "endpoint2NodeId": "node_20"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_4",
+        "targetNodeId": "node_20",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.0,
+        "renderPath": [
+          {
+            "x": 1052.0,
+            "y": 120.0
+          },
+          {
+            "x": 1052.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_20::node_4"
+    },
+    {
+      "id": "lane_64",
+      "name": "车道 53",
+      "endpoints": {
+        "endpoint1NodeId": "node_20",
+        "endpoint2NodeId": "node_5"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_20",
+        "targetNodeId": "node_5",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.0,
+        "renderPath": [
+          {
+            "x": 1080.0,
+            "y": 148.0
+          },
+          {
+            "x": 620.0,
+            "y": 148.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_20::node_5"
+    },
+    {
+      "id": "lane_65",
+      "name": "车道 54",
+      "endpoints": {
+        "endpoint1NodeId": "node_20",
+        "endpoint2NodeId": "node_5"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_20",
+        "targetNodeId": "node_5",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": [
+          {
+            "x": 1080.0,
+            "y": 120.0
+          },
+          {
+            "x": 620.0,
+            "y": 120.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_20::node_5"
+    },
+    {
+      "id": "lane_66",
+      "name": "车道 55",
+      "endpoints": {
+        "endpoint1NodeId": "node_20",
+        "endpoint2NodeId": "node_5"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_20",
+        "targetNodeId": "node_5",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.0,
+        "renderPath": [
+          {
+            "x": 1080.0,
+            "y": 92.0
+          },
+          {
+            "x": 620.0,
+            "y": 92.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_20::node_5"
+    },
+    {
+      "id": "lane_68",
+      "name": "车道 57",
+      "endpoints": {
+        "endpoint1NodeId": "node_9",
+        "endpoint2NodeId": "node_21"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_9",
+        "targetNodeId": "node_21",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 162.0
+          },
+          {
+            "x": 120.0,
+            "y": 162.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_21::node_9"
+    },
+    {
+      "id": "lane_69",
+      "name": "车道 58",
+      "endpoints": {
+        "endpoint1NodeId": "node_9",
+        "endpoint2NodeId": "node_21"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_9",
+        "targetNodeId": "node_21",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 134.0
+          },
+          {
+            "x": 120.0,
+            "y": 134.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_21::node_9"
+    },
+    {
+      "id": "lane_70",
+      "name": "车道 59",
+      "endpoints": {
+        "endpoint1NodeId": "node_21",
+        "endpoint2NodeId": "node_9"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_21",
+        "targetNodeId": "node_9",
+        "sourceArrow": "none",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 106.0
+          },
+          {
+            "x": 120.0,
+            "y": 106.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_21::node_9"
+    },
+    {
+      "id": "lane_71",
+      "name": "车道 60",
+      "endpoints": {
+        "endpoint1NodeId": "node_21",
+        "endpoint2NodeId": "node_9"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_21",
+        "targetNodeId": "node_9",
+        "sourceArrow": "none",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 78.0
+          },
+          {
+            "x": 120.0,
+            "y": 78.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_21::node_9"
+    },
+    {
+      "id": "lane_74",
+      "name": "车道 59",
+      "endpoints": {
+        "endpoint1NodeId": "node_15",
+        "endpoint2NodeId": "node_23"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_23",
+        "targetNodeId": "node_15",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 518.0
+          },
+          {
+            "x": 460.0,
+            "y": 518.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_15::node_23"
+    },
+    {
+      "id": "lane_75",
+      "name": "车道 60",
+      "endpoints": {
+        "endpoint1NodeId": "node_15",
+        "endpoint2NodeId": "node_23"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_23",
+        "targetNodeId": "node_15",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 546.0
+          },
+          {
+            "x": 460.0,
+            "y": 546.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_15::node_23"
+    },
+    {
+      "id": "lane_76",
+      "name": "车道 61",
+      "endpoints": {
+        "endpoint1NodeId": "node_23",
+        "endpoint2NodeId": "node_15"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_23",
+        "targetNodeId": "node_15",
+        "sourceArrow": "none",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 574.0
+          },
+          {
+            "x": 460.0,
+            "y": 574.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_15::node_23"
+    },
+    {
+      "id": "lane_77",
+      "name": "车道 62",
+      "endpoints": {
+        "endpoint1NodeId": "node_23",
+        "endpoint2NodeId": "node_15"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_23",
+        "targetNodeId": "node_15",
+        "sourceArrow": "none",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 602.0
+          },
+          {
+            "x": 460.0,
+            "y": 602.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_15::node_23"
+    },
+    {
+      "id": "lane_78",
+      "name": "车道 63",
+      "endpoints": {
+        "endpoint1NodeId": "node_23",
+        "endpoint2NodeId": "node_2"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_23",
+        "targetNodeId": "node_2",
+        "sourceArrow": "none",
+        "targetArrow": "forward_right"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.5,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 602.0
+          },
+          {
+            "x": 460.0,
+            "y": 602.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_23"
+    },
+    {
+      "id": "lane_79",
+      "name": "车道 64",
+      "endpoints": {
+        "endpoint1NodeId": "node_23",
+        "endpoint2NodeId": "node_2"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_23",
+        "targetNodeId": "node_2",
+        "sourceArrow": "none",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 574.0
+          },
+          {
+            "x": 460.0,
+            "y": 574.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_23"
+    },
+    {
+      "id": "lane_80",
+      "name": "车道 65",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_23"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_23",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 546.0
+          },
+          {
+            "x": 460.0,
+            "y": 546.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_23"
+    },
+    {
+      "id": "lane_81",
+      "name": "车道 66",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_23"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_23",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.5,
+        "renderPath": [
+          {
+            "x": 620.0,
+            "y": 518.0
+          },
+          {
+            "x": 460.0,
+            "y": 518.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_23"
+    },
+    {
+      "id": "lane_82",
+      "name": "车道 67",
+      "endpoints": {
+        "endpoint1NodeId": "node_23",
+        "endpoint2NodeId": "node_22"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_23",
+        "targetNodeId": "node_22",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": [
+          {
+            "x": 460.0,
+            "y": 460.0
+          },
+          {
+            "x": 460.0,
+            "y": 560.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_22::node_23"
+    },
+    {
+      "id": "lane_72",
+      "name": "车道 66",
+      "endpoints": {
+        "endpoint1NodeId": "node_7",
+        "endpoint2NodeId": "node_21"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_7",
+        "targetNodeId": "node_21",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -1.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 78.0
+          },
+          {
+            "x": 400.0,
+            "y": 78.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_21::node_7"
+    },
+    {
+      "id": "lane_73",
+      "name": "车道 67",
+      "endpoints": {
+        "endpoint1NodeId": "node_7",
+        "endpoint2NodeId": "node_21"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_7",
+        "targetNodeId": "node_21",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 106.0
+          },
+          {
+            "x": 400.0,
+            "y": 106.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_21::node_7"
+    },
+    {
+      "id": "lane_83",
+      "name": "车道 68",
+      "endpoints": {
+        "endpoint1NodeId": "node_21",
+        "endpoint2NodeId": "node_7"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_21",
+        "targetNodeId": "node_7",
+        "sourceArrow": "none",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 134.0
+          },
+          {
+            "x": 400.0,
+            "y": 134.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_21::node_7"
+    },
+    {
+      "id": "lane_84",
+      "name": "车道 69",
+      "endpoints": {
+        "endpoint1NodeId": "node_21",
+        "endpoint2NodeId": "node_7"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_21",
+        "targetNodeId": "node_7",
+        "sourceArrow": "none",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.5,
+        "renderPath": [
+          {
+            "x": 260.0,
+            "y": 162.0
+          },
+          {
+            "x": 400.0,
+            "y": 162.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_21::node_7"
+    },
+    {
+      "id": "lane_85",
+      "name": "车道 68",
+      "endpoints": {
+        "endpoint1NodeId": "node_7",
+        "endpoint2NodeId": "node_25"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_7",
+        "targetNodeId": "node_25",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": []
+      },
+      "roadBundleId": "road::node_25::node_7"
+    },
+    {
+      "id": "lane_86",
+      "name": "车道 69",
+      "endpoints": {
+        "endpoint1NodeId": "node_7",
+        "endpoint2NodeId": "node_25"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_7",
+        "targetNodeId": "node_25",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": []
+      },
+      "roadBundleId": "road::node_25::node_7"
+    },
+    {
+      "id": "lane_87",
+      "name": "车道 70",
+      "endpoints": {
+        "endpoint1NodeId": "node_25",
+        "endpoint2NodeId": "node_6"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_25",
+        "targetNodeId": "node_6",
+        "sourceArrow": "none",
+        "targetArrow": "forward_left"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": []
+      },
+      "roadBundleId": "road::node_25::node_6"
+    },
+    {
+      "id": "lane_88",
+      "name": "车道 71",
+      "endpoints": {
+        "endpoint1NodeId": "node_25",
+        "endpoint2NodeId": "node_24"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_25",
+        "targetNodeId": "node_24",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": [
+          {
+            "x": 480.0,
+            "y": 220.0
+          },
+          {
+            "x": 480.0,
+            "y": 160.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_24::node_25"
+    },
+    {
+      "id": "lane_89",
+      "name": "车道 72",
+      "endpoints": {
+        "endpoint1NodeId": "node_21",
+        "endpoint2NodeId": "node_15"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_21",
+        "targetNodeId": "node_15",
+        "sourceArrow": "forward",
+        "targetArrow": "forward_right"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 246.0,
+            "y": 560.0
+          },
+          {
+            "x": 246.0,
+            "y": 120.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_15::node_21"
+    },
+    {
+      "id": "lane_90",
+      "name": "车道 73",
+      "endpoints": {
+        "endpoint1NodeId": "node_15",
+        "endpoint2NodeId": "node_21"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_15",
+        "targetNodeId": "node_21",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 274.0,
+            "y": 560.0
+          },
+          {
+            "x": 274.0,
+            "y": 120.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_15::node_21"
+    },
+    {
+      "id": "lane_91",
+      "name": "车道 74",
+      "endpoints": {
+        "endpoint1NodeId": "node_9",
+        "endpoint2NodeId": "node_11"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_11",
+        "targetNodeId": "node_9",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 20.0,
+            "y": 134.0
+          },
+          {
+            "x": 120.0,
+            "y": 134.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_11::node_9"
+    },
+    {
+      "id": "lane_92",
+      "name": "车道 75",
+      "endpoints": {
+        "endpoint1NodeId": "node_9",
+        "endpoint2NodeId": "node_11"
+      },
+      "traffic": {
+        "direction": "2-1",
+        "sourceNodeId": "node_11",
+        "targetNodeId": "node_9",
+        "sourceArrow": "forward",
+        "targetArrow": "none"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.5,
+        "renderPath": [
+          {
+            "x": 20.0,
+            "y": 162.0
+          },
+          {
+            "x": 120.0,
+            "y": 162.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_11::node_9"
+    },
+    {
+      "id": "lane_93",
+      "name": "车道 76",
+      "endpoints": {
+        "endpoint1NodeId": "node_25",
+        "endpoint2NodeId": "node_6"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_25",
+        "targetNodeId": "node_6",
+        "sourceArrow": "none",
+        "targetArrow": "forward_right"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": []
+      },
+      "roadBundleId": "road::node_25::node_6"
+    },
+    {
+      "id": "lane_94",
+      "name": "车道 77",
+      "endpoints": {
+        "endpoint1NodeId": "node_8",
+        "endpoint2NodeId": "node_26"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_8",
+        "targetNodeId": "node_26",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": -0.5,
+        "renderPath": [
+          {
+            "x": 694.0,
+            "y": 200.0
+          },
+          {
+            "x": 694.0,
+            "y": 260.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_26::node_8"
+    },
+    {
+      "id": "lane_95",
+      "name": "车道 78",
+      "endpoints": {
+        "endpoint1NodeId": "node_8",
+        "endpoint2NodeId": "node_26"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_8",
+        "targetNodeId": "node_26",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.5,
+        "renderPath": [
+          {
+            "x": 666.0,
+            "y": 200.0
+          },
+          {
+            "x": 666.0,
+            "y": 260.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_26::node_8"
+    },
+    {
+      "id": "lane_96",
+      "name": "车道 79",
+      "endpoints": {
+        "endpoint1NodeId": "node_8",
+        "endpoint2NodeId": "node_27"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_8",
+        "targetNodeId": "node_27",
+        "sourceArrow": "none",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 0.0,
+        "renderPath": []
+      },
+      "roadBundleId": "road::node_27::node_8"
+    },
+    {
+      "id": "lane_97",
+      "name": "车道 80",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_3"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_3",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "solid",
+        "rightBoundary": "dashed"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 1.0,
+        "renderPath": [
+          {
+            "x": 648.0,
+            "y": 560.0
+          },
+          {
+            "x": 648.0,
+            "y": 320.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_3"
+    },
+    {
+      "id": "lane_98",
+      "name": "车道 81",
+      "endpoints": {
+        "endpoint1NodeId": "node_2",
+        "endpoint2NodeId": "node_3"
+      },
+      "traffic": {
+        "direction": "1-2",
+        "sourceNodeId": "node_2",
+        "targetNodeId": "node_3",
+        "sourceArrow": "forward",
+        "targetArrow": "forward"
+      },
+      "markings": {
+        "leftBoundary": "dashed",
+        "rightBoundary": "solid"
+      },
+      "geometry": {
+        "width": 28,
+        "height": null,
+        "interpolation": "line",
+        "renderOffsetIndex": 2.0,
+        "renderPath": [
+          {
+            "x": 676.0,
+            "y": 560.0
+          },
+          {
+            "x": 676.0,
+            "y": 320.0
+          }
+        ]
+      },
+      "roadBundleId": "road::node_2::node_3"
+    }
+  ],
+  "roadBundles": [
+    {
+      "id": "road::node_1::node_12",
+      "endpointIds": [
+        "node_1",
+        "node_12"
+      ],
+      "laneIds": [
+        "lane_29",
+        "lane_30",
+        "lane_31",
+        "lane_32"
+      ],
+      "directionalLaneIds": {
+        "node_1->node_12": [
+          "lane_31",
+          "lane_32"
+        ],
+        "node_12->node_1": [
+          "lane_29",
+          "lane_30"
+        ]
+      }
+    },
+    {
+      "id": "road::node_1::node_13",
+      "endpointIds": [
+        "node_1",
+        "node_13"
+      ],
+      "laneIds": [
+        "lane_33",
+        "lane_34"
+      ],
+      "directionalLaneIds": {
+        "node_1->node_13": [
+          "lane_34"
+        ],
+        "node_13->node_1": [
+          "lane_33"
+        ]
+      }
+    },
+    {
+      "id": "road::node_1::node_15",
+      "endpointIds": [
+        "node_1",
+        "node_15"
+      ],
+      "laneIds": [
+        "lane_35",
+        "lane_36",
+        "lane_37",
+        "lane_38"
+      ],
+      "directionalLaneIds": {
+        "node_1->node_15": [
+          "lane_37",
+          "lane_38"
+        ],
+        "node_15->node_1": [
+          "lane_35",
+          "lane_36"
+        ]
+      }
+    },
+    {
+      "id": "road::node_1::node_9",
+      "endpointIds": [
+        "node_1",
+        "node_9"
+      ],
+      "laneIds": [
+        "lane_27",
+        "lane_28"
+      ],
+      "directionalLaneIds": {
+        "node_1->node_9": [
+          "lane_28"
+        ],
+        "node_9->node_1": [
+          "lane_27"
+        ]
+      }
+    },
+    {
+      "id": "road::node_10::node_9",
+      "endpointIds": [
+        "node_10",
+        "node_9"
+      ],
+      "laneIds": [
+        "lane_21",
+        "lane_22"
+      ],
+      "directionalLaneIds": {
+        "node_10->node_9": [
+          "lane_22"
+        ],
+        "node_9->node_10": [
+          "lane_21"
+        ]
+      }
+    },
+    {
+      "id": "road::node_11::node_9",
+      "endpointIds": [
+        "node_11",
+        "node_9"
+      ],
+      "laneIds": [
+        "lane_23",
+        "lane_24",
+        "lane_91",
+        "lane_92"
+      ],
+      "directionalLaneIds": {
+        "node_11->node_9": [
+          "lane_91",
+          "lane_92"
+        ],
+        "node_9->node_11": [
+          "lane_23",
+          "lane_24"
+        ]
+      }
+    },
+    {
+      "id": "road::node_15::node_21",
+      "endpointIds": [
+        "node_15",
+        "node_21"
+      ],
+      "laneIds": [
+        "lane_89",
+        "lane_90"
+      ],
+      "directionalLaneIds": {
+        "node_15->node_21": [
+          "lane_90"
+        ],
+        "node_21->node_15": [
+          "lane_89"
+        ]
+      }
+    },
+    {
+      "id": "road::node_15::node_23",
+      "endpointIds": [
+        "node_15",
+        "node_23"
+      ],
+      "laneIds": [
+        "lane_74",
+        "lane_75",
+        "lane_76",
+        "lane_77"
+      ],
+      "directionalLaneIds": {
+        "node_15->node_23": [],
+        "node_23->node_15": [
+          "lane_74",
+          "lane_75",
+          "lane_76",
+          "lane_77"
+        ]
+      }
+    },
+    {
+      "id": "road::node_17::node_2",
+      "endpointIds": [
+        "node_17",
+        "node_2"
+      ],
+      "laneIds": [
+        "lane_43",
+        "lane_44",
+        "lane_45",
+        "lane_46",
+        "lane_47"
+      ],
+      "directionalLaneIds": {
+        "node_17->node_2": [
+          "lane_46",
+          "lane_47"
+        ],
+        "node_2->node_17": [
+          "lane_43",
+          "lane_44",
+          "lane_45"
+        ]
+      }
+    },
+    {
+      "id": "road::node_18::node_4",
+      "endpointIds": [
+        "node_18",
+        "node_4"
+      ],
+      "laneIds": [
+        "lane_53",
+        "lane_54",
+        "lane_55",
+        "lane_56",
+        "lane_57"
+      ],
+      "directionalLaneIds": {
+        "node_18->node_4": [
+          "lane_56",
+          "lane_57"
+        ],
+        "node_4->node_18": [
+          "lane_53",
+          "lane_54",
+          "lane_55"
+        ]
+      }
+    },
+    {
+      "id": "road::node_19::node_4",
+      "endpointIds": [
+        "node_19",
+        "node_4"
+      ],
+      "laneIds": [
+        "lane_58",
+        "lane_59",
+        "lane_60"
+      ],
+      "directionalLaneIds": {
+        "node_19->node_4": [
+          "lane_59",
+          "lane_60"
+        ],
+        "node_4->node_19": [
+          "lane_58"
+        ]
+      }
+    },
+    {
+      "id": "road::node_2::node_23",
+      "endpointIds": [
+        "node_2",
+        "node_23"
+      ],
+      "laneIds": [
+        "lane_78",
+        "lane_79",
+        "lane_80",
+        "lane_81"
+      ],
+      "directionalLaneIds": {
+        "node_2->node_23": [
+          "lane_80",
+          "lane_81"
+        ],
+        "node_23->node_2": [
+          "lane_78",
+          "lane_79"
+        ]
+      }
+    },
+    {
+      "id": "road::node_2::node_3",
+      "endpointIds": [
+        "node_2",
+        "node_3"
+      ],
+      "laneIds": [
+        "lane_6",
+        "lane_7",
+        "lane_8",
+        "lane_97",
+        "lane_98"
+      ],
+      "directionalLaneIds": {
+        "node_2->node_3": [
+          "lane_97",
+          "lane_98"
+        ],
+        "node_3->node_2": [
+          "lane_6",
+          "lane_7",
+          "lane_8"
+        ]
+      }
+    },
+    {
+      "id": "road::node_2::node_4",
+      "endpointIds": [
+        "node_2",
+        "node_4"
+      ],
+      "laneIds": [
+        "lane_48",
+        "lane_49",
+        "lane_50",
+        "lane_51",
+        "lane_52"
+      ],
+      "directionalLaneIds": {
+        "node_2->node_4": [
+          "lane_50",
+          "lane_51",
+          "lane_52"
+        ],
+        "node_4->node_2": [
+          "lane_48",
+          "lane_49"
+        ]
+      }
+    },
+    {
+      "id": "road::node_20::node_4",
+      "endpointIds": [
+        "node_20",
+        "node_4"
+      ],
+      "laneIds": [
+        "lane_61",
+        "lane_62",
+        "lane_63"
+      ],
+      "directionalLaneIds": {
+        "node_20->node_4": [],
+        "node_4->node_20": [
+          "lane_61",
+          "lane_62",
+          "lane_63"
+        ]
+      }
+    },
+    {
+      "id": "road::node_20::node_5",
+      "endpointIds": [
+        "node_20",
+        "node_5"
+      ],
+      "laneIds": [
+        "lane_64",
+        "lane_65",
+        "lane_66"
+      ],
+      "directionalLaneIds": {
+        "node_20->node_5": [
+          "lane_64",
+          "lane_65",
+          "lane_66"
+        ],
+        "node_5->node_20": []
+      }
+    },
+    {
+      "id": "road::node_21::node_7",
+      "endpointIds": [
+        "node_21",
+        "node_7"
+      ],
+      "laneIds": [
+        "lane_72",
+        "lane_73",
+        "lane_83",
+        "lane_84"
+      ],
+      "directionalLaneIds": {
+        "node_21->node_7": [
+          "lane_83",
+          "lane_84"
+        ],
+        "node_7->node_21": [
+          "lane_72",
+          "lane_73"
+        ]
+      }
+    },
+    {
+      "id": "road::node_21::node_9",
+      "endpointIds": [
+        "node_21",
+        "node_9"
+      ],
+      "laneIds": [
+        "lane_68",
+        "lane_69",
+        "lane_70",
+        "lane_71"
+      ],
+      "directionalLaneIds": {
+        "node_21->node_9": [
+          "lane_70",
+          "lane_71"
+        ],
+        "node_9->node_21": [
+          "lane_68",
+          "lane_69"
+        ]
+      }
+    },
+    {
+      "id": "road::node_22::node_23",
+      "endpointIds": [
+        "node_22",
+        "node_23"
+      ],
+      "laneIds": [
+        "lane_82"
+      ],
+      "directionalLaneIds": {
+        "node_22->node_23": [],
+        "node_23->node_22": [
+          "lane_82"
+        ]
+      }
+    },
+    {
+      "id": "road::node_24::node_25",
+      "endpointIds": [
+        "node_24",
+        "node_25"
+      ],
+      "laneIds": [
+        "lane_88"
+      ],
+      "directionalLaneIds": {
+        "node_24->node_25": [],
+        "node_25->node_24": [
+          "lane_88"
+        ]
+      }
+    },
+    {
+      "id": "road::node_25::node_6",
+      "endpointIds": [
+        "node_25",
+        "node_6"
+      ],
+      "laneIds": [
+        "lane_87",
+        "lane_93"
+      ],
+      "directionalLaneIds": {
+        "node_25->node_6": [
+          "lane_87",
+          "lane_93"
+        ],
+        "node_6->node_25": []
+      }
+    },
+    {
+      "id": "road::node_25::node_7",
+      "endpointIds": [
+        "node_25",
+        "node_7"
+      ],
+      "laneIds": [
+        "lane_85",
+        "lane_86"
+      ],
+      "directionalLaneIds": {
+        "node_25->node_7": [],
+        "node_7->node_25": [
+          "lane_85",
+          "lane_86"
+        ]
+      }
+    },
+    {
+      "id": "road::node_26::node_8",
+      "endpointIds": [
+        "node_26",
+        "node_8"
+      ],
+      "laneIds": [
+        "lane_94",
+        "lane_95"
+      ],
+      "directionalLaneIds": {
+        "node_26->node_8": [],
+        "node_8->node_26": [
+          "lane_94",
+          "lane_95"
+        ]
+      }
+    },
+    {
+      "id": "road::node_27::node_8",
+      "endpointIds": [
+        "node_27",
+        "node_8"
+      ],
+      "laneIds": [
+        "lane_96"
+      ],
+      "directionalLaneIds": {
+        "node_27->node_8": [],
+        "node_8->node_27": [
+          "lane_96"
+        ]
+      }
+    },
+    {
+      "id": "road::node_3::node_5",
+      "endpointIds": [
+        "node_3",
+        "node_5"
+      ],
+      "laneIds": [
+        "lane_10",
+        "lane_11"
+      ],
+      "directionalLaneIds": {
+        "node_3->node_5": [],
+        "node_5->node_3": [
+          "lane_10",
+          "lane_11"
+        ]
+      }
+    },
+    {
+      "id": "road::node_3::node_6",
+      "endpointIds": [
+        "node_3",
+        "node_6"
+      ],
+      "laneIds": [
+        "lane_16"
+      ],
+      "directionalLaneIds": {
+        "node_3->node_6": [],
+        "node_6->node_3": [
+          "lane_16"
+        ]
+      }
+    },
+    {
+      "id": "road::node_3::node_8",
+      "endpointIds": [
+        "node_3",
+        "node_8"
+      ],
+      "laneIds": [
+        "lane_17",
+        "lane_26"
+      ],
+      "directionalLaneIds": {
+        "node_3->node_8": [
+          "lane_17",
+          "lane_26"
+        ],
+        "node_8->node_3": []
+      }
+    },
+    {
+      "id": "road::node_5::node_7",
+      "endpointIds": [
+        "node_5",
+        "node_7"
+      ],
+      "laneIds": [
+        "lane_14",
+        "lane_15"
+      ],
+      "directionalLaneIds": {
+        "node_5->node_7": [
+          "lane_14",
+          "lane_15"
+        ],
+        "node_7->node_5": []
+      }
+    }
+  ],
+  "adjacency": {
+    "node_1": {
+      "outgoingLaneIds": [
+        "lane_28",
+        "lane_31",
+        "lane_32",
+        "lane_34",
+        "lane_37",
+        "lane_38"
+      ],
+      "incomingLaneIds": [
+        "lane_27",
+        "lane_29",
+        "lane_30",
+        "lane_33",
+        "lane_35",
+        "lane_36"
+      ],
+      "neighborNodeIds": [
+        "node_12",
+        "node_13",
+        "node_15",
+        "node_9"
+      ]
+    },
+    "node_2": {
+      "outgoingLaneIds": [
+        "lane_43",
+        "lane_44",
+        "lane_45",
+        "lane_50",
+        "lane_51",
+        "lane_52",
+        "lane_80",
+        "lane_81",
+        "lane_97",
+        "lane_98"
+      ],
+      "incomingLaneIds": [
+        "lane_6",
+        "lane_7",
+        "lane_8",
+        "lane_46",
+        "lane_47",
+        "lane_48",
+        "lane_49",
+        "lane_78",
+        "lane_79"
+      ],
+      "neighborNodeIds": [
+        "node_17",
+        "node_23",
+        "node_3",
+        "node_4"
+      ]
+    },
+    "node_3": {
+      "outgoingLaneIds": [
+        "lane_6",
+        "lane_7",
+        "lane_8",
+        "lane_17",
+        "lane_26"
+      ],
+      "incomingLaneIds": [
+        "lane_10",
+        "lane_11",
+        "lane_16",
+        "lane_97",
+        "lane_98"
+      ],
+      "neighborNodeIds": [
+        "node_2",
+        "node_5",
+        "node_6",
+        "node_8"
+      ]
+    },
+    "node_4": {
+      "outgoingLaneIds": [
+        "lane_48",
+        "lane_49",
+        "lane_53",
+        "lane_54",
+        "lane_55",
+        "lane_58",
+        "lane_61",
+        "lane_62",
+        "lane_63"
+      ],
+      "incomingLaneIds": [
+        "lane_50",
+        "lane_51",
+        "lane_52",
+        "lane_56",
+        "lane_57",
+        "lane_59",
+        "lane_60"
+      ],
+      "neighborNodeIds": [
+        "node_18",
+        "node_19",
+        "node_2",
+        "node_20"
+      ]
+    },
+    "node_5": {
+      "outgoingLaneIds": [
+        "lane_10",
+        "lane_11",
+        "lane_14",
+        "lane_15"
+      ],
+      "incomingLaneIds": [
+        "lane_64",
+        "lane_65",
+        "lane_66"
+      ],
+      "neighborNodeIds": [
+        "node_20",
+        "node_3",
+        "node_7"
+      ]
+    },
+    "node_6": {
+      "outgoingLaneIds": [
+        "lane_16"
+      ],
+      "incomingLaneIds": [
+        "lane_87",
+        "lane_93"
+      ],
+      "neighborNodeIds": [
+        "node_25",
+        "node_3"
+      ]
+    },
+    "node_7": {
+      "outgoingLaneIds": [
+        "lane_72",
+        "lane_73",
+        "lane_85",
+        "lane_86"
+      ],
+      "incomingLaneIds": [
+        "lane_14",
+        "lane_15",
+        "lane_83",
+        "lane_84"
+      ],
+      "neighborNodeIds": [
+        "node_21",
+        "node_25",
+        "node_5"
+      ]
+    },
+    "node_8": {
+      "outgoingLaneIds": [
+        "lane_94",
+        "lane_95",
+        "lane_96"
+      ],
+      "incomingLaneIds": [
+        "lane_17",
+        "lane_26"
+      ],
+      "neighborNodeIds": [
+        "node_26",
+        "node_27",
+        "node_3"
+      ]
+    },
+    "node_9": {
+      "outgoingLaneIds": [
+        "lane_21",
+        "lane_23",
+        "lane_24",
+        "lane_27",
+        "lane_68",
+        "lane_69"
+      ],
+      "incomingLaneIds": [
+        "lane_22",
+        "lane_28",
+        "lane_70",
+        "lane_71",
+        "lane_91",
+        "lane_92"
+      ],
+      "neighborNodeIds": [
+        "node_1",
+        "node_10",
+        "node_11",
+        "node_21"
+      ]
+    },
+    "node_10": {
+      "outgoingLaneIds": [
+        "lane_22"
+      ],
+      "incomingLaneIds": [
+        "lane_21"
+      ],
+      "neighborNodeIds": [
+        "node_9"
+      ]
+    },
+    "node_11": {
+      "outgoingLaneIds": [
+        "lane_91",
+        "lane_92"
+      ],
+      "incomingLaneIds": [
+        "lane_23",
+        "lane_24"
+      ],
+      "neighborNodeIds": [
+        "node_9"
+      ]
+    },
+    "node_12": {
+      "outgoingLaneIds": [
+        "lane_29",
+        "lane_30"
+      ],
+      "incomingLaneIds": [
+        "lane_31",
+        "lane_32"
+      ],
+      "neighborNodeIds": [
+        "node_1"
+      ]
+    },
+    "node_13": {
+      "outgoingLaneIds": [
+        "lane_33"
+      ],
+      "incomingLaneIds": [
+        "lane_34"
+      ],
+      "neighborNodeIds": [
+        "node_1"
+      ]
+    },
+    "node_15": {
+      "outgoingLaneIds": [
+        "lane_35",
+        "lane_36",
+        "lane_90"
+      ],
+      "incomingLaneIds": [
+        "lane_37",
+        "lane_38",
+        "lane_74",
+        "lane_75",
+        "lane_76",
+        "lane_77",
+        "lane_89"
+      ],
+      "neighborNodeIds": [
+        "node_1",
+        "node_21",
+        "node_23"
+      ]
+    },
+    "node_17": {
+      "outgoingLaneIds": [
+        "lane_46",
+        "lane_47"
+      ],
+      "incomingLaneIds": [
+        "lane_43",
+        "lane_44",
+        "lane_45"
+      ],
+      "neighborNodeIds": [
+        "node_2"
+      ]
+    },
+    "node_18": {
+      "outgoingLaneIds": [
+        "lane_56",
+        "lane_57"
+      ],
+      "incomingLaneIds": [
+        "lane_53",
+        "lane_54",
+        "lane_55"
+      ],
+      "neighborNodeIds": [
+        "node_4"
+      ]
+    },
+    "node_19": {
+      "outgoingLaneIds": [
+        "lane_59",
+        "lane_60"
+      ],
+      "incomingLaneIds": [
+        "lane_58"
+      ],
+      "neighborNodeIds": [
+        "node_4"
+      ]
+    },
+    "node_20": {
+      "outgoingLaneIds": [
+        "lane_64",
+        "lane_65",
+        "lane_66"
+      ],
+      "incomingLaneIds": [
+        "lane_61",
+        "lane_62",
+        "lane_63"
+      ],
+      "neighborNodeIds": [
+        "node_4",
+        "node_5"
+      ]
+    },
+    "node_21": {
+      "outgoingLaneIds": [
+        "lane_70",
+        "lane_71",
+        "lane_83",
+        "lane_84",
+        "lane_89"
+      ],
+      "incomingLaneIds": [
+        "lane_68",
+        "lane_69",
+        "lane_72",
+        "lane_73",
+        "lane_90"
+      ],
+      "neighborNodeIds": [
+        "node_15",
+        "node_7",
+        "node_9"
+      ]
+    },
+    "node_22": {
+      "outgoingLaneIds": [],
+      "incomingLaneIds": [
+        "lane_82"
+      ],
+      "neighborNodeIds": [
+        "node_23"
+      ]
+    },
+    "node_23": {
+      "outgoingLaneIds": [
+        "lane_74",
+        "lane_75",
+        "lane_76",
+        "lane_77",
+        "lane_78",
+        "lane_79",
+        "lane_82"
+      ],
+      "incomingLaneIds": [
+        "lane_80",
+        "lane_81"
+      ],
+      "neighborNodeIds": [
+        "node_15",
+        "node_2",
+        "node_22"
+      ]
+    },
+    "node_24": {
+      "outgoingLaneIds": [],
+      "incomingLaneIds": [
+        "lane_88"
+      ],
+      "neighborNodeIds": [
+        "node_25"
+      ]
+    },
+    "node_25": {
+      "outgoingLaneIds": [
+        "lane_87",
+        "lane_88",
+        "lane_93"
+      ],
+      "incomingLaneIds": [
+        "lane_85",
+        "lane_86"
+      ],
+      "neighborNodeIds": [
+        "node_24",
+        "node_6",
+        "node_7"
+      ]
+    },
+    "node_26": {
+      "outgoingLaneIds": [],
+      "incomingLaneIds": [
+        "lane_94",
+        "lane_95"
+      ],
+      "neighborNodeIds": [
+        "node_8"
+      ]
+    },
+    "node_27": {
+      "outgoingLaneIds": [],
+      "incomingLaneIds": [
+        "lane_96"
+      ],
+      "neighborNodeIds": [
+        "node_8"
+      ]
+    }
+  },
+  "summary": {
+    "nodeCount": 25,
+    "directedLaneCount": 81,
+    "roadBundleCount": 28
+  }
+}
