@@ -18,6 +18,8 @@ env/
 *.pt
 *.pth
 *.onnx
+backend/data/models/
+backend/data/recordings/
 *.log
 *.db
 *.inspect.ndjson
