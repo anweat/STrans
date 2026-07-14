@@ -1,9 +1,15 @@
 from __future__ import annotations
 
 from datetime import datetime
+from io import BytesIO
+import hashlib
+import json
 import threading
 import time
+from zipfile import ZIP_DEFLATED, ZipFile
 
+import cv2
+import numpy as np
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, StreamingResponse
@@ -31,6 +37,7 @@ from app.schemas.dashboard import (
 from app.schemas.video import CameraCreateRequest, CameraSource, CameraUpdateRequest, RoadMaskSnapshot, StartAllRequest, VideoStartRequest, VideoStatus
 from app.services.algorithm_client import AlgorithmClient
 from app.services.analysis_store import AnalysisStore
+from app.services.adaptive_scheduler import adaptive_model_scheduler
 from app.services.auth_store import auth_store
 from app.services.camera_hub import CameraHub
 from app.services.local_model import LocalModelService
@@ -64,6 +71,29 @@ app.add_middleware(
 
 def _now() -> str:
     return datetime.now().isoformat(timespec="seconds")
+
+
+def _annotate_evidence_image(image: bytes | None, analysis: dict) -> bytes | None:
+    if not image:
+        return None
+    frame = cv2.imdecode(np.frombuffer(image, dtype=np.uint8), cv2.IMREAD_COLOR)
+    if frame is None:
+        return None
+    for detection in analysis.get("detections") or []:
+        bbox = detection.get("bbox") or []
+        if len(bbox) != 4:
+            continue
+        x1, y1, x2, y2 = [int(round(float(value))) for value in bbox]
+        label = str(detection.get("class_name") or "target")
+        if detection.get("plate"):
+            label += f" {detection['plate']}"
+        color = (22, 163, 74) if detection.get("whitelist_status") is True else (38, 38, 220)
+        if "obstacle" in label or "pedestrian" in label:
+            color = (32, 156, 245)
+        cv2.rectangle(frame, (x1, y1), (x2, y2), color, 3)
+        cv2.putText(frame, label, (x1, max(24, y1 - 8)), cv2.FONT_HERSHEY_SIMPLEX, 0.65, color, 2, cv2.LINE_AA)
+    ok, encoded = cv2.imencode(".jpg", frame, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+    return encoded.tobytes() if ok else None
 
 
 def _ensure_camera(camera_id: str) -> None:
@@ -375,11 +405,16 @@ def camera_model_mjpeg(
     def handle_traffic_result(result: AnalysisResult, source_jpeg: bytes) -> None:
         if not is_current_stream():
             return
+        active_policy = next(
+            (item for item in adaptive_model_scheduler.snapshot()["active"] if item.get("camera_id") == camera_id),
+            None,
+        )
+        result.raw = {**(result.raw or {}), "adaptive_scheduler": active_policy}
         result = road_logic_service.enrich(result)
         algorithm_client.push_result(result)
         now = time.monotonic()
         if now - last_stream_history_save.get(camera_id, 0) >= 5.0:
-            analysis_store.save(result)
+            analysis_store.save(result, source_jpeg=source_jpeg)
             last_stream_history_save[camera_id] = now
 
     def anomaly_frames():
@@ -398,12 +433,22 @@ def camera_model_mjpeg(
             # type; live cameras keep the stricter multi-frame path so lane
             # markings and lighting changes cannot become obstacles.
             is_static_image = camera_hub.status(camera_id).is_static_image
+            policy = adaptive_model_scheduler.choose(
+                camera_id,
+                task_mode,
+                model_name,
+                config.confidence,
+                config.inference_size,
+                config.detection_interval_ms,
+                algorithm_client.latest_result.inference_ms,
+                is_static_image,
+            )
             base_result, _ = local_model.infer_jpeg(
                 camera_id,
                 source_jpeg,
-                model_name=model_name,
-                conf=config.confidence,
-                imgsz=config.inference_size,
+                model_name=policy["model_name"],
+                conf=policy["confidence"],
+                imgsz=policy["inference_size"],
                 annotate=False,
                 stream_mode=True,
                 include_people=True,
@@ -413,13 +458,17 @@ def camera_model_mjpeg(
                 source_jpeg,
                 base_result,
                 include_damage_model=False,
-                include_static_scene=is_static_image,
+                # Fixed sandtable cameras may already contain an obstacle when
+                # anomaly mode starts, so frame differencing alone is not
+                # sufficient. The static path is ROI- and appearance-gated.
+                include_static_scene=True,
             )
             anomaly_result = _anomaly_only_result(anomaly_result)
+            anomaly_result.raw = {**(anomaly_result.raw or {}), "adaptive_scheduler": policy}
             algorithm_client.push_result(anomaly_result)
             now = time.monotonic()
             if now - last_stream_history_save.get(camera_id, 0) >= 5.0:
-                analysis_store.save(anomaly_result)
+                analysis_store.save(anomaly_result, source_jpeg=source_jpeg)
                 last_stream_history_save[camera_id] = now
             annotated = road_anomaly_service.annotate_jpeg(source_jpeg, anomaly_result)
             if annotated is not None:
@@ -429,7 +478,7 @@ def camera_model_mjpeg(
                     b"Cache-Control: no-cache\r\n\r\n" + annotated + b"\r\n"
                 )
             elapsed = time.perf_counter() - cycle_started
-            time.sleep(max(0.0, max(0.03, config.detection_interval_ms / 1000) - elapsed))
+            time.sleep(max(0.0, max(0.03, policy["detection_interval_ms"] / 1000) - elapsed))
 
     if task_mode == "road_anomaly":
         return StreamingResponse(
@@ -448,6 +497,16 @@ def camera_model_mjpeg(
             sleep_seconds=max(0.03, config.detection_interval_ms / 1000),
             on_result=handle_traffic_result,
             should_continue=is_current_stream,
+            policy_provider=lambda: adaptive_model_scheduler.choose(
+                camera_id,
+                task_mode,
+                model_name,
+                config.confidence,
+                config.inference_size,
+                config.detection_interval_ms,
+                algorithm_client.latest_result.inference_ms,
+                camera_hub.status(camera_id).is_static_image,
+            ),
         ),
         media_type="multipart/x-mixed-replace; boundary=frame",
         headers={"Cache-Control": "no-cache"},
@@ -587,6 +646,46 @@ def list_incidents(status: str | None = None, limit: int = Query(default=100, ge
     return {"items": analysis_store.list_incidents(limit=limit, status=status)}
 
 
+@app.get("/api/incidents/{event_id}/evidence")
+def download_incident_evidence(event_id: str, user: dict = Depends(current_user)):
+    evidence = analysis_store.get_incident_evidence(event_id)
+    if evidence is None:
+        raise HTTPException(status_code=404, detail="告警记录不存在")
+    incident = evidence["incident"]
+    image = evidence["image"]
+    if image is None and incident.get("camera_id"):
+        image = camera_hub.latest_jpeg(incident["camera_id"])
+        if image:
+            evidence["image_sha256"] = hashlib.sha256(image).hexdigest()
+    annotated_image = _annotate_evidence_image(image, evidence["analysis"])
+    manifest = {
+        "package_version": "1.1",
+        "generated_at": _now(),
+        "generated_by": user["username"],
+        "incident": incident,
+        "image_sha256": evidence["image_sha256"],
+        "annotated_image_sha256": hashlib.sha256(annotated_image).hexdigest() if annotated_image else None,
+        "adaptive_scheduler": adaptive_model_scheduler.snapshot(),
+        "chain_note": "告警、检测结果、处置记录与原始帧按 event_id 关联。SHA-256 用于验证截图未被替换。",
+    }
+    output = BytesIO()
+    with ZipFile(output, "w", ZIP_DEFLATED) as archive:
+        archive.writestr("manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2))
+        archive.writestr("analysis-result.json", json.dumps(evidence["analysis"], ensure_ascii=False, indent=2))
+        archive.writestr("incident.json", json.dumps(incident, ensure_ascii=False, indent=2))
+        archive.writestr("README.txt", "STrans 告警证据包\n包含告警元数据、关联检测结果、原始帧及截图 SHA-256 校验值。\n")
+        if image:
+            archive.writestr("evidence-frame-original.jpg", image)
+        if annotated_image:
+            archive.writestr("evidence-frame-annotated.jpg", annotated_image)
+    auth_store.add_audit(user["username"], "export_evidence", event_id, "导出告警证据包")
+    return Response(
+        content=output.getvalue(),
+        media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="evidence-{event_id}.zip"'},
+    )
+
+
 @app.put("/api/incidents/{event_id}")
 def update_incident(event_id: str, req: IncidentUpdateRequest, user: dict = Depends(current_user)):
     try:
@@ -595,6 +694,18 @@ def update_incident(event_id: str, req: IncidentUpdateRequest, user: dict = Depe
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     auth_store.add_audit(user["username"], "handle_incident", event_id, f"{req.status}: {req.note}")
     return incident
+
+
+@app.get("/api/model-scheduler")
+def model_scheduler_state(user: dict = Depends(current_user)):
+    return adaptive_model_scheduler.snapshot()
+
+
+@app.put("/api/model-scheduler")
+def update_model_scheduler(enabled: bool, user: dict = Depends(current_admin)):
+    state = adaptive_model_scheduler.configure(enabled)
+    auth_store.add_audit(user["username"], "configure_scheduler", "adaptive_model_scheduler", f"enabled={enabled}")
+    return state
 
 
 @app.get("/api/intelligence/config")
@@ -708,7 +819,7 @@ def analyze_road_anomaly(camera_id: str, include_damage_model: bool = Query(defa
             jpeg,
             base,
             include_damage_model=include_damage_model,
-            include_static_scene=camera_hub.status(camera_id).is_static_image,
+            include_static_scene=True,
         )
         result = _anomaly_only_result(result)
     algorithm_client.push_result(result)

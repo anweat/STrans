@@ -2420,8 +2420,43 @@ select:focus {
 
 .incident-table-head,
 .incident-row {
-  grid-template-columns: 1.1fr 0.6fr 0.75fr 0.5fr 1.8fr 0.65fr 1.2fr 160px;
+  grid-template-columns: 1.1fr 0.6fr 0.75fr 0.5fr 1.7fr 0.65fr 1.1fr 250px;
 }
+
+.incident-actions .evidence-button { color: #075985; background: #eaf7fd; border-color: #9bd8ef; }
+.scheduler-toggle.enabled { color: #166534; background: #dcfce7; border-color: #86efac; }
+
+.scheduler-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.85fr) minmax(420px, 1.15fr);
+  gap: 14px;
+  padding: 14px;
+}
+
+.scheduler-overview, .scheduler-active, .scheduler-history {
+  min-width: 0;
+  padding: 14px;
+  background: #f8fbff;
+  border: 1px solid #d3e1ed;
+  border-radius: 8px;
+}
+
+.scheduler-overview h3, .scheduler-active h3, .scheduler-history h3 { margin: 0 0 10px; color: #0f2d45; font-size: 14px; }
+.scheduler-overview > p { margin: 0 0 12px; color: #52687f; line-height: 1.7; }
+.scheduler-profile-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.scheduler-profile-grid span, .scheduler-active article { padding: 10px; background: #fff; border: 1px solid #d9e4ed; border-left: 4px solid #1696bd; border-radius: 7px; }
+.scheduler-profile-grid strong, .scheduler-profile-grid em { display: block; }
+.scheduler-profile-grid em { margin-top: 4px; color: #64748b; font-size: 11px; font-style: normal; line-height: 1.5; }
+.scheduler-active { display: grid; align-content: start; gap: 8px; }
+.scheduler-active article header, .scheduler-active article div { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.scheduler-active article header { justify-content: space-between; }
+.scheduler-active article p { margin: 7px 0; color: #52687f; }
+.scheduler-active article em { padding: 3px 7px; color: #075985; background: #e0f2fe; border-radius: 999px; font-style: normal; font-weight: 850; }
+.scheduler-active article div span { padding: 4px 7px; color: #415970; background: #eff6ff; border: 1px solid #dbeafe; border-radius: 5px; font-size: 11px; }
+.scheduler-history { margin: 0 14px 14px; overflow-x: auto; }
+.scheduler-history-head, .scheduler-history-row { display: grid; grid-template-columns: 150px 90px 100px 90px 240px minmax(280px, 1fr); gap: 10px; min-width: 1000px; padding: 9px 10px; align-items: center; border-bottom: 1px solid #d9e4ed; color: #52687f; font-size: 12px; }
+.scheduler-history-head { color: #0f2d45; background: #eef6fb; font-weight: 900; }
+.scheduler-history-row em { color: #075985; font-style: normal; font-weight: 850; }
 
 .incident-status,
 .severity-tag {
@@ -2607,6 +2642,8 @@ select:focus {
 }
 
 @media (max-width: 1080px) {
+  .scheduler-layout { grid-template-columns: 1fr; }
+  .scheduler-profile-grid { grid-template-columns: 1fr; }
   .topbar,
   .layout,
   .log-strip {

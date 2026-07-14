@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 import sqlite3
+import hashlib
 from io import StringIO
 from pathlib import Path
 from typing import Any
@@ -14,6 +15,8 @@ class AnalysisStore:
     def __init__(self, db_path: str | Path = "data/traffic_analysis.db") -> None:
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        self.evidence_dir = self.db_path.parent / "evidence"
+        self.evidence_dir.mkdir(parents=True, exist_ok=True)
         self._init_db()
 
     def _connect(self) -> sqlite3.Connection:
@@ -71,12 +74,22 @@ class AnalysisStore:
                     status TEXT NOT NULL DEFAULT 'pending',
                     handled_by TEXT,
                     handled_at TEXT,
-                    note TEXT
+                    note TEXT,
+                    analysis_record_id INTEGER,
+                    evidence_image_path TEXT
                 )
                 """
             )
             conn.execute("CREATE INDEX IF NOT EXISTS idx_incident_created_at ON alert_incidents(created_at DESC)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_incident_status ON alert_incidents(status)")
+            for statement in [
+                "ALTER TABLE alert_incidents ADD COLUMN analysis_record_id INTEGER",
+                "ALTER TABLE alert_incidents ADD COLUMN evidence_image_path TEXT",
+            ]:
+                try:
+                    conn.execute(statement)
+                except sqlite3.OperationalError:
+                    pass
             recent_payloads = conn.execute(
                 "SELECT camera_id, payload_json FROM analysis_records ORDER BY id DESC LIMIT 200"
             ).fetchall()
@@ -105,7 +118,7 @@ class AnalysisStore:
                         ),
                     )
 
-    def save(self, result: AnalysisResult) -> int:
+    def save(self, result: AnalysisResult, source_jpeg: bytes | None = None) -> int:
         stats = result.traffic_stats
         payload = result.model_dump(mode="json")
         created_at = result.timestamp or payload.get("timestamp") or ""
@@ -143,16 +156,32 @@ class AnalysisStore:
                     json.dumps(payload, ensure_ascii=False),
                 ),
             )
+            record_id = int(cursor.lastrowid)
             for event in result.events:
+                image_path = None
+                if source_jpeg:
+                    safe_event_id = "".join(char for char in event.event_id if char.isalnum() or char in "-_")
+                    target = self.evidence_dir / f"{safe_event_id}.jpg"
+                    if not target.exists():
+                        target.write_bytes(source_jpeg)
+                    image_path = str(target)
                 conn.execute(
                     """
                     INSERT OR IGNORE INTO alert_incidents (
-                        event_id, created_at, camera_id, event_type, severity, description
-                    ) VALUES (?, ?, ?, ?, ?, ?)
+                        event_id, created_at, camera_id, event_type, severity, description,
+                        analysis_record_id, evidence_image_path
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (event.event_id, event.created_at, event.camera_id or result.camera_id, event.type, event.severity, event.description),
+                    (event.event_id, event.created_at, event.camera_id or result.camera_id, event.type, event.severity, event.description, record_id, image_path),
                 )
-            return int(cursor.lastrowid)
+                conn.execute(
+                    """UPDATE alert_incidents
+                       SET analysis_record_id = COALESCE(analysis_record_id, ?),
+                           evidence_image_path = COALESCE(evidence_image_path, ?)
+                       WHERE event_id = ?""",
+                    (record_id, image_path, event.event_id),
+                )
+            return record_id
 
     def list_records(self, limit: int = 30, camera_id: str | None = None) -> list[dict[str, Any]]:
         limit = max(1, min(limit, 500))
@@ -243,13 +272,43 @@ class AnalysisStore:
             rows = conn.execute(
                 f"""
                 SELECT event_id, created_at, camera_id, event_type, severity, description,
-                       status, handled_by, handled_at, note
+                       status, handled_by, handled_at, note, analysis_record_id,
+                       CASE WHEN evidence_image_path IS NOT NULL THEN 1 ELSE 0 END AS has_snapshot
                 FROM alert_incidents {where}
                 ORDER BY created_at DESC LIMIT ?
                 """,
                 params,
             ).fetchall()
         return [dict(row) for row in rows]
+
+    def get_incident_evidence(self, event_id: str) -> dict[str, Any] | None:
+        with self._connect() as conn:
+            incident = conn.execute("SELECT * FROM alert_incidents WHERE event_id = ?", (event_id,)).fetchone()
+            if incident is None:
+                return None
+            incident_data = dict(incident)
+            record = None
+            if incident_data.get("analysis_record_id"):
+                record = conn.execute(
+                    "SELECT * FROM analysis_records WHERE id = ?",
+                    (incident_data["analysis_record_id"],),
+                ).fetchone()
+        payload = {}
+        if record is not None:
+            try:
+                payload = json.loads(record["payload_json"])
+            except (TypeError, json.JSONDecodeError):
+                payload = {}
+        image_path = incident_data.pop("evidence_image_path", None)
+        image_bytes = None
+        if image_path and Path(image_path).exists():
+            image_bytes = Path(image_path).read_bytes()
+        return {
+            "incident": incident_data,
+            "analysis": payload,
+            "image": image_bytes,
+            "image_sha256": hashlib.sha256(image_bytes).hexdigest() if image_bytes else None,
+        }
 
     def update_incident(self, event_id: str, status: str, handled_by: str, note: str = "") -> dict[str, Any]:
         if status not in {"pending", "confirmed", "resolved", "false_positive"}:
