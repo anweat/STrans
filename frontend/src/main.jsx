@@ -827,6 +827,7 @@ function App() {
   const [authMode, setAuthMode] = useState("login");
   const [authForm, setAuthForm] = useState({ username: "admin", password: "admin123", captcha_code: "" });
   const [captcha, setCaptcha] = useState({ captcha_id: "", image: "" });
+  const [captchaLoading, setCaptchaLoading] = useState(false);
   const [authMessage, setAuthMessage] = useState("");
   const [logs, setLogs] = useState(["系统已就绪，请启动摄像头或接入手机视频源"]);
   const [streamVersion, setStreamVersion] = useState(Date.now());
@@ -880,15 +881,23 @@ function App() {
     return response.json();
   }
 
-  const loadCaptcha = useCallback(async () => {
+  const loadCaptcha = useCallback(async (retries = 0) => {
+    if (retries === 0) setCaptchaLoading(true);
     try {
       const response = await fetchWithTimeout(`${API_BASE}/api/auth/captcha`);
       if (!response.ok) throw new Error(String(response.status));
       const data = await response.json();
       setCaptcha(data);
+      setCaptchaLoading(false);
       setAuthForm((prev) => ({ ...prev, captcha_code: "" }));
     } catch (error) {
-      setAuthMessage(`验证码加载失败：${error.message}`);
+      if (retries < 3) {
+        const delay = [1000, 2000, 4000][retries] || 4000;
+        setTimeout(() => loadCaptcha(retries + 1), delay);
+      } else {
+        setCaptchaLoading(false);
+        setAuthMessage(`验证码加载失败：${error.message}`);
+      }
     }
   }, []);
 
@@ -1803,7 +1812,11 @@ function App() {
                 onChange={(event) => setAuthForm((prev) => ({ ...prev, captcha_code: event.target.value }))}
                 placeholder="输入右侧验证码"
               />
-              {captcha.image ? <img src={captcha.image} alt="验证码" onClick={loadCaptcha} /> : <button type="button" onClick={loadCaptcha}>刷新</button>}
+              {captchaLoading
+                ? <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 140, height: 44, background: "#eef7ff", border: "1px solid #bfd0df", borderRadius: 8, color: "#718196", fontSize: 12 }}>加载中…</span>
+                : captcha.image
+                  ? <img src={captcha.image} alt="验证码" onClick={loadCaptcha} />
+                  : <button type="button" onClick={loadCaptcha}>刷新</button>}
             </div>
             {authMessage && <p className="auth-message">{authMessage}</p>}
             <button type="submit" className="primary auth-submit" disabled={busy}>

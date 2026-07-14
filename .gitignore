@@ -26,3 +26,14 @@ backend/data/recordings/
 test-results/
 .DS_Store
 Thumbs.db
+
+# Binary docs
+*.pptx
+*.docx
+*.webp
+
+# Build / output
+outputs/
+logs/
+frontend/dist/
+frontend/test-results/
