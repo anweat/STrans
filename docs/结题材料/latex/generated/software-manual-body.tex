@@ -131,8 +131,8 @@ Node.js / npm & Node.js 24.14.0 / npm 11.12.1 \\
 在仓库根目录执行：
 
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framesep=2mm,rulecolor=\color{STransLine}]
-cd D:\codeproject\STrans_remote_test\backend
-C:\Python314\python.exe -m pip install -r requirements.txt
+cd backend
+python -m pip install -r requirements.txt
 \end{Verbatim}
 
 若只执行轻量单元测试，可使用项目已有的 CPU 虚拟环境；若要运行正式视觉识别，应确保当前 Python 中 \texttt{torch.\allowbreak{}cuda.\allowbreak{}is\_\allowbreak{}available()} 返回 \texttt{True}，且 PyTorch CUDA 版本与显卡驱动兼容。
@@ -140,8 +140,8 @@ C:\Python314\python.exe -m pip install -r requirements.txt
 后端启动命令：
 
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framesep=2mm,rulecolor=\color{STransLine}]
-cd D:\codeproject\STrans_remote_test\backend
-C:\Python314\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+cd backend
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 \end{Verbatim}
 
 启动后先访问 \texttt{http:\allowbreak{}/\allowbreak{}/\allowbreak{}127.\allowbreak{}0.\allowbreak{}0.\allowbreak{}1:\allowbreak{}8000/\allowbreak{}api/\allowbreak{}health} 检查服务状态。模型采用按需加载方式，第一次识别通常包含权重加载和 CUDA 预热开销。
@@ -149,8 +149,8 @@ C:\Python314\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 \subsection{前端安装与启动}\label{manual-ux524dux7aefux5b89ux88c5ux4e0eux542fux52a8}
 
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framesep=2mm,rulecolor=\color{STransLine}]
-cd D:\codeproject\STrans_remote_test\frontend
-pnpm install
+cd frontend
+pnpm install --frozen-lockfile
 pnpm dev -- --host 0.0.0.0
 \end{Verbatim}
 
@@ -159,7 +159,7 @@ pnpm dev -- --host 0.0.0.0
 生产构建命令：
 
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framesep=2mm,rulecolor=\color{STransLine}]
-cd D:\codeproject\STrans_remote_test\frontend
+cd frontend
 pnpm build
 \end{Verbatim}
 
@@ -203,7 +203,7 @@ pnpm build
 道路建模入口 & --- & √ \\
 \end{longtable}
 
-登录和注册需要图片验证码。验证码有效期为 5 分钟；前端在请求失败时按 1 秒、2 秒和 4 秒退避重试。管理员账号和初始密码由部署配置提供，建议通过环境变量设置强密码并在首次登录后核验。
+登录和注册需要图片验证码。验证码有效期为 5 分钟；前端在请求失败时按 1 秒、2 秒和 4 秒退避重试。首次建库前必须通过 \texttt{S\allowbreak{}T\allowbreak{}R\allowbreak{}A\allowbreak{}N\allowbreak{}S\_\allowbreak{}\allowbreak{}A\allowbreak{}D\allowbreak{}M\allowbreak{}I\allowbreak{}N\_\allowbreak{}\allowbreak{}P\allowbreak{}A\allowbreak{}S\allowbreak{}S\allowbreak{}W\allowbreak{}O\allowbreak{}R\allowbreak{}D} 设置至少 12 位的管理员初始密码，登录页不会预填密码；已有数据库升级不受影响。
 
 \section{基本操作}\label{manual-ux57faux672cux64cdux4f5c}
 
@@ -266,7 +266,7 @@ pnpm build
   需要时切换热力图为关闭、画面叠加或道路示意模式。
 \end{enumerate}
 
-\pandocbounded{\includegraphics[keepaspectratio,alt={前端实时监控操作界面}]{assets/frontend_realtime_live12.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={前端实时监控操作界面}]{assets/frontend-realtime-live12.png}}
 
 \emph{图 6-1 前端实时监控操作界面。中央为模型标注视频，顶部为车辆、速度、拥堵和异常摘要，左侧用于视频源启停，右侧显示道路示意和事件日志。}
 
@@ -467,15 +467,15 @@ GPU 不可用 & 使用 CPU Torch、驱动或 CUDA 版本不匹配 & 在目标 Py
 升级 Python、PyTorch、CUDA、OpenCV、Ultralytics、HyperLPR3 或 Transformers 后，应至少执行：
 
 \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small,frame=single,framesep=2mm,rulecolor=\color{STransLine}]
-cd D:\codeproject\STrans_remote_test\backend
-C:\Python314\python.exe -m pytest tests -q -W error::ResourceWarning
+cd backend
+python -m pytest tests -q -W error::ResourceWarning
 
-cd D:\codeproject\STrans_remote_test\frontend
+cd ..\frontend
 pnpm test
 pnpm build
 
-cd D:\codeproject\STrans_remote_test
-C:\Python314\python.exe -m pytest tools\road_logic_modeler\tests -q
+cd ..
+python -m pytest tools\road_logic_modeler\tests -q
 \end{Verbatim}
 
 还应使用固定真实视频复测推理耗时和代表性画面。自动化全通过只能证明已有用例未回归，不能替代真实数据质量评估。

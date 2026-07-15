@@ -196,13 +196,12 @@ SystemMonitor 采集 CPU、内存、GPU、显存和推理耗时；AdaptiveModelS
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-后端 Python & 56/56 & 通过 \\
-前端 JavaScript & 16/16 & 通过 \\
-项目内道路建模桥接 & 6/6 & 通过 \\
-主项目自动化 & 78/78 & 通过 \\
-道路建模原工具 Python & 17/17 & 通过 \\
-道路建模原工具 Node 脚本组 & 5/5 & 通过 \\
-全部测试/脚本单元 & 100/100 & 通过 \\
+后端 Python & 62/62 & 通过 \\
+前端 JavaScript & 19/19 & 通过 \\
+主项目自动化 & 81/81 & 通过 \\
+道路建模工具 Python（含桥接 6 项） & 21/21 & 通过 \\
+道路建模工具 Node 脚本组 & 5/5 & 通过 \\
+全部测试/脚本单元 & 107/107 & 通过 \\
 \end{longtable}
 
 Python \texttt{compileall}、Vite 生产构建和 SQLite \texttt{Resource\allowbreak{}Warning} 失败门禁均通过。100\% 仅表示已执行用例全部通过，不代表全部需求和算法精度达到 100\%。
@@ -235,7 +234,7 @@ P50 / P95 & 328.82 / 2856.65 ms \\
 最大值 & 4122.53 ms \\
 \end{longtable}
 
-\pandocbounded{\includegraphics[keepaspectratio,alt={真实沙盘代表识别结果}]{assets/selected-contact-sheet.jpg}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={真实沙盘代表识别结果}]{assets/dataset-selected-gpu-contact-sheet.jpg}}
 
 \emph{图 7-1 真实沙盘代表识别结果。拼图覆盖综合远景、多车道路、近景车牌、单车与无明显目标场景，展示模型在不同尺度和背景下的输出。}
 
@@ -329,7 +328,7 @@ P50 / P95 & 328.82 / 2856.65 ms \\
 \item
   项目内置道路建模页面及本机可选桥接；
 \item
-  100 个已执行测试/脚本单元和浏览器系统测试证据；
+  107 个已执行测试/脚本单元和浏览器系统测试证据；
 \item
   F 盘真实视频 CUDA 结构化结果、代表截图和两段 H.264 答辩短片；
 \item

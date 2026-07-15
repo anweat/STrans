@@ -1,6 +1,6 @@
 # 道路逻辑建模工具集成说明
 
-本目录从 `D:\codeproject\STrans\tools\road_logic_modeler` 引入主建模页面的最小运行集，并随 Vite 前端构建发布。
+本目录从仓库内 `tools/road_logic_modeler` 引入主建模页面的最小运行集，并随 Vite 前端构建发布。
 
 包含文件：
 

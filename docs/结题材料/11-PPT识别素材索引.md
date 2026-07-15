@@ -4,12 +4,12 @@
 
 | 素材 | 文件 | 建议用途 | 使用说明 |
 |---|---|---|---|
-| 前端实时识别全景 | `output/ppt-assets/images/frontend_realtime_live12.png` | “系统运行效果”主图 | 展示 CUDA 已连接、真实视频、3 辆车、检测框、拥堵和事件 |
+| 前端实时识别全景 | `docs/结题材料/assets/frontend-realtime-live12.png` | “系统运行效果”主图 | 展示 CUDA 已连接、真实视频、3 辆车、检测框、拥堵和事件 |
 | 多车辆识别短片 | `output/ppt-assets/videos/live12_multi_vehicle_6s.mp4` | 车辆检测/跟踪页 | 6 秒、1920×1080、H.264；连续 24 帧稳定 3 辆车 |
 | 车牌识别短片 | `output/ppt-assets/videos/live3_plate_recognition_6s.mp4` | 车牌与白名单页 | 6 秒、1920×1080、H.264；显示 OCR 框与车牌文本，须注明结果待真值复核 |
-| 12 路机位总览 | `output/dataset-evaluation/inventory/contact-sheet.jpg` | 数据集与场景覆盖页 | 展示 12 路沙盘机位及综合演示场景 |
-| 代表识别结果拼图 | `output/dataset-evaluation/run-2026-07-14-gpu/selected-contact-sheet.jpg` | 算法效果与案例页 | 包含多车、车牌、停车场、桥梁和隧道等代表帧 |
-| 道路建模工具全景 | `output/playwright/road-modeler/road-modeler-page.png` | 道路空间建模/系统工具页 | 展示节点组、车道、建筑物、摄像头标定、Canvas 和 JSON 输出区域 |
+| 12 路机位总览 | `docs/结题材料/assets/dataset-inventory-contact-sheet.jpg` | 数据集与场景覆盖页 | 展示 12 路沙盘机位及综合演示场景 |
+| 代表识别结果拼图 | `docs/结题材料/assets/dataset-selected-gpu-contact-sheet.jpg` | 算法效果与案例页 | 包含多车、车牌、停车场、桥梁和隧道等代表帧 |
+| 道路建模工具全景 | `docs/结题材料/assets/road-modeler-page.png` | 道路空间建模/系统工具页 | 展示节点组、车道、建筑物、摄像头标定、Canvas 和 JSON 输出区域 |
 | 软件工程图谱总览 | `output/ppt-assets/diagrams/contact-sheet.png` | 架构与算法素材选型 | 11 张可编辑 UML/工程图的缩略索引，不建议直接作为答辩主图 |
 | 系统组件架构图 | `output/ppt-assets/diagrams/component-architecture.svg` | “系统总体架构”主图 | SVG 无损缩放；PNG 版本可兼容旧版 PowerPoint |
 | 答辩版用例概览 | `output/ppt-assets/diagrams/use-case-overview.svg` | “功能模块与用例”主图 | 完整用例图另存为 `use-case.svg`，建议仅用于报告附图 |

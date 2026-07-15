@@ -61,8 +61,8 @@ flowchart LR
 | [M09-自适应调度与系统监控.md](M09-自适应调度与系统监控.md) | `AdaptiveModelScheduler.choose` | 任务/资源/时延 → profile → 模型/尺寸/阈值/间隔 → 滞回记录 | 调度 6 项，CodeGraph 确认全局单例与策略入口 | 根据设备负载在精度、实时性和保护模式间动态平衡 |
 | [M10-算法客户端与辅助服务.md](M10-算法客户端与辅助服务.md) | `AlgorithmClient`、`WeatherService`、`open_sqlite` | 外部/本地能力封装 → 超时/降级 → 统一资源释放 | SQLite `ResourceWarning` 门禁、工程构建 | 辅助服务通过超时、降级和资源管理保证主链路稳定 |
 | [M11-Web_API层.md](M11-Web_API层.md) | `backend/app/main.py` FastAPI app | 权限依赖 → 摄像头/分析/道路/管理路由 → 前端 JSON/MJPEG | 浏览器主要请求成功；独立 TestClient 权限矩阵待补 | API 层把算法、设备和管理能力组合为统一业务接口 |
-| [M12-前端架构.md](M12-前端架构.md) | `App`、`roadModelerLinkAttributes`、热力图纯函数 | 登录 → 轮询/流显示 → 识别展示 → 功能中心 → 管理闭环 | 前端 16/16、Vite build、主页面遍历 | 一套 React 大屏同时承载实时识别、交通态势和管理操作 |
-| [M13-道路建模辅助工具.md](M13-道路建模辅助工具.md) | 静态 `geometry/model/renderer/app`、`roadModeler.js`、本机桥接 `server.py` | 节点组/车道/摄像头 → 规范化 → 派生逻辑 → JSON 导出；可选 RTSP 截帧 | 前端 5 项、桥接 6 项、原工具 17+5、Playwright 0 错误 | 可视化生产道路拓扑和摄像头标定，为空间算法提供配置 |
+| [M12-前端架构.md](M12-前端架构.md) | `App`、`roadModelerLinkAttributes`、热力图纯函数 | 登录 → 轮询/流显示 → 识别展示 → 功能中心 → 管理闭环 | 前端 19/19、Vite build、主页面遍历 | 一套 React 大屏同时承载实时识别、交通态势和管理操作 |
+| [M13-道路建模辅助工具.md](M13-道路建模辅助工具.md) | 静态 `geometry/model/renderer/app`、`roadModeler.js`、本机桥接 `server.py` | 节点组/车道/摄像头 → 规范化 → 派生逻辑 → JSON 导出；可选 RTSP 截帧 | 前端 5 项、工具 Python 21 项（含桥接 6 项）、Node 5 项、Playwright 0 错误 | 可视化生产道路拓扑和摄像头标定，为空间算法提供配置 |
 
 ## 4. 主要算法流程验证
 
@@ -121,5 +121,5 @@ flowchart LR
 - 架构页：使用第 2 节总体调用关系；
 - 功能页：从第 3 节每个模块选一句话，配对应 M 文档截图或流程；
 - 算法页：使用第 4 节三张流程图；
-- 测试页：引用 78/78 主项目、17/17 建模 Python、5/5 建模 Node、浏览器 0 错误和 F 盘 CUDA 数据；
+- 测试页：引用 81/81 主项目、21/21 建模 Python、5/5 建模 Node、浏览器 0 错误和 F 盘 CUDA 数据；
 - 局限页：如实展示道路箭头误报、事件洪泛、API 权限矩阵和长稳测试待补。
