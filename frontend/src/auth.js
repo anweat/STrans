@@ -1,5 +1,7 @@
 export const CAPTCHA_RETRY_DELAYS_MS = Object.freeze([1000, 2000, 4000]);
 
+export const initialAuthForm = () => ({ username: "admin", password: "", captcha_code: "" });
+
 const defaultWait = (delay) => new Promise((resolve) => window.setTimeout(resolve, delay));
 
 export async function fetchCaptchaWithRetry(fetchCaptcha, options = {}) {

@@ -1,6 +1,6 @@
 ﻿import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { fetchCaptchaWithRetry } from "./auth";
+import { fetchCaptchaWithRetry, initialAuthForm } from "./auth";
 import { buildTrendChart } from "./analytics";
 import { CAMERA_TYPE_OPTIONS, monitorCameraOptions } from "./cameraTypes";
 import { frameDetectionBoxes, frameHeatmapSpots, rawCameraStreamUrl, resolveHeatmapMode, schematicRoadBaseUrl } from "./heatmap";
@@ -762,7 +762,7 @@ function App() {
   const [authToken, setAuthToken] = useState(() => localStorage.getItem("strans_token") || "");
   const [currentUser, setCurrentUser] = useState(null);
   const [authMode, setAuthMode] = useState("login");
-  const [authForm, setAuthForm] = useState({ username: "admin", password: "admin123", captcha_code: "" });
+  const [authForm, setAuthForm] = useState(initialAuthForm);
   const [captcha, setCaptcha] = useState({ captcha_id: "", image: "" });
   const [captchaLoading, setCaptchaLoading] = useState(false);
   const [authMessage, setAuthMessage] = useState("");
@@ -1703,7 +1703,7 @@ function App() {
                 className={cx(authMode === "login" && "active")}
                 onClick={() => {
                   setAuthMode("login");
-                  setAuthForm({ username: "admin", password: "admin123", captcha_code: "" });
+                  setAuthForm(initialAuthForm());
                   loadCaptcha();
                 }}
               >

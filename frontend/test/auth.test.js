@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { CAPTCHA_RETRY_DELAYS_MS, fetchCaptchaWithRetry } from "../src/auth.js";
+import { CAPTCHA_RETRY_DELAYS_MS, fetchCaptchaWithRetry, initialAuthForm } from "../src/auth.js";
+
+test("login form never embeds a default password", () => {
+  assert.deepEqual(initialAuthForm(), { username: "admin", password: "", captcha_code: "" });
+});
 
 test("captcha retry uses the declared 1s, 2s and 4s backoff schedule", async () => {
   const waits = [];

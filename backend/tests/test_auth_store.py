@@ -3,9 +3,13 @@ import unittest
 from pathlib import Path
 
 from app.services.auth_store import AuthStore
+from app.services.auth import AuthStore as CompatibilityAuthStore
 
 
 class AuthStoreTests(unittest.TestCase):
+    def test_legacy_auth_module_reexports_the_active_store(self):
+        self.assertIs(CompatibilityAuthStore, AuthStore)
+
     def setUp(self):
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.store = AuthStore(Path(self.temporary_directory.name) / "auth.db")
@@ -61,6 +65,12 @@ class AuthStoreTests(unittest.TestCase):
 
         self.assertEqual(entries[0]["action"], "second")
         self.assertEqual(entries[0]["target"], "target")
+
+    def test_first_boot_requires_an_explicit_admin_password(self):
+        database = Path(self.temporary_directory.name) / "missing-password.db"
+
+        with self.assertRaisesRegex(RuntimeError, "STRANS_ADMIN_PASSWORD"):
+            AuthStore(database, admin_password=None)
 
 
 if __name__ == "__main__":

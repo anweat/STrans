@@ -27,6 +27,13 @@ if not exist "%FRONTEND_DIR%\package.json" (
   exit /b 1
 )
 
+if not exist "%BACKEND_DIR%\data\traffic_analysis.db" if "%STRANS_ADMIN_PASSWORD%"=="" (
+  echo [ERROR] First boot requires STRANS_ADMIN_PASSWORD with at least 12 characters.
+  echo Run this starter from a PowerShell session where the variable is set.
+  pause
+  exit /b 1
+)
+
 where python >nul 2>nul
 if errorlevel 1 (
   echo [ERROR] Python is not installed or not in PATH.
