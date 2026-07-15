@@ -1843,7 +1843,8 @@ select:focus {
 }
 
 .feature-center-nav strong,
-.feature-center-nav button {
+.feature-center-nav button,
+.feature-center-nav a {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
@@ -1856,6 +1857,7 @@ select:focus {
   border-radius: 7px;
   font-size: 12px;
   font-weight: 850;
+  text-decoration: none;
 }
 
 .feature-center-nav strong {
@@ -1866,7 +1868,8 @@ select:focus {
 }
 
 .feature-center-nav button:hover,
-.feature-center-nav button.active {
+.feature-center-nav button.active,
+.feature-center-nav a:hover {
   color: #075985;
   background: #eaf7fd;
   border-color: #9bd8ef;

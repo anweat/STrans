@@ -1,6 +1,9 @@
 ﻿import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { fetchCaptchaWithRetry } from "./auth";
+import { CAMERA_TYPE_OPTIONS, monitorCameraOptions } from "./cameraTypes";
 import { frameDetectionBoxes, frameHeatmapSpots, rawCameraStreamUrl, resolveHeatmapMode, schematicRoadBaseUrl } from "./heatmap";
+import { roadModelerLinkAttributes } from "./roadModeler";
 import {
   Activity,
   AlertTriangle,
@@ -881,23 +884,20 @@ function App() {
     return response.json();
   }
 
-  const loadCaptcha = useCallback(async (retries = 0) => {
-    if (retries === 0) setCaptchaLoading(true);
+  const loadCaptcha = useCallback(async () => {
+    setCaptchaLoading(true);
     try {
-      const response = await fetchWithTimeout(`${API_BASE}/api/auth/captcha`);
-      if (!response.ok) throw new Error(String(response.status));
-      const data = await response.json();
+      const data = await fetchCaptchaWithRetry(async () => {
+        const response = await fetchWithTimeout(`${API_BASE}/api/auth/captcha`);
+        if (!response.ok) throw new Error(String(response.status));
+        return response.json();
+      });
       setCaptcha(data);
-      setCaptchaLoading(false);
       setAuthForm((prev) => ({ ...prev, captcha_code: "" }));
     } catch (error) {
-      if (retries < 3) {
-        const delay = [1000, 2000, 4000][retries] || 4000;
-        setTimeout(() => loadCaptcha(retries + 1), delay);
-      } else {
-        setCaptchaLoading(false);
-        setAuthMessage(`验证码加载失败：${error.message}`);
-      }
+      setAuthMessage(`验证码加载失败：${error.message}`);
+    } finally {
+      setCaptchaLoading(false);
     }
   }, []);
 
@@ -1720,7 +1720,7 @@ function App() {
     }
   }
 
-  const visibleCameras = cameras.slice(0, 12);
+  const visibleCameras = monitorCameraOptions(cameras);
   const algorithmState = dashboard?.algorithm;
   const algorithmReady = algorithmState?.status === "ready";
   const isAdmin = currentUser?.role === "admin";
@@ -1879,6 +1879,7 @@ function App() {
           {isAdmin && <button type="button" className={cx(viewMode === "cameras" && "active")} onClick={() => setViewMode("cameras")}><Camera size={15} />摄像头</button>}
           {isAdmin && <button type="button" className={cx(viewMode === "models" && "active")} onClick={() => setViewMode("models")}><ServerCog size={15} />模型配置</button>}
           {isAdmin && <button type="button" className={cx(viewMode === "scheduler" && "active")} onClick={() => setViewMode("scheduler")}><Activity size={15} />智能调度</button>}
+          {isAdmin && <a className="road-modeler-link" {...roadModelerLinkAttributes(import.meta.env.BASE_URL)}><Route size={15} />道路建模</a>}
           {isAdmin && <button type="button" className={cx(viewMode === "users" && "active")} onClick={() => setViewMode("users")}><Users size={15} />用户管理</button>}
           {isAdmin && <button type="button" className={cx(viewMode === "audit" && "active")} onClick={() => setViewMode("audit")}><FileText size={15} />审计日志</button>}
           <button type="button" className={cx(viewMode === "roadmodeler" && "active")} onClick={() => setViewMode("roadmodeler")}><Route size={15} />道路建模工具</button>
@@ -2130,7 +2131,9 @@ function App() {
                 <label htmlFor="managedCameraName">名称</label>
                 <input id="managedCameraName" required value={cameraForm.name} onChange={(event) => setCameraForm((previous) => ({ ...previous, name: event.target.value }))} />
                 <label htmlFor="managedCameraType">类型</label>
-                <select id="managedCameraType" value={cameraForm.type} onChange={(event) => setCameraForm((previous) => ({ ...previous, type: event.target.value }))}><option value="custom">自定义</option><option value="phone">手机</option><option value="esp32cam">ESP32-CAM</option><option value="usb">USB 摄像头</option><option value="sandtable">沙盘 RTSP</option></select>
+                <select id="managedCameraType" value={cameraForm.type} onChange={(event) => setCameraForm((previous) => ({ ...previous, type: event.target.value }))}>
+                  {CAMERA_TYPE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+                </select>
                 <label htmlFor="managedCameraUrl">视频流地址</label>
                 <input id="managedCameraUrl" required value={cameraForm.stream_url} onChange={(event) => setCameraForm((previous) => ({ ...previous, stream_url: event.target.value }))} placeholder="RTSP、HTTP、文件路径或摄像头编号" />
                 <label htmlFor="managedCameraLocation">位置</label>

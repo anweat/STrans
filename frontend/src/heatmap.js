@@ -1,4 +1,4 @@
-const FRAME_CAMERA_TYPES = new Set(["phone", "esp32cam", "usb", "custom"]);
+const FRAME_CAMERA_TYPES = new Set(["phone", "usb", "custom"]);
 
 export function resolveHeatmapMode(camera) {
   const configured = camera?.heatmap_mode || "auto";
