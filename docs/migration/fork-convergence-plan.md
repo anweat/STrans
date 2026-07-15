@@ -83,7 +83,7 @@
 | MediaMTX 安全部署 | `deploy/mediamtx/` | 基本可独立迁移，补充环境说明 | P1 |
 | 前端认证与摄像头类型 | `auth.js`、`cameraTypes.js` | 组件化后接入 fork 主界面 | P1 |
 | 热力图与道路建模 | `heatmap.js`、`roadModeler.js`、`frontend/public/road_logic_modeler/` | 保留 fork 仪表盘，新增独立页面/入口 | P1 |
-| ESP32-CAM 工具链 | `esp32_cam_test/CameraWebServerAP/` 和脚本 | 作为硬件验证子项目迁移 | P2 |
+| 独立微控制器摄像头方案 | 历史硬件草案 | 项目组已放弃，不迁移、不交付 | 不迁移 |
 | 结题文档源文件 | `docs/结题材料/` | 校对后迁移，统一引用 fork 行为 | P1 |
 | LaTeX/PDF 构建产物 | `docs/结题材料/latex/build/` | 不直接迁移，由源文件重新生成 | 不迁移 |
 | 缓存与临时输出 | `.codegraph/`、`.cursor/`、`.playwright-cli/`、`output/`、`tmp/` | 不迁移 | 不迁移 |
@@ -259,8 +259,9 @@ docs: align final report with fork implementation
 | 2026-07-15 | 测试与算法基线 | `f062ba7`、`28aa13c`、`42393f7` | 保留 fork 检测算法，补车辆计数、入场边界和趋势计算回归 | Codex |
 | 2026-07-15 | 后端与视频工程 | `7a2c47a`..`5106b9f` | 迁入持久化、录像导出、道路掩膜与模型下载，不覆盖受保护算法文件 | Codex |
 | 2026-07-15 | 前端与道路建模 | `05c96f2`..`9a5387f`、`4a5ff15` | 保留 fork 仪表盘，迁入热力图、认证管理、完整道路建模算法和 26 项工具测试 | Codex |
-| 2026-07-15 | 部署与硬件 | `dae3c49`、`9018148`..`e96a49f` | 迁入 MediaMTX/Caddy 与 ESP32-CAM 工具链，并记录硬件烧录阻塞 | Codex |
+| 2026-07-15 | 部署与历史硬件 | `dae3c49`、`9018148`..`e96a49f` | 迁入 MediaMTX/Caddy；历史微控制器摄像头尝试随后按项目组决策整体退役 | Codex |
 | 2026-07-15 | 安全收敛 | `a4bf1a3` | 移除固定管理员口令和旧认证实现，首次建库强制显式强密码 | Codex |
 | 2026-07-15 | 结题材料 | `bee1beb` + 当前提交 | 校正文档路径和测试口径，重建并抽查六份 PDF 与答辩材料 | Codex |
+| 2026-07-15 | ESP 方案退役 | 当前提交 | 删除 ESP 固件、脚本和专项文档；最终采集源收敛为 RTSP/MJPEG、手机、USB 与本地媒体，并完成隔离环境 Playwright 复测 | Codex |
 
 后续每完成一个迁移批次，都应更新本表和对应测试报告。
