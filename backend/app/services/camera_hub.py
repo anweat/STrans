@@ -6,6 +6,7 @@ import time
 from pathlib import Path
 
 from app.schemas.video import CameraCreateRequest, CameraSource, CameraStatusItem, CameraUpdateRequest, VideoStatus
+from app.services.sqlite_utils import open_sqlite
 from app.services.video_stream import VideoStreamService
 
 
@@ -40,9 +41,7 @@ class CameraHub:
         self._load_custom_sources()
 
     def _connect(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        return conn
+        return open_sqlite(self.db_path)
 
     def _init_db(self) -> None:
         with self._connect() as conn:

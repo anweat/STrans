@@ -11,6 +11,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from app.services.sqlite_utils import open_sqlite
+
 
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = os.getenv("STRANS_ADMIN_PASSWORD", "admin123")
@@ -23,9 +25,7 @@ class AuthStore:
         self._init_db()
 
     def _connect(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        return conn
+        return open_sqlite(self.db_path)
 
     def _init_db(self) -> None:
         with self._connect() as conn:

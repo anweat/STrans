@@ -5,7 +5,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 
-CameraType = Literal["sandtable", "phone", "esp32cam", "usb", "custom"]
+CameraType = Literal["sandtable", "phone", "usb", "custom"]
 CameraStatus = Literal["online", "offline", "connecting", "error"]
 
 
