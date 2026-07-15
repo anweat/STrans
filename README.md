@@ -26,6 +26,15 @@ docs/           接口和架构资料
 一键启动项目.bat
 ```
 
+## 结题仓库与开发基线
+
+本仓库是项目唯一的后续开发主线和结题交付仓库。算法调优、功能迁移、自动化测试、结题文档和演示版本均以本仓库为准。
+
+- [架构决策：以 fork 作为结题与后续开发仓库](docs/decisions/ADR-001-fork-as-final-repository.md)
+- [迁移与结题开发指南](docs/migration/fork-convergence-plan.md)
+
+从旧工作区迁移功能时，应保留本仓库的识别算法、ByteTrack 参数和数据趋势仪表盘，按指南逐项迁移测试、持久化、部署和文档，禁止使用旧文件整体覆盖。
+
 ## 环境准备
 
 建议使用 Python 3.11 或 3.12、Node.js 20 及 NVIDIA CUDA 环境。
